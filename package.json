@@ -1,0 +1,32 @@
+{
+  "name": "AlexPhotoProject",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "express": "~4.2.0",
+    "express-session": "~1.4.0",
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "debug": "~0.7.4",
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-less": "^0.11.3",
+    "grunt-express-server": "^0.4.17",
+    "grunt-cli": "^0.1.13",
+    "hbs": "^2.7.0",
+    "mysql": "^2.4.1",
+    "passport": "^0.2.0",
+    "passport-local": "~1.0.0",
+    "connect-redis": "~2.0.0",
+    "connect-flash": "^0.1.1",
+    "bcrypt-nodejs": "0.0.3"
+  },
+  "devDependencies": {
+    "express-debug": "^1.1.0"
+  }
+}

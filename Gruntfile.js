@@ -1,0 +1,42 @@
+module.exports = function(grunt) {
+  grunt.initConfig({
+    express: {
+      dev: {
+        options: {
+          script: 'bin/www'
+        }
+      }
+    },
+
+    watch: {
+      express: {
+        files:  ['./Gruntfile.js', './app.js', 'public/**/*.js', 'public/**/*.html', 'public/**/*.css', 'public/**/*.less', 'views/**/*.html', 'routes/**/*.js', 
+          'models/**/*.js', 'configs/**/*.js', 'bin/**/*.js'],
+        tasks:  [ 'less:production', 'express:dev' ],
+        options: {
+          spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. 
+                       // Without this option specified express won't be reloaded
+        }
+      }
+    },
+
+  less: {
+    production: {
+      options: {
+        cleancss: false
+      },
+      files: {
+        "public/css/style.css": "public/less/style.less",
+      }
+    }
+  }
+
+  });
+
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-less');
+
+  // can be an array of tasks, but tasks are all run via the watch config for now
+  grunt.registerTask('default', ['less:production', 'express:dev', 'watch']);
+};
