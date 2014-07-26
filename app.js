@@ -4,7 +4,6 @@ var express       = require('express'),
     logger        = require('morgan'),
     cookieParser  = require('cookie-parser'),
     bodyParser    = require('body-parser'),
-    // flash         = require('connect-flash'),
     session       = require('express-session'),
     RedisStore    = require('connect-redis')(session),
     passport      = require('passport'),
@@ -18,18 +17,11 @@ var app = express();
 var index     = require('./routes/index'),
     login     = require('./routes/login'),
     signup    = require('./routes/signup'),
+    stepTwo   = require('./routes/steptwo'),
     logout    = require('./routes/logout'),
     profile   = require('./routes/profile'),
     picture   = require('./routes/picture'),
     upload    = require('./routes/upload');
-
-// var debug     = require('express-debug')(app, {/* settings */});
-// console.log(debug);
-// var User  = require('./models/User');
-
-
-// view engine setup
-
 
 
 app.use(favicon());
@@ -41,17 +33,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(session({ store: new RedisStore({}), secret: 'm9889MJHAI7nlfds8n77w37', cookie: { maxAge : 14515200 } }));
-// app.use(session({ secret: 'm9889MJHAI7nlfds8n77w37' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(flash()); // to be replaced by redis
 
-// passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+app.use(function(req, res, next) {
+  // console.log(req.user);
+
+  if (req.user) {
+    res.locals.isAuth = true;
+    res.locals.user = req.user;
+  }
 
 
+  return next();
+});
 
 
 
@@ -75,8 +71,8 @@ hbs.registerHelper('ifCond', function (v1, v2, options) {
 
 
 // MySQL
-var mysql      = require('mysql');
-global.db  = mysql.createConnection({
+var mysql = require('mysql');
+global.db = mysql.createConnection({
   host     : '127.0.0.1',
   port     : '8889',
   user     : 'root',
@@ -86,113 +82,17 @@ global.db  = mysql.createConnection({
 
 db.connect();
 
-
-
-// db.query('SELECT * from users', function(err, rows, fields) {
-//   if (err) throw err;
-
-//   console.log('The solution is: ', rows);
-// });
-
-
-
- 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    return check_auth_user(username,password,done);
-  } 
-));
- 
-
-passport.serializeUser(function(res, done) {
-  done(null,res);
-});
-
-passport.deserializeUser(function(res, done) {
-  done(null,res);
-});
-
-
-function check_auth_user(username,password,done,public_id){
-
-
-  // var sql="SELECT * FROM users WHERE email = '"+ username +"' and password = '"+ password +"' limit 1";
-  // console.log(sql);
-  
-
-  db.query("SELECT * FROM users WHERE email = ? limit 1", [username], function (err,results) {
-
-    if (err) throw err;
-
-    if(results.length > 0){
-
-        var res=results[0]; 
-        // console.log(res.password);
-        // var hash = bcrypt.hashSync("1q2w3e4r");
-        // db.query("UPDATE users SET password = ? WHERE email = 'mail@suf.io'", [hash], function (err,results) {});
-
-        if (!bcrypt.compareSync(password, res.password)) {
-          console.log('fail 1');
-          return done(null, false);
-        };
-
-        //serialize the query result save whole data as session in req.user[] array  
-        passport.serializeUser(function(res, done) {
-          console.log('success 1');
-          done(null,res);
-        });
-
-        passport.deserializeUser(function(id, done) {
-          console.log('success 2');
-          done(null,res);
-        });
-        //console.log(JSON.stringify(results));
-        //console.log(results[0]['member_id']);
-        return done(null, res);
-
-    } else {
-      console.log('fail 2');
-      return done(null, false); 
-
-    }
-
-  });
-
-
-  // db.query(sql, function (err,results) {
-
-  //   if (err) throw err;
-
-  //   if(results.length > 0){
-
-  //       var res=results[0]; 
-  //       //serialize the query result save whole data as session in req.user[] array  
-  //       passport.serializeUser(function(res, done) {
-  //           done(null,res);
-  //       });
-
-  //       passport.deserializeUser(function(id, done) {
-  //           done(null,res);
-  //       });
-  //       //console.log(JSON.stringify(results));
-  //       //console.log(results[0]['member_id']);
-  //       return done(null, res);
-
-  //   } else {
-
-  //     return done(null, false); 
-
-  //   }
-
-  // });
- 
-}
-
+var incPass = require('./inc/passport');
+incPass.funcTest(app);
 
 
 app.use('/', index);
 app.use('/login', login);
 app.use('/signup', signup);
+app.use('/steptwo', stepTwo);
+app.use('/profile', profile);
+app.use('/picture', picture);
+app.use('/upload', upload);
 app.use('/logout', logout);
 
 

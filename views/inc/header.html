@@ -7,5 +7,16 @@
 
   <body>
 
+({{ user.steptwo }})<br>({{ user.q1 }})({{ user.q2 }})({{ user.q3 }})({{ user.q4 }})({{ user.q5 }})({{ user.q6 }})({{ user.q7 }})
+<hr>
 
-header
+{{#if isAuth }}
+	
+	Welcome, {{ user.username }}
+	<a href="/logout">Logout</a>
+
+{{else}}
+	<a href="/login">Login</a> | <a href="/Signup">Signup</a>	
+{{/if}}
+
+<hr>

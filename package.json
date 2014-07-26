@@ -24,9 +24,7 @@
     "passport-local": "~1.0.0",
     "connect-redis": "~2.0.0",
     "connect-flash": "^0.1.1",
-    "bcrypt-nodejs": "0.0.3"
-  },
-  "devDependencies": {
-    "express-debug": "^1.1.0"
+    "bcrypt-nodejs": "0.0.3",
+    "valid-url": "^1.0.9"
   }
 }
