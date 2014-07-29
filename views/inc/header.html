@@ -5,18 +5,17 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
   </head>
 
-  <body>
+ 	<body>
 
-({{ user.steptwo }})<br>({{ user.q1 }})({{ user.q2 }})({{ user.q3 }})({{ user.q4 }})({{ user.q5 }})({{ user.q6 }})({{ user.q7 }})
-<hr>
+		{{#if isAuth }}
+			
+			Welcome, {{ user.username }}
+			<a href="/logout">Logout</a> | 
+			<a href="/upload">upload</a> | 
+			<a href="/{{ user.username }}">Profile</a>
+		{{else}}
+			<a href="/login">Login</a> | 
+			<a href="/Signup">Signup</a>	
+		{{/if}}
 
-{{#if isAuth }}
-	
-	Welcome, {{ user.username }}
-	<a href="/logout">Logout</a>
-
-{{else}}
-	<a href="/login">Login</a> | <a href="/Signup">Signup</a>	
-{{/if}}
-
-<hr>
+		<hr>

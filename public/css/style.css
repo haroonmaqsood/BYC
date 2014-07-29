@@ -1,13 +1,9 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding-top: 10px;
 }
-a {
-  color: #00B7FF;
-}
-.cow {
-  color: #f6f6f6;
-}
-.cow .sheep {
-  color: #0000ff;
+a,
+a:link,
+a:active,
+a:visited {
+  color: #F92772 !important;
 }
