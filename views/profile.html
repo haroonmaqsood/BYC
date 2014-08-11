@@ -1,13 +1,18 @@
 {{> header}}
+<header>
 ID: {{ profile.id }} <br>
 Username: {{ profile.username }} <br>
 Email: {{ profile.email }}<br>
 Created: {{ profile.createdDttm }}<br>
+</header>
 
-
-
+<section class="row">
+	<div class="col-xs-6 col-sm-3 col-md-3">
   {{#each userPictures}}
 	  <img width="250" src="/uploads/{{picture}}">
   {{/each}}
-
+  	</div>
+</section>
+<footer>
 {{> footer}}
+</footer>
