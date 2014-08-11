@@ -1,9 +1,20 @@
 body {
   padding-top: 10px;
 }
+<<<<<<< HEAD
+a {
+  color: #00B7FF;
+}
+.cow {
+  color: #ffffff;
+}
+.cow .sheep {
+  color: #0000ff;
+=======
 a,
 a:link,
 a:active,
 a:visited {
   color: #F92772 !important;
+>>>>>>> 9a66553ec9421c1caa18d133190276678f87ebdf
 }
