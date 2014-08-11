@@ -24,6 +24,11 @@ var utils = function () {
         url = "http://" + url;
      }
      return url;
+  },
+
+  this.getExtension = function (filename) {
+    var i = filename.lastIndexOf('.');
+    return (i < 0) ? '' : filename.substr(i);
   }
 
 };

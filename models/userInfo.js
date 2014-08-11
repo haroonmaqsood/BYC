@@ -5,7 +5,7 @@ module.exports = {
     var date  = new Date(),
         agent = JSON.stringify(agent);
     
-    db.query("INSERT INTO users SET ?", {email: email, username:username, password:password, ip:ip, agent:agent, token:token, createdDttm:date }, function (err,results) {
+    db.query("INSERT INTO users SET ?", {email:email, username:username, password:password, ip:ip, agent:agent, token:token, createdDttm:date }, function (err,results) {
 
       // LOG TO SENTRY
       // if (err) throw err;
@@ -50,6 +50,42 @@ module.exports = {
       // return false;
 
     });
-  }
+  },
+
+  getProfile: function (username, cb) {
+
+    var date = new Date();
+    db.query("SELECT * FROM users WHERE username = ? LIMIT 1", username, function (err,results) {
+
+      // LOG TO SENTRY
+      if (err) throw err;
+
+      return cb(results);
+
+
+
+    });
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 };

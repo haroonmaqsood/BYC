@@ -1,0 +1,5 @@
+ALTER TABLE users MODIFY ip VARCHAR(50) DEFAULT NULL;
+
+ALTER TABLE picture ADD user_id int(11) NOT NULL AFTER id;
+ALTER TABLE picture ADD ip varchar(50) DEFAULT NULL AFTER q4;
+ALTER TABLE picture ADD agent text NOT NULL AFTER ip;

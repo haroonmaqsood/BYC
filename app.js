@@ -1,4 +1,5 @@
 var express       = require('express'),
+    app           = express(),
     path          = require('path'),
     favicon       = require('static-favicon'),
     logger        = require('morgan'),
@@ -11,7 +12,6 @@ var express       = require('express'),
     bcrypt        = require('bcrypt-nodejs'),
     hbs           = require('hbs');
 
-var app = express();
 
 
 var index     = require('./routes/index'),
@@ -23,6 +23,7 @@ var index     = require('./routes/index'),
     picture   = require('./routes/picture'),
     upload    = require('./routes/upload');
 
+global.appDir  = __dirname;
 
 app.use(favicon());
 app.use(logger('dev')); // log every request to the console
@@ -42,7 +43,7 @@ app.use(function(req, res, next) {
 
   if (req.user) {
     res.locals.isAuth = true;
-    res.locals.user = req.user;
+    res.locals.user   = req.user;
   }
 
 
@@ -94,6 +95,7 @@ app.use('/picture', picture);
 app.use('/upload', upload);
 app.use('/logout', logout);
 app.use('/', profile);
+
 
 
 
