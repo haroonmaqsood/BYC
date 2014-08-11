@@ -6,7 +6,8 @@ var express 			= require('express'),
     utils       	= require('../inc/utils'),
     gm 						= require('gm').subClass({ imageMagick: true }),
     fs            = require('fs-extra'),
-    model_picture	= require('../models/pictures');
+    model_picture	= require('../models/pictures'),
+    getSlug       = require('speakingurl');
 
 
 /* GET users listing. */
@@ -29,7 +30,7 @@ router.post('/', function (req, res) {
   form.parse(req, function(err, fields, files) {
 
     res.locals.pic = file_name;
-    res.render('upload_crop');
+    res.redirect('/picture/'+token+'/edit');
 
   });
 
@@ -45,10 +46,10 @@ router.post('/', function (req, res) {
       } else {
       	console.log('uploaded!')
 
-      	var ip		= req.connection.remoteAddress || null,
-      			agent	= req.headers;
+      	var ip		       = req.connection.remoteAddress || null,
+      			agent	       = req.headers;
 
-      	model_picture.uploadPicture(req.user.id, req.user.id+'_'+token+'.jpg', ip, agent, function(responce) {
+      	model_picture.uploadPicture(req.user.id, req.user.id+'_'+token+'.jpg', token, ip, agent, function(responce) {
       		console.log(responce)
       	});
 

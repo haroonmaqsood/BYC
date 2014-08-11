@@ -14,14 +14,16 @@ var express       = require('express'),
 
 
 
-var index     = require('./routes/index'),
-    login     = require('./routes/login'),
-    signup    = require('./routes/signup'),
-    stepTwo   = require('./routes/steptwo'),
-    logout    = require('./routes/logout'),
-    profile   = require('./routes/profile'),
-    picture   = require('./routes/picture'),
-    upload    = require('./routes/upload');
+var index         = require('./routes/index'),
+    login         = require('./routes/login'),
+    signup        = require('./routes/signup'),
+    stepTwo       = require('./routes/steptwo'),
+    logout        = require('./routes/logout'),
+    profile       = require('./routes/profile'),
+    picture       = require('./routes/picture'),
+    edit_picture  = require('./routes/edit_picture');
+    upload        = require('./routes/upload'),
+
 
 global.appDir  = __dirname;
 
@@ -91,7 +93,8 @@ app.use('/', index);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/steptwo', stepTwo);
-app.use('/picture', picture);
+app.use('/picture', edit_picture);
+app.use('/upload', upload);
 app.use('/upload', upload);
 app.use('/logout', logout);
 app.use('/', profile);
