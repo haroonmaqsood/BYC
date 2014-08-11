@@ -27,7 +27,7 @@ router.get('/:username', function(req, res, next) {
 	  	res.locals.profile = responce[0];
 	  	
 
-	  	model_picture.getPictures(req.user.id, function(responce) {
+	  	model_picture.getPictures(responce[0].id, function(responce) {
 	  		console.log(responce)
 	  		res.locals.userPictures = responce;
 	  		res.render('profile');
