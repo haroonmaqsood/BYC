@@ -70,4 +70,16 @@ $( document ).ready(function() {
 		})
 	});
 
+	$('.countable').jqEasyCounter({
+		'minChars': 3,
+		'maxChars': 80,
+		'maxCharsWarning': 85,
+		'msgFontSize': '12px',
+		'msgFontColor': '#000',
+		'msgFontFamily': 'Verdana',
+		'msgTextAlign': 'left',
+		'msgWarningColor': '#F00',
+		'msgAppendMethod': 'insertAfter'				
+	});
+
 });

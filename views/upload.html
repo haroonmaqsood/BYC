@@ -1,6 +1,6 @@
 {{> header}}
 	<div class="row">
-		<div class="ol-xs-12 col-sm-10">
+		<div class="col-xs-12 col-sm-10">
 	       	<div class="row">
 				<article class="col-xs-12 col-sm-10 pull-right">
 					<header>
@@ -8,12 +8,15 @@
 					</header>
 
 					<section>
-						<form action="/upload" enctype="multipart/form-data" method="post">
-							<!-- <input multiple="multiple" name="upload" type="file" /> -->
-							<input type="file" name="upload" accept="image/*;capture=camera">
-							<input type="submit" value="Upload" class="btn btn-default" />
-						</form>
-
+						<div class="row">
+							<div class="col-xs-12 col-sm-offset-1 col-sm-10">
+								<form action="/upload" enctype="multipart/form-data" method="post">
+									<!-- <input multiple="multiple" name="upload" type="file" /> -->
+									<input type="file" name="upload" accept="image/*;capture=camera">
+									<input type="submit" value="Upload" class="btn btn-default" />
+								</form>
+							</div>
+						</div>
 					</section>
 				</article>
 				<aside class="col-xs-12 col-sm-2">
