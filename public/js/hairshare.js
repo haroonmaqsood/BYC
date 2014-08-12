@@ -18,7 +18,7 @@ $( document ).ready(function() {
 			window.location.href = "/";
 		})
 		.fail(function(){
-			$('form .form-group').addClass('has-error');
+			$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
 			$('form .message').addClass('error').html('Wrong login');
 		})
 	});
@@ -36,12 +36,11 @@ $( document ).ready(function() {
 		  type: "post",
 		  data: formData
 		})
-		.done(function(responseTxt){ 
-			//$('form .message').html(responseTxt.status);
+		.done(function(){ 
 			window.location.href = "/steptwo";
 		})
-		.fail(function(responseTxt){
-			$('form .form-group').addClass('has-error');
+		.fail(function(responseTxt){ 
+			$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
 			$('form .message').addClass('error').html(responseTxt.status);
 		})
 	});
@@ -49,21 +48,24 @@ $( document ).ready(function() {
 		e.preventDefault();
 		var formData = {};
 
-		formData.email = $('input[name="email"]').val();
-		formData.username = $('input[name="username"]').val();
-		formData.password = $('input[name="password"]').val();
+		formData.q1 = $('select[name="q1"]').val();
+		formData.q2 = $('input[name="q2"]').val();
+		formData.q3 = $('select[name="q3"]').val();
+		formData.q4 = $('select[name="q4"]').val();
+		formData.q5 = $('select[name="q5"]').val();
+		formData.q6 = $('input[name="q6"]').val();
+		formData.q7 = $('select[name="q7"]').val();
 
 		$.ajax({
-		  url:"Signup",
+		  url:"steptwo",
 		  type: "post",
 		  data: formData
 		})
-		.done(function(responseTxt){ 
-			//$('form .message').html(responseTxt.status);
-			window.location.href = "/steptwo";
+		.done(function(){ 
+			window.location.href = "/";
 		})
 		.fail(function(responseTxt){
-			$('form .form-group').addClass('has-error');
+			$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
 			$('form .message').addClass('error').html(responseTxt.status);
 		})
 	});

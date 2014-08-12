@@ -1,64 +1,100 @@
 {{> header}}
+<div class="container">
+	<div class="row">
+		<div class="ol-xs-12 col-sm-10">
+	       	<div class="row">
+				<article class="col-xs-12 col-sm-10 pull-right">
+					<header>
+						<h1>Questions</h1>
+					</header>
 
-<form method="post">
+					<section>
+						<form method="post">
 
-	<label>When did you last cut your hair?</label>
-	<select name="q1">
-		<option value="one">One</option>
-		<option value="two">Two</option>
-		<option value="three">Three</option>
-	</select>
+							<label>When did you last cut your hair?</label>
+							<select name="q1">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
 
-	<br>
+							<br>
 
-	<label>How much did it cost you rougly?</label>
-	<input type="text" name="q2" placeholder="cost">
+							<label>How much did it cost you rougly?</label>
+							<input type="text" name="q2" placeholder="cost">
 
-	<br>
+							<br>
 
-	<label>What is your favourite hairstyle?</label>
-	<select name="q3">
-		<option value="one">One</option>
-		<option value="two">Two</option>
-		<option value="three">Three</option>
-	</select>
+							<label>What is your favourite hairstyle?</label>
+							<select name="q3">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
 
-	<br>
+							<br>
 
-	<label>What type of hair do you have?</label>
-	<select name="q4">
-		<option value="one">One</option>
-		<option value="two">Two</option>
-		<option value="three">Three</option>
-	</select>
+							<label>What type of hair do you have?</label>
+							<select name="q4">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
 
-	<br>
+							<br>
 
-	<label>Current hair colour?</label>
-	<select name="q5">
-		<option value="one">One</option>
-		<option value="two">Two</option>
-		<option value="three">Three</option>
-	</select>
+							<label>Current hair colour?</label>
+							<select name="q5">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
 
-	<br>
+							<br>
 
-	<label>Current salon location?</label>
-	<input type="text" name="q6" placeholder="location">
+							<label>Current salon location?</label>
+							<input type="text" name="q6" placeholder="location">
 
-	<br>
+							<br>
 
-	<label>How often do you cut?</label>
-	<select name="q7">
-		<option value="one">One</option>
-		<option value="two">Two</option>
-		<option value="three">Three</option>
-	</select>
+							<label>How often do you cut?</label>
+							<select name="q7">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
 
-	<br>
+							<br>
 
-	<input type="submit" name="submit" id="btn-steptwo">
+							<input type="submit" name="submit" class="btn btn-default"  id="btn-steptwo">
 
-</form>
+						</form>
 
+					</section>
+				</article>
+				<aside class="col-xs-12 col-sm-2">
+						left 
+				</aside>
+			</div>
+		</div>
+		<aside class="col-xs-12 col-sm-2">
+			{{#if isAuth }}
+				<ul  class="nav nav-pills nav-stacked">
+					<li>Welcome, {{ user.username }} <small><a href="/logout">Logout</a></small></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="/upload">upload</a></li>
+					<li><a href="/{{ user.username }}">Profile</a></li>
+				</ul>
+			{{else}}
+				<ul  class="nav nav-pills nav-stacked">
+					<li><a href="/">Home</a></li>
+					<li><a href="#">Login</a></li>
+				</ul>
+			{{/if}}
+		</aside>
+	</div>
+</div>
+
+<footer>
 {{> footer}}
+</footer>
