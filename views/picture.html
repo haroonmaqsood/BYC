@@ -1,10 +1,16 @@
 {{> header}}
-<h1>{{picture.title}}</h1>
-<img src="/uploads/{{picture.picture}}" class="img-responsive" >
-
-{{#ifCond picture.user_id user.id  }}
-	<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="{{title}}">EDIT</a>
-{{/ifCond}}
+	<div class="row">
+		<div class="ol-xs-12 col-sm-10">
+	       	<div class="row">
+				<article class="col-xs-12 col-sm-10 pull-right">
+					<header>
+						<h1>Edit photo</h1>
+					</header>
+					<section>
+						<div class="row">
+							<div class="col-xs-12 col-sm-offset-1 col-sm-10" id="photoEditor">
+								<h1>{{picture.title}}</h1>
+								<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
 <hr>
 {{#each comments}}
@@ -14,5 +20,21 @@
 	<hr>
 {{/each}}
 
-
+								{{#ifCond picture.user_id user.id  }}
+									<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="{{title}}">EDIT</a>
+								{{/ifCond}}
+							</div>
+						</div>
+					</section>
+				</article>
+				<aside class="col-xs-12 col-sm-2">
+						left 
+				</aside>
+			</div>
+		</div>
+		<aside class="col-xs-12 col-sm-2">
+			right
+		</aside>
+	</div>
+>>>>>>> 7aba2af07fe41f4828bd523a4dbea1b5c58e7bf8
 {{> footer}}

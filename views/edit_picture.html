@@ -1,5 +1,5 @@
 {{> header}}
-<div class="row">
+	<div class="row">
 		<div class="ol-xs-12 col-sm-10">
 	       	<div class="row">
 				<article class="col-xs-12 col-sm-10 pull-right">
@@ -9,10 +9,10 @@
 
 					<section>
 						<div class="row">
-							<div class="ol-xs-12 col-sm-10">
-								<img src="/uploads/{{picture.picture}}" class="img-responsive" />
+							<div class="col-xs-12 col-sm-offset-1 col-sm-10" id="photoEditor">
+								<img src="/uploads/{{picture.picture}}" class="img-responsive" id="cropper"/>
 								<form method="post" class="full-width">
-									<textarea name="title" placeholder="Image Title"></textarea>
+									<textarea name="title" placeholder="Image Title" rows="2" class="countable form-control"></textarea><br/>
 									<button type="submit" class="btn btn-default" >Save</button>
 								</form>
 							</div>
