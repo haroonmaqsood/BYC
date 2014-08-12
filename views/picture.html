@@ -1,5 +1,9 @@
 {{> header}}
+<h1>{{picture.title}}</h1>
+<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
-home
+{{#ifCond picture.user_id user.id  }}
+	<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="{{title}}">EDIT</a>
+{{/ifCond}}
 
 {{> footer}}

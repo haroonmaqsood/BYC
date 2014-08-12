@@ -56,14 +56,13 @@ module.exports = {
   },
 
 
-  updateImageTitle: function (title, slug, cb) {
+  updateImageTitle: function (title, slug, id, cb) {
+    db.query("UPDATE picture SET title = ?, slug = ? WHERE id = ?", [title, slug, id], function (err,results) {
 
-    var date = new Date();
-    db.query("SELECT * FROM picture WHERE slug = ?", [slug], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
-      
-      return cb(results);
+      cb(results);
+
     });
   },
 
