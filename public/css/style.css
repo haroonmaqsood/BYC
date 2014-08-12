@@ -6172,6 +6172,9 @@ a:active,
 a:visited {
   color: #F92772 !important;
 }
+header {
+  margin-bottom: 10px;
+}
 header img {
   max-height: 80px;
 }
