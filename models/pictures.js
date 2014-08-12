@@ -46,7 +46,6 @@ module.exports = {
 
   getPicturesBySlugToken: function (slug, cb) {
 
-    var date = new Date();
     db.query("SELECT * FROM picture WHERE slug = ?", [slug], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
@@ -66,6 +65,17 @@ module.exports = {
     });
   },
 
+  
+
+  getPictureComments: function (picture_id, cb) {
+
+    db.query("SELECT * FROM comments WHERE picture_id = ?", [picture_id], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      
+      return cb(results);
+    });
+  },
 
 
 

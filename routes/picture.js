@@ -15,20 +15,58 @@ router.get('/:slug', function(req, res, next) {
 	  err.status = 404;
 	  return next(err);
   } else {
-  	model_picture.getPicturesBySlugToken(slug, function(responce) {
-  		
-	    if (!responce[0]) {
+  	model_picture.getPicturesBySlugToken(slug, function(picture) {
+  	
+
+	    if (!picture[0]) {
 	      var err = new Error('The Picture you are looking for does not exist.');
 	  		err.status = 404;
 	  		return next(err);
 	  	}
-	  	res.locals.picture = responce[0];
+
+	  	model_picture.getPictureComments(picture[0].id, function(comments) {
+
+	  	res.locals.comments = comments;
+	  	res.locals.picture = picture[0];
 	  	return res.render('picture');
+
+	  });
+
 
 	  });
   }
   
   
 });
+
+
+
+
+
+
+
+router.post('/:slug', function (req, res) {
+  
+  if (!req.params.slug)
+    return res.redirect('/');
+
+  if (!req.isAuthenticated() )
+  	return res.redirect('/picture/'+eq.params.slug);
+
+  var comment   = req.body.comment;
+  model_picture.addComment(req.user.id, req.params.slug, comment, function(responce) {
+
+    if (!responce)
+    	return res.send({ status: 'failed'});
+        
+    return res.send({ status: 'success'});
+
+
+    }
+  });
+  
+
+});
+
 
 module.exports = router;

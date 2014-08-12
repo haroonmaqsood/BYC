@@ -6,4 +6,13 @@
 	<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="{{title}}">EDIT</a>
 {{/ifCond}}
 
+<hr>
+{{#each comments}}
+	{{picture_id}}
+	{{user_id}}
+	{{comment}}
+	<hr>
+{{/each}}
+
+
 {{> footer}}
