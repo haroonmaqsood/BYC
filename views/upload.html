@@ -1,9 +1,31 @@
 {{> header}}
+	<div class="row">
+		<div class="ol-xs-12 col-sm-10">
+	       	<div class="row">
+				<article class="col-xs-12 col-sm-10 pull-right">
+					<header>
+						<h1>Upload</h1>
+					</header>
 
-<form action="/upload" enctype="multipart/form-data" method="post">
-	<!-- <input multiple="multiple" name="upload" type="file" /> -->
-	<input type="file" name="upload" accept="image/*;capture=camera">
-	<input type="submit" value="Upload" />
-</form>
+					<section>
+						<form action="/upload" enctype="multipart/form-data" method="post">
+							<!-- <input multiple="multiple" name="upload" type="file" /> -->
+							<input type="file" name="upload" accept="image/*;capture=camera">
+							<input type="submit" value="Upload" class="btn btn-default" />
+						</form>
+
+					</section>
+				</article>
+				<aside class="col-xs-12 col-sm-2">
+						left 
+				</aside>
+			</div>
+		</div>
+		<aside class="col-xs-12 col-sm-2">
+			right
+		</aside>
+	</div>
+
+
 
 {{> footer}}

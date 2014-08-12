@@ -6195,12 +6195,13 @@ article form.login {
 }
 .nav-pills > li > a {
   background: #2de0c5;
+  color: #ffffff;
 }
 .nav-pills > li.active a {
   background: #24a390;
 }
 @media (max-width: 767px) {
-  article form.login {
+  article form.full-width {
     width: 100%;
   }
 }

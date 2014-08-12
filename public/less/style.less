@@ -6,6 +6,7 @@
 @color-dark-primary: #24a390;
 @color-orange: #f7941d;
 @brand-primary:@color-primary;
+@font-colour: #ffffff;
 
 body { 
   padding-top: 10px;
@@ -47,6 +48,7 @@ article{
 
 .nav-pills > li > a{
 	background: @brand-primary;
+	color: @font-colour;
 }
 .nav-pills > li{
 	&.active{
@@ -58,7 +60,7 @@ article{
 @media (max-width: @screen-xs-max) { 
 	article{
 		form{
-			&.login{
+			&.full-width{
 				width: 100%;
 			}
 		}
