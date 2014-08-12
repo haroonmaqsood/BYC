@@ -7,17 +7,35 @@
     <script src="/js/hairshare.js"></script>
   </head>
 
- 	<body>
-<!--
-		{{#if isAuth }}
-			
-			Welcome, {{ user.username }}
-			<a href="/logout">Logout</a> | 
-			<a href="/upload">upload</a> | 
-			<a href="/{{ user.username }}">Profile</a>
-		{{else}}
-			<a href="/login">Login</a> | 
-			<a href="/Signup">Signup</a>	
-		{{/if}}
--->
-		<hr>
+ <body>
+ 	<div class="container">
+ 		<header>
+	 		<nav>
+	<!--
+			{{#if isAuth }}
+				
+				Welcome, {{ user.username }}
+				<a href="/logout">Logout</a> | 
+				<a href="/upload">upload</a> | 
+				<a href="/{{ user.username }}">Profile</a>
+			{{else}}
+				<a href="/login">Login</a> | 
+				<a href="/Signup">Signup</a>	
+			{{/if}}
+	-->
+				{{#if isAuth }}
+					<ul  class="nav nav-pills">
+						<li>Welcome, {{ user.username }} <small><a href="/logout">Logout</a></small></li>
+						<li><a href="/">Home</a></li>
+						<li><a href="/upload">upload</a></li>
+						<li><a href="/{{ user.username }}">Profile</a></li>
+					</ul>
+				{{else}}
+					<ul  class="nav nav-pills">
+						<li><a href="/">Home</a></li>
+						<li><a href="/login">Login</a></li>
+						<li><a href="/Signup">Signup</a></li>
+					</ul>
+				{{/if}}
+			</nav>
+		</header>
