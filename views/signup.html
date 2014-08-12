@@ -1,10 +1,55 @@
 {{> header}}
+<div class="container">
+	<div class="row">
+		<div class="ol-xs-12 col-sm-10">
+	       	<div class="row">
+				<article class="col-xs-12 col-sm-10 pull-right">
+					<header>
+						<h1>Signup</h1>
+					</header>
+					<section>
+						<form method="post"  class="login">
+							<div class="form-group has-feedback">
+								<label class="control-label sr-only" for="inputError2">email</label>
+								<input type="email" name="email" class="form-control" placeholder="email">
+							</div>
+							<div class="form-group has-feedback">
+								<label class="control-label sr-only" for="inputError2">username</label>
+								<input type="text" name="username" class="form-control" placeholder="username">
+							</div>
+							<div class="form-group has-feedback">
+								<label class="control-label sr-only" for="inputError2">password</label>
+								<input type="password" name="password" class="form-control" placeholder="password">
+							</div>
+						<div class="message"></div>
+						<input type="submit" name="submit" class="btn btn-default" id="btn-signup">
+						</form>
+					</section>
+				</article>
 
-<form method="post">
-<input type="email" name="email" placeholder="email">
-<input type="text" name="username" placeholder="username">
-<input type="password" name="password" placeholder="password">
-<input type="submit" name="submit">
-</form>
-
+				<aside class="col-xs-12 col-sm-2">
+						left 
+				</aside>
+			</div>
+		</div>
+		<aside class="col-xs-12 col-sm-2">
+			{{#if isAuth }}
+				<ul  class="nav nav-pills nav-stacked">
+					<li>Welcome, {{ user.username }} <small><a href="/logout">Logout</a></small></li>
+					<li><a href="/">Home</a></li>
+					<li><a href="/logout">Logout</a></li>
+					<li><a href="/upload">upload</a></li>
+					<li><a href="/{{ user.username }}">Profile</a></li>
+				</ul>
+			{{else}}
+				<ul  class="nav nav-pills nav-stacked">
+					<li><a href="/">Home</a></li>
+					<li class="active"><a href="#">Signup</a></li>
+				</ul>
+			{{/if}}
+		</aside>
+	</div>
+</div>
+<footer>
 {{> footer}}
+</footer>

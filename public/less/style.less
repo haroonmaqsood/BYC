@@ -1,5 +1,12 @@
 @import "bootstrap/bootstrap.less";
 
+
+@color-error: #ff0000;
+@color-primary: #2de0c5;
+@color-dark-primary: #24a390;
+@color-orange: #f7941d;
+@brand-primary:@color-primary;
+
 body { 
   padding-top: 10px;
 }
@@ -14,4 +21,51 @@ header{
 	img{
 		max-height: 80px
 	}
+}
+
+article{
+	padding: 20px;
+	background: @color-primary;
+	form{
+		&.login{
+			width: 40%;
+			text-align: center;
+			margin: auto;
+		}
+	}
+}
+.message{
+	&.error{
+		color: @color-error;
+	}
+	
+}
+.btn{
+	background: @color-orange;
+}
+
+.nav-pills > li > a{
+	background: @brand-primary;
+}
+.nav-pills > li{
+	&.active{
+		a{
+			background: @color-dark-primary;
+		}
+	}
+}
+@media (max-width: @screen-xs-max) { 
+	article{
+		form{
+			&.login{
+				width: 100%;
+			}
+		}
+	}
+}
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+}
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+}
+@media (min-width: @screen-lg-min) { 
 }

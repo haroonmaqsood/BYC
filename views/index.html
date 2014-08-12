@@ -1,5 +1,42 @@
 {{> header}}
+<div class="container">
+	<div class="row">
+		<div class="ol-xs-12 col-sm-10">
+	       	<div class="row">
+				<article class="col-xs-12 col-sm-10 pull-right">
+					<header>
+						<h1>Home</h1>
+					</header>
 
-home
+					<section>
 
+
+					</section>
+				</article>
+				<aside class="col-xs-12 col-sm-2">
+						left 
+				</aside>
+			</div>
+		</div>
+		<aside class="col-xs-12 col-sm-2">
+			{{#if isAuth }}
+				<ul  class="nav nav-pills nav-stacked">
+					<li>Welcome, {{ user.username }} <small><a href="/logout">Logout</a></small></li>
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="/upload">upload</a></li>
+					<li><a href="/{{ user.username }}">Profile</a></li>
+				</ul>
+			{{else}}
+				<ul  class="nav nav-pills nav-stacked">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="/login">Login</a></li>
+					<li><a href="/Signup">Signup</a></li>
+				</ul>
+			{{/if}}
+		</aside>
+	</div>
+</div>
+
+<footer>
 {{> footer}}
+</footer>
