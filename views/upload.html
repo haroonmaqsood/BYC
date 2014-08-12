@@ -1,7 +1,8 @@
 {{> header}}
 
 <form action="/upload" enctype="multipart/form-data" method="post">
-	<input multiple="multiple" name="upload" type="file" />
+	<!-- <input multiple="multiple" name="upload" type="file" /> -->
+	<input type="file" name="upload" accept="image/*;capture=camera">
 	<input type="submit" value="Upload" />
 </form>
 

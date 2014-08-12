@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 
     watch: {
       express: {
-        files:  ['./Gruntfile.js', './app.js', 'public/**/*.js', 'public/**/*.html', 'public/**/*.css', 'public/**/*.less', 'views/**/*.html', 'routes/**/*.js', 
+        files:  ['./Gruntfile.js', './app.js', 'public/**/*.js', 'public/**/*.html', 'public/**/style.less', 'views/**/*.html', 'routes/**/*.js', 
           'models/**/*.js', 'configs/**/*.js', 'bin/**/*.js'],
         tasks:  [ 'less:production', 'express:dev' ],
         options: {

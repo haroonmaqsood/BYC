@@ -61,7 +61,7 @@ router.post('/:slug/edit', function (req, res) {
         if (!responce)
           return res.send({ status: 'failed'});
         
-        return res.redirect('/'+req.params.slug);
+        return res.redirect('/picture/'+slug);
 
       });
 
