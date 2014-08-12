@@ -1,5 +1,8 @@
 @import "bootstrap/bootstrap.less";
 
+
+@color-error: #ff0000;
+
 body { 
   padding-top: 10px;
 }
@@ -14,4 +17,11 @@ header{
 	img{
 		max-height: 80px
 	}
+}
+
+.message{
+	&.error{
+		color: @color-error;
+	}
+	
 }
