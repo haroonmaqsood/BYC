@@ -19,7 +19,6 @@ router.get('/:slug/edit', function(req, res, next) {
   if (req.params.slug !== 'undefined') {
     
     model_picture.getMyPicturesBySlugToken(req.user.id, req.params.slug, function(responce) {
-      console.log(responce[0])
 
       if (responce[0]) {
         res.locals.slug = req.params.slug;
@@ -40,25 +39,29 @@ router.get('/:slug/edit', function(req, res, next) {
 router.post('/:slug/edit', function (req, res) {
   if (!req.isAuthenticated() )
   	return res.redirect('/login');
-
-	if (req.params.slug !== 'undefined')
+  
+  console.log(req.params.slug);
+	if (!req.params.slug)
     return res.redirect('/');
-
+  
   model_picture.getMyPicturesBySlugToken(req.user.id, req.params.slug, function(responce) {
+
     if (responce[0]) {
 
-      var title  = req.body.title;
+      var title   = req.body.title;
 
-      if ( (!title.length > 2 || !title.length < 81) ) {
+      if ( (!title.length > 2 || title.length > 80) ) {
         return res.send({ status: 'invalid field(s)' });
       }
       
-      var slug = getSlug(title)+'-'+cryptoToken(6).toString('hex');
-      model.updateImageTitle(title, slug, function(responce) {
+      var slug = getSlug(title)+'-'+cryptoToken(2).toString('hex');
 
+      model_picture.updateImageTitle(title, slug, responce[0].id, function(responce) {
+        console.log(responce)
         if (!responce)
           return res.send({ status: 'failed'});
-          return res.redirect('/'+req.params.slug);
+        
+        return res.redirect('/'+req.params.slug);
 
       });
 
@@ -68,7 +71,7 @@ router.post('/:slug/edit', function (req, res) {
   
 
 
-  return res.redirect('/');
+  // return res.redirect('/');
 
 });
 

@@ -94,7 +94,7 @@ app.use('/login', login);
 app.use('/signup', signup);
 app.use('/steptwo', stepTwo);
 app.use('/picture', edit_picture);
-app.use('/upload', upload);
+app.use('/picture', picture);
 app.use('/upload', upload);
 app.use('/logout', logout);
 app.use('/', profile);

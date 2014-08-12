@@ -17,14 +17,12 @@
 						</div>
 					</header>
 					
-					<section>
-						
+					<section>						
 					  {{#each userPictures}}
-					  	<div class="col-xs-6 col-sm-4">
-						  <img width="250" src="/uploads/{{picture}}" class="img-responsive" >
+					  <div class="col-xs-6 col-sm-4">
+						  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/{{picture}}" class="img-responsive" ></a>
 						</div>
 					  {{/each}}
-					  	
 					</section>
 				</article>
 				<aside class="col-xs-12 col-sm-2">
