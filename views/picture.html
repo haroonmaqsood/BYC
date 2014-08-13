@@ -12,14 +12,15 @@
 								<h1>{{picture.title}}</h1>
 								<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
->>>> SUFI CHECK THIS OUT!
-<hr>
-{{#each comments}}
-	{{picture_id}}
-	{{! getUsernameByID(user_id) }}
-	{{comment}}
-	<hr>
-{{/each}}
+
+							<hr>
+							{{#each comments}}
+								{{picture_id}}
+								{{! getUsernameByID(user_id) }}
+								{{comment}}
+								<hr>
+							{{/each}}
+
 
 								{{#ifCond picture.user_id user.id  }}
 									<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="{{title}}">EDIT</a>
@@ -37,5 +38,5 @@
 			right
 		</aside>
 	</div>
->>>> SUFI CHECK THIS OUT!
+
 {{> footer}}
