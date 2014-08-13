@@ -80,6 +80,24 @@ module.exports = {
 
 
 
+  addComment: function (comment, user_id, picture_id, cb) {
+
+    var date  = new Date();
+    
+    db.query("INSERT INTO comments SET ?", {comment:comment, user_id:user_id, picture_id:picture_id, createdDttm:date }, function (err,results) {
+
+      // LOG TO SENTRY
+      // if (err) throw err;
+      console.log(results)
+      if (results.insertId)
+        return cb(results.insertId);
+
+      return cb(false);
+
+    });
+   
+  },
+
 
 
 

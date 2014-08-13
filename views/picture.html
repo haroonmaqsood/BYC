@@ -12,7 +12,10 @@
 								<h1>{{picture.title}}</h1>
 								<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
-
+							<form method="post">
+								<textarea style="width:100%" placeholder="Comment here" name="comment"></textarea>
+								<button type="submit">Comment</button>
+							</form>
 							<hr>
 							{{#each comments}}
 								{{picture_id}}
