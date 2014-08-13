@@ -14,6 +14,16 @@
 							Username: {{ profile.username }} <br>
 							Email: {{ profile.email }}<br>
 							Created: {{ profile.createdDttm }}<br>
+							
+							<form method="post" action="/{{ profile.username }}/follow">
+								<input type="hidden" name="profile_id" value="{{ profile.id }}">
+								<button type="submit" name="follow" class="btn btn-success">Follow</button>
+							</form>
+
+							<form method="post" action="/{{ profile.username }}/ufollow">
+								<input type="hidden" name="profile_id" value="{{ profile.id }}">
+								<button type="submit" name="follow" class="btn btn-success">Unfollow</button>
+							</form>
 						</div>
 					</header>
 					

@@ -6,7 +6,7 @@ var express 			= require('express'),
     utils       	= require('../inc/utils'),
     gm 						= require('gm').subClass({ imageMagick: true }),
     fs            = require('fs-extra'),
-    model_picture	= require('../models/pictures'),
+    model         = require('../model');
     getSlug       = require('speakingurl');
 
 
@@ -18,7 +18,7 @@ router.get('/:slug/edit', function(req, res, next) {
 
   if (req.params.slug !== 'undefined') {
     
-    model_picture.getMyPicturesBySlugToken(req.user.id, req.params.slug, function(responce) {
+    model.getMyPicturesBySlugToken(req.user.id, req.params.slug, function(responce) {
 
       if (responce[0]) {
         res.locals.slug = req.params.slug;
@@ -44,7 +44,7 @@ router.post('/:slug/edit', function (req, res) {
 	if (!req.params.slug)
     return res.redirect('/');
   
-  model_picture.getMyPicturesBySlugToken(req.user.id, req.params.slug, function(responce) {
+  model.getMyPicturesBySlugToken(req.user.id, req.params.slug, function(responce) {
 
     if (responce[0]) {
 
@@ -56,7 +56,7 @@ router.post('/:slug/edit', function (req, res) {
       
       var slug = getSlug(title)+'-'+cryptoToken(2).toString('hex');
 
-      model_picture.updateImageTitle(title, slug, responce[0].id, function(responce) {
+      model.updateImageTitle(title, slug, responce[0].id, function(responce) {
         console.log(responce)
         if (!responce)
           return res.send({ status: 'failed'});

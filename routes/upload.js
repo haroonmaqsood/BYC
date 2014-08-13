@@ -6,7 +6,7 @@ var express 			= require('express'),
     utils       	= require('../inc/utils'),
     gm 						= require('gm').subClass({ imageMagick: true }),
     fs            = require('fs-extra'),
-    model_picture	= require('../models/pictures'),
+    model	        = require('../model'),
     getSlug       = require('speakingurl');
 
 
@@ -46,10 +46,10 @@ router.post('/', function (req, res) {
       } else {
       	console.log('uploaded!')
 
-      	var ip		       = req.connection.remoteAddress || null,
-      			agent	       = req.headers;
+      	var ip     = req.connection.remoteAddress || null,
+      			agent  = req.headers;
 
-      	model_picture.uploadPicture(req.user.id, req.user.id+'_'+token+'.jpg', token, ip, agent, function(responce) {
+      	model.uploadPicture(req.user.id, req.user.id+'_'+token+'.jpg', token, ip, agent, function(responce) {
       		console.log(responce)
       	});
 

@@ -3,7 +3,7 @@ var express     = require('express'),
     passport    = require('passport'),
 		cryptoToken = require('crypto').randomBytes,
     bcrypt      = require('bcrypt-nodejs'),
-    model	      = require('../models/userInfo'),
+    model	      = require('../model'),
     utils       = require('../inc/utils');
 
 router.get('/', function(req, res) {

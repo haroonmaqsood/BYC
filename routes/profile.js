@@ -1,10 +1,10 @@
 var express 				= require('express'),
 		router 					= express.Router(),
-		model_userInfo	= require('../models/userInfo'),
-		model_picture		= require('../models/pictures');
+		model						= require('../model');
+
 
 /* GET users listing. */
-router.get('/:username', function(req, res, next) {
+router.get('/:username/follow', function(req, res, next) {
 	var username = "GUEST";
 
 	if (req.params.username !== 'undefined') {
@@ -17,7 +17,7 @@ router.get('/:username', function(req, res, next) {
 	  err.status = 404;
 	  return next(err);
   } else {
-  	model_userInfo.getProfile(username, function(responce) {
+  	model.getProfile(username, function(responce) {
   		
 	    if (!responce[0]) {
 	      var err = new Error('Profile does not exsist mofo!');
@@ -27,7 +27,7 @@ router.get('/:username', function(req, res, next) {
 	  	res.locals.profile = responce[0];
 	  	
 
-	  	model_picture.getPictures(responce[0].id, function(responce) {
+	  	model.getPictures(responce[0].id, function(responce) {
 	  		console.log(responce)
 	  		res.locals.userPictures = responce;
 	  		res.render('profile');
@@ -40,5 +40,36 @@ router.get('/:username', function(req, res, next) {
   
   
 });
+
+
+
+
+
+router.post('/:username/unfollow', function(req, res, next) {
+
+	if (!req.params.username || !req.body.profile_id || req.params.username.length > 20)
+		return res.send({ status: 'failed wo'});
+
+  var username = req.params.username,
+  		profile_id = req.body.profile_id;
+
+	model.followUser(req.user.id, profile_id, function(responce) {
+		
+    if (!responce) {
+      return res.send({ status: 'failed'});
+  	}
+  	
+  	return res.send({ status: 'followed'});
+
+  });
+
+});
+
+
+
+
+
+
+
 
 module.exports = router;

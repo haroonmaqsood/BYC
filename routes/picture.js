@@ -1,6 +1,8 @@
-var express 				= require('express'),
-		router 					= express.Router(),
-		model_picture		= require('../models/pictures');
+var express			= require('express'),
+		router			= express.Router(),
+		model				= require('../model');
+
+
 
 router.get('/:slug', function(req, res, next) {
 	var slug = '';
@@ -12,7 +14,7 @@ router.get('/:slug', function(req, res, next) {
 	  err.status = 404;
 	  return next(err);
   } else {
-  	model_picture.getPicturesBySlugToken(slug, function(picture) {
+  	model.getPicturesBySlugToken(slug, function(picture) {
 
 	    if (!picture[0]) {
 	      var err = new Error('The Picture you are looking for does not exist.');
@@ -20,7 +22,16 @@ router.get('/:slug', function(req, res, next) {
 	  		return next(err);
 	  	}
 
-	  	model_picture.getPictureComments(picture[0].id, function(comments) {
+	  	model.getPictureComments(picture[0].id, function(comments) {
+
+	  		// for (var i = comments.length - 1; i >= 0; i--) {
+					// model.getUsernameFromId(comments[i].user_id, function(err, result){
+					//     // console.log(err || result);
+					//     // comments[i].push({username: result});
+					//     console.log(comments)
+					//     // console.log(comments[i].username)
+					// });
+	  		// };
 
 		  	res.locals.comments = comments;
 		  	res.locals.picture = picture[0];
@@ -48,9 +59,9 @@ router.post('/:slug', function (req, res) {
   if (!req.isAuthenticated() )
   	return res.redirect('/picture/'+slug);
 
-  var comment   = req.body.comment;
-
-  model_picture.getPicturesBySlugToken(slug, function(picture) {
+  var comment	= req.body.comment;
+  console.log(comment)
+  model.getPicturesBySlugToken(slug, function(picture) {
   	
     if (!picture[0]) {
       var err = new Error('The Picture you are looking for does not exist.');
@@ -58,7 +69,7 @@ router.post('/:slug', function (req, res) {
   		return next(err);
   	}
 
-  	model_picture.addComment(comment, req.user.id, picture[0].id, function(responce) {
+  	model.addComment(comment, req.user.id, picture[0].id, function(responce) {
 	    if (!responce)
 	    	return res.send({ status: 'failed'});
 	    return res.send({ status: 'success'});

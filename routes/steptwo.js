@@ -1,7 +1,7 @@
 var express     = require('express'),
     router      = express.Router(),
     passport    = require('passport'),
-    model	      = require('../models/userInfo');
+    model	      = require('../model');
 
 router.get('/', function(req, res) {
 	if (!req.user || req.user.steptwo)
