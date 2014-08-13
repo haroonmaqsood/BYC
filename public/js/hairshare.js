@@ -82,4 +82,19 @@ $( document ).ready(function() {
 		'msgAppendMethod': 'insertAfter'				
 	});
 
+	$('#cropbox').cropbox({
+        width: 600,
+        height: 600
+    }).on('cropbox', function(e, data) {
+        console.log('crop window: ' + data);
+    });
+
+   
+    $('.btn-rotate').on('click', function(){ //console.log($(this).attr('id'))
+    	var img = $('#cropbox');
+    	//if(!img.hasClass($(this).attr('id'))){
+    	img.removeClass('rotate-left').removeClass('rotate-right');
+    	//}
+    	img.addClass($(this).attr('id'));
+    });
 });
