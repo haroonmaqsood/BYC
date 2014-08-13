@@ -26,11 +26,11 @@ router.get('/:slug', function(req, res, next) {
 
 	  	model_picture.getPictureComments(picture[0].id, function(comments) {
 
-	  	res.locals.comments = comments;
-	  	res.locals.picture = picture[0];
-	  	return res.render('picture');
+		  	res.locals.comments = comments;
+		  	res.locals.picture = picture[0];
+		  	return res.render('picture');
 
-	  });
+		  });
 
 
 	  });
@@ -61,8 +61,6 @@ router.post('/:slug', function (req, res) {
         
     return res.send({ status: 'success'});
 
-
-    }
   });
   
 
