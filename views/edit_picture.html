@@ -9,16 +9,22 @@
 
 					<section>
 						<div class="row">
-							<div class="col-xs-12 col-sm-offset-1 col-sm-10" id="photoEditor">
-								<div class="cropFrame">
-									<img src="/uploads/{{picture.picture}}" class="cropimage cropImage" id="cropbox"/>
-									<div class="cropControls"><span>Drag to crop</span><a class="cropZoomIn"></a><a class="cropZoomOut"></a></div>
+							<div class="col-xs-12 col-sm-offset-1 col-sm-10" >
+								<div id="photoEditor">
+									<img src="/uploads/{{picture.picture}}" class="cropimage" id="cropbox"/>
 								</div>
-								<form method="post" class="full-width">
+								<form method="post" class="full-width" id="edit-form">
+									<div class="results">
+									    <b>X</b>: <input type="number" name="cropX" />
+									    <b>Y</b>: <input type="number" name="cropY" />
+									    <b>W</b>: <input type="number" name="cropW" />
+									    <b>H</b>: <input type="number" name="cropH" />
+									    <b>rotate</b>: <input type="number" name="rotate" value="0"/>
+									</div>
 									<textarea name="title" placeholder="Image Title" rows="2" class="countable form-control"></textarea><br/>
-									<button type="button" class="btn btn-default btn-rotate" id="rotate-left">Rotate left</button>
-									<button type="button" class="btn btn-default btn-rotate" id="rotate-right">Rotate right</button>
+									<button type="button" class="btn btn-default btn-rotate" >Rotate</button>
 									<button type="submit" class="btn btn-default" >Save</button>
+
 								</form>
 							</div>
 						</div>

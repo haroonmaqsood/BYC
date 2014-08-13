@@ -82,19 +82,24 @@ $( document ).ready(function() {
 		'msgAppendMethod': 'insertAfter'				
 	});
 
-	$('#cropbox').cropbox({
+	/*$('#cropbox').cropbox({
         width: 600,
         height: 600
     }).on('cropbox', function(e, data) {
         console.log('crop window: ' + data);
     });
+*/
 
-   
-    $('.btn-rotate').on('click', function(){ //console.log($(this).attr('id'))
-    	var img = $('#cropbox');
-    	//if(!img.hasClass($(this).attr('id'))){
-    	img.removeClass('rotate-left').removeClass('rotate-right');
-    	//}
-    	img.addClass($(this).attr('id'));
+
+  
+  	var rotate = 0;
+    $('.btn-rotate').on('click', function(){ 
+    	rotate = rotate +90;
+
+    	if(rotate>=360){
+    		rotate =0;
+    	}
+    	$('input[name=rotate]').val(rotate);
+    	$('#cropbox').rotate(rotate);
     });
 });
