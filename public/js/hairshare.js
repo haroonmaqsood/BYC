@@ -82,15 +82,56 @@ $( document ).ready(function() {
 		'msgAppendMethod': 'insertAfter'				
 	});
 
-	/*$('#cropbox').cropbox({
-        width: 600,
-        height: 600
-    }).on('cropbox', function(e, data) {
-        console.log('crop window: ' + data);
-    });
-*/
 
 
+
+    var resizeCropFrame = {
+    	init:function(){
+    		orgWidth = $('#cropbox').width();
+
+    		var containerWidth = $('#photoEditor').width(),
+    			ratioContainer = containerWidth/600,
+    			heightFrame = 730*ratioContainer,
+	    		widthImg = $('#cropbox').width(),
+	  			heightImg = $('#cropbox').height();
+
+  			$('#photoEditor').css({width:'100%', height:heightFrame});
+
+  			if(widthImg < heightImg){
+  				$('#cropbox').css({width:'100%', height:'auto'});
+  			}else{
+  				$( '#cropbox' ).css({width:'auto', height:'100%'});
+  			}
+
+  			$('#cropbox').drags();
+
+    	},
+    	resize: function(){
+
+    		var containerWidth = $('#photoEditor').width(),
+    			ratioContainer = containerWidth/600,
+    			heightFrame = 730*ratioContainer,
+	    		widthImg = $('#cropbox').width(),
+	  			heightImg = $('#cropbox').height();
+	  		
+  			//console.log(orgWidth, ratioContainer, heightFrame, widthImg, heightImg)
+
+  			$('#photoEditor').css({width:'100%', height:heightFrame});
+
+  			if(widthImg < heightImg){
+  				$('#cropbox').css({width:'100%', height:'auto'});
+  			}else{
+  				$( '#cropbox' ).css({width:'auto', height:'100%'});
+  			}
+
+  		}
+    };
+    
+    resizeCropFrame.init();
+
+  	$(window).resize(function(){
+  		resizeCropFrame.resize();
+  	});
   
   	var rotate = 0;
     $('.btn-rotate').on('click', function(){ 
@@ -100,6 +141,11 @@ $( document ).ready(function() {
     		rotate =0;
     	}
     	$('input[name=rotate]').val(rotate);
+
+    	var offsetLeft = $('#photoEditor').width()/2 - $('#cropbox').width()/2;
+    	//console.log(offsetLeft)
+    	$('#cropbox').css({left:offsetLeft});
+    	resizeCropFrame.resize();
     	$('#cropbox').rotate(rotate);
     });
 });
