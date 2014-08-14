@@ -29,10 +29,10 @@ router.get('/:username', function(req, res, next) {
 	  	model.getPictures(responce[0].id, function(responce) {
 	  		res.locals.userPictures = responce;
 	  		
-	  		model.followStatus(req.user.id, res.locals.profile.id, function(responce) {
-	  			res.locals.followStatus = responce;
+	  		// model.followStatus(req.user.id, res.locals.profile.id, function(responce) {
+	  		// 	res.locals.followStatus = responce;
 	  			res.render('profile');
-	  		});
+	  		// });
 	  	});
 
 	  });
