@@ -93,7 +93,7 @@ $( document ).ready(function() {
 	    	init:function(){
 	    	 	orgWidth = $('#cropbox').width(),
 	    	 	orgHeight = $('#cropbox').height();
-
+	    	 	
 				photoEdit.resize();
 	  			$('#cropbox').drags();
 
@@ -104,14 +104,29 @@ $( document ).ready(function() {
 	    			ratioContainer = containerWidth/600,
 	    			heightFrame = 730*ratioContainer,
 		    		widthImg = photoEdit.imgWidth,
-		  			heightImg = photoEdit.imgHeight;
+		  			heightImg = photoEdit.imgHeight,
+		  			rotateVal = $('input[name=rotate]').val();
 
 	  			$('#photoEditor').css({width:'100%', height:heightFrame});
 
 	  			if(widthImg < heightImg){
-	  				$('#cropbox').css({width:'100%', height:'auto'});
+	  				if ((rotateVal == 90)||(rotateVal == 270)){// rotated landscape
+		  				//console.log('rotated land')
+		  				$('#cropbox').css({width:'100%', height:'auto', 'margin-left':0});
+		  			}else{ //portrait
+		  				//console.log('port')
+		  				$('#cropbox').css({width:'100%', height:'auto', 'margin-left':0});
+		  			}
+	  			}else if (widthImg > heightImg){ 
+	  				if ((rotateVal == 90)||(rotateVal == 270)){// rotated portrait
+		  				//console.log('rotated po')
+		  				$( '#cropbox' ).css({width:'auto', height:'100%', 'margin-left':'-50%'});
+		  			}else{//landscape
+		  				//console.log('land')
+		  				$( '#cropbox' ).css({width:'auto', height:'100%', 'margin-left':0});
+		  			}
 	  			}else{
-	  				$( '#cropbox' ).css({width:'auto', height:'100%'});
+	  				console.log('dont know what sort of image this is')
 	  			}
 
 	  		},
@@ -122,10 +137,6 @@ $( document ).ready(function() {
 		    		photoEdit.imgRotate =0;
 		    	}
 		    	$('input[name=rotate]').val(photoEdit.imgRotate);
-
-		    	var offsetLeft = $('#photoEditor').width()/2 - $('#cropbox').width()/2;
-		    	
-		    	$('#cropbox').css({left:offsetLeft});
 
 		    	photoEdit.resize();
 		    	

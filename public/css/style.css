@@ -6247,6 +6247,9 @@ img.rotate-right {
   width: 100%;
   height: 730px;
 }
+#photoEditor #cropPhoto {
+  position: absolute;
+}
 @media (max-width: 767px) {
   article form.margin {
     width: 100%;
