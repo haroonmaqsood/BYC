@@ -14,29 +14,35 @@ router.get('/:slug', function(req, res, next) {
 	  err.status = 404;
 	  return next(err);
   } else {
-  	model.getPicturesBySlugToken(slug, function(picture) {
+  	model.getPicturesBySlugToken(slug, function(responce_picture) {
 
-	    if (!picture[0]) {
+	    if (!responce_picture[0]) {
 	      var err = new Error('The Picture you are looking for does not exist.');
 	  		err.status = 404;
 	  		return next(err);
 	  	}
 
-	  	model.getPictureComments(picture[0].id, function(comments) {
+	  	
 
-	  		// for (var i = comments.length - 1; i >= 0; i--) {
-					// model.getUsernameFromId(comments[i].user_id, function(err, result){
+	  	model.getPictureComments(responce_picture[0].id, function(responce_comments) {
+	  		//!THIS IS FOR ADDING USERNAME TO COMMENTS YET TO FINISH!
+	  		// for (var i = responce_comments.length - 1; i >= 0; i--) {
+					// model.getUsernameFromId(responce_comments[i].user_id, function(err, result){
 					//     // console.log(err || result);
-					//     // comments[i].push({username: result});
-					//     console.log(comments)
-					//     // console.log(comments[i].username)
+					//     // responce_comments[i].push({username: result});
+					//     console.log(responce_comments)
+					//     // console.log(responce_comments[i].username)
 					// });
 	  		// };
 
-		  	res.locals.comments = comments;
-		  	res.locals.picture = picture[0];
-		  	return res.render('picture');
+		  	res.locals.comments = responce_comments;
+		  	res.locals.picture = responce_picture[0];
 
+	  		model.likeStatus(req.user.id, responce_picture[0].id, function(responce_likeStatus) {
+	  			res.locals.likeStatus = responce_likeStatus;
+	  			return res.render('picture');
+	  		});
+	  	
 		  });
 
 	  });
@@ -82,26 +88,25 @@ router.post('/:slug', function (req, res) {
 
 router.post('/:slug/like', function (req, res) {
   
-  if (!req.params.slug)
-			return res.send({ status: 'failed'});
+  if (!req.params.slug) return res.send({ status: 'failed'});
 
 	model.getPicturesBySlugToken(req.params.slug, function(responce_getPicturesBySlugToken) {
-		if (!responce_getPicturesBySlugToken || req.user.id === responce_getProfile[0].id)
+		if (!responce_getPicturesBySlugToken || req.user.id === responce_getPicturesBySlugToken[0].id)
 			return res.send({ status: 'failed'});
 	  
-		model.followStatus(req.user.id, responce_getProfile[0].id, function(responce_followStatus) {
-			console.log(responce_followStatus)
-			if (responce_followStatus) {
+		model.likeStatus(req.user.id, responce_getPicturesBySlugToken[0].id, function(responce_likeStatus) {
+			console.log(responce_likeStatus)
+			if (responce_likeStatus) {
 				// UNFOLLOW
-				model.unfollowUser(req.user.id, responce_getProfile[0].id, function(responce) {
+				model.unlikePicture(req.user.id, responce_getPicturesBySlugToken[0].id, function(responce) {
 			    if (!responce) return res.send({ status: 'failed'});
-			    return res.send({ status: 'unfollowed'});
+			    return res.send({ status: 'unliked'});
 		  	});
 			} else {
 				// FOLLOW USER
-				model.followUser(req.user.id, responce_getProfile[0].id, function(responce) {
+				model.likePicture(req.user.id, responce_getPicturesBySlugToken[0].id, function(responce) {
 			    if (!responce) return res.send({ status: 'failed'});
-			  	return res.send({ status: 'followed'});
+			  	return res.send({ status: 'liked'});
 			  });
 			}
 		});

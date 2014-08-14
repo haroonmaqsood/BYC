@@ -11,41 +11,43 @@
 							<div class="col-xs-12 col-sm-offset-1 col-sm-10" >
 								<h1>{{picture.title}}</h1>
 
-		
+								{{likeStatus}}
+								<form method="post" action="/{{ picture.slug }}">
+										<!-- MISSING CODE IN UNTITLES DOC -->
+										{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
+									</button>
+								</form>
 
 
-							<img src="/uploads/{{picture.picture}}" class="img-responsive" >
+								<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
-							<form method="post">
-								<div class="form-group">
-									<textarea placeholder="Comment here" name="comment" class="form-control" rows="3"></textarea>
+								<form method="post">
+									<div class="form-group">
+										<textarea placeholder="Comment here" name="comment" class="form-control" rows="3"></textarea>
+									</div>
+									<div class="message"></div>
+									<button type="submit" class="btn btn-default" id="btn-comment">Comment</button>
+								</form>
+
+								<div class="comments">
+									<ul>
+										
+									{{#each comments}}
+										<li>
+											<span>{{picture_id}}</span>
+											<span>{{comment}}</span>
+											<span>{{username}}</span>
+										</li>
+									{{/each}}
+										
+									</ul>
 								</div>
-								<div class="message"></div>
-								<button type="submit" class="btn btn-default" id="btn-comment">Comment</button>
-							</form>
-
-
-							<div class="comments">
-								<ul>
-									
-								{{#each comments}}
-									<li>
-										<span>{{picture_id}}</span>
-										<span>{{comment}}</span>
-										<span>{{username}}</span>
-									</li>
-								{{/each}}
-									
-								</ul>
-
-								
+								<div>
+									{{#ifCond picture.user_id '===' user.id  }}
+										<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="Edit Picture">EDIT</a>
+									{{/ifCond}}
+								</div>
 							</div>
-							<div>
-								{{#ifCond picture.user_id '===' user.id  }}
-									<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="Edit Picture">EDIT</a>
-								{{/ifCond}}
-							</div>
-						</div>
 					</section>
 				</article>
 				<aside class="col-xs-12 col-sm-2">

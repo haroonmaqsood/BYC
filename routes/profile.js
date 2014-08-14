@@ -32,10 +32,10 @@ router.get('/:username', function(req, res, next) {
 	  		if (req.user.id !== responce_getProfile[0].id) {
 		  		model.followStatus(req.user.id, res.locals.profile.id, function(responce_followStatus) {
 		  			res.locals.followStatus = responce_followStatus;
-		  			res.render('profile');
+		  			return res.render('profile');
 		  		});
 		  	} else {
-		  		res.render('profile');
+		  		return res.render('profile');
 		  	}
 
 	  	});
@@ -57,9 +57,6 @@ router.post('/:username', function(req, res, next) {
 	model.getProfile(req.params.username, function(responce_getProfile) {
 		if (!responce_getProfile || req.user.id === responce_getProfile[0].id)
 			return res.send({ status: 'failed'});
-
-	  var username = req.params.username;
-
 	  
 		model.followStatus(req.user.id, responce_getProfile[0].id, function(responce_followStatus) {
 			console.log(responce_followStatus)
