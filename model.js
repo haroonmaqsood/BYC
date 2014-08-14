@@ -209,7 +209,15 @@ module.exports = {
 
   },
 
+  followStatus: function (picture_id, cb) {
 
+    db.query("SELECT * FROM comments WHERE picture_id = ?", [picture_id], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      
+      return cb(results);
+    });
+  },
 
 
 

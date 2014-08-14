@@ -4,7 +4,7 @@ var express 				= require('express'),
 
 
 /* GET users listing. */
-router.get('/:username/follow', function(req, res, next) {
+router.get('/:username', function(req, res, next) {
 	var username = "GUEST";
 
 	if (req.params.username !== 'undefined') {
@@ -26,23 +26,43 @@ router.get('/:username/follow', function(req, res, next) {
 	  	}
 	  	res.locals.profile = responce[0];
 	  	
-
 	  	model.getPictures(responce[0].id, function(responce) {
-	  		console.log(responce)
 	  		res.locals.userPictures = responce;
-	  		res.render('profile');
-	  			
+	  		
+	  		model.followStatus(req.user.id, res.locals.profile.id, function(responce) {
+	  			res.locals.followStatus = responce;
+	  			res.render('profile');
+	  		});
 	  	});
-	  	
 
 	  });
   }
-  
-  
+
 });
 
 
 
+
+
+router.post('/:username/follow', function(req, res, next) {
+
+	if (!req.params.username || !req.body.profile_id || req.params.username.length > 20)
+		return res.send({ status: 'failed wo'});
+
+  var username = req.params.username,
+  		profile_id = req.body.profile_id;
+
+	model.followUser(req.user.id, profile_id, function(responce) {
+		
+    if (!responce) {
+      return res.send({ status: 'failed'});
+  	}
+  	
+  	return res.send({ status: 'followed'});
+
+  });
+
+});
 
 
 router.post('/:username/unfollow', function(req, res, next) {
