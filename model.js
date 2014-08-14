@@ -20,7 +20,7 @@ module.exports = {
   },
 
   stepTwo: function (id, q1, q2, q3, q4, q5, q6, q7, cb) {
-    db.query("UPDATE users SET q1 = ?, q2 = ?, q3 = ?, q4 = ?, q5 = ?, q6 = ?, q7 = ? WHERE id = ?", [q1, q2, q3, q4, q5, q6, q7, id], function (err,results) {
+    db.query("UPDATE users SET q1 = ?, q2 = ?, q3 = ?, q4 = ?, q5 = ?, q6 = ?, q7 = ?, updatedDttm = NOW() WHERE id = ?", [q1, q2, q3, q4, q5, q6, q7, id], function (err,results) {
 
       // LOG TO SENTRY
       if (err) throw err;
@@ -36,7 +36,7 @@ module.exports = {
   stepTwoComplete: function (id, cb) {
 
     var date = new Date();
-    db.query("UPDATE users SET steptwo = ? WHERE id = ?", [date, id], function (err,results) {
+    db.query("UPDATE users SET steptwo = ?, updatedDttm = NOW() WHERE id = ?", [date, id], function (err,results) {
 
       // LOG TO SENTRY
       if (err) throw err;
@@ -132,7 +132,7 @@ module.exports = {
 
 
   updateImageTitle: function (title, slug, id, cb) {
-    db.query("UPDATE picture SET title = ?, slug = ? WHERE id = ?", [title, slug, id], function (err,results) {
+    db.query("UPDATE picture SET title = ?, slug = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, id], function (err,results) {
 
       // LOG TO SENTRY
       if (err) throw err;
@@ -195,13 +195,13 @@ module.exports = {
 
   unfollowUser: function (follower, following, cb) {
     
-    db.query("DELETE FROM follow WHERE ?", {follower:follower, following:following}, function (err,results) {
+    db.query("UPDATE follow SET updatedDttm = NOW(), deletedDttm = NOW() WHERE follower = ? AND following = ?", [follower, following], function (err,results) {
 
       // LOG TO SENTRY
       // if (err) throw err;
       console.log(results)
-      if (results.insertId)
-        return cb(results.insertId);
+      if (results.affectedRows)
+        return cb(results.affectedRows);
 
       return cb(false);
 
@@ -209,13 +209,11 @@ module.exports = {
 
   },
 
-  followStatus: function (picture_id, cb) {
-
-    db.query("SELECT * FROM comments WHERE picture_id = ?", [picture_id], function (err,results) {
+  followStatus: function (follower, following, cb) {
+    db.query("SELECT COUNT(*) as following FROM follow WHERE deletedDttm IS NULL AND follower = ? AND following = ?", [follower, following], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
-      
-      return cb(results);
+      return cb(results[0].following);
     });
   },
 

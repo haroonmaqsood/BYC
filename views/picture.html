@@ -25,7 +25,7 @@
 							{{/each}}
 
 
-								{{#ifCond picture.user_id user.id  }}
+								{{#ifCond picture.user_id '===' user.id  }}
 									<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="{{title}}">EDIT</a>
 								{{/ifCond}}
 							</div>

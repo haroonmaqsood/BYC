@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     watch: {
       express: {
         files:  ['./Gruntfile.js', './app.js', 'public/**/*.js', 'public/**/*.html', 'public/**/style.less', 'views/**/*.html', 'routes/**/*.js', 
-          'models/**/*.js', 'configs/**/*.js', 'bin/**/*.js'],
+          'model.js', 'configs/**/*.js', 'bin/**/*.js'],
         tasks:  [ 'less:production', 'express:dev' ],
         options: {
           spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. 
