@@ -1,8 +1,6 @@
 (function($) {
     $.fn.drags = function(opt) {
 
-    	
-
         opt = $.extend({handle:"",cursor:"move"}, opt);
 
         if(opt.handle === "") {
@@ -10,8 +8,6 @@
         } else {
             var $el = this.find(opt.handle);
         }
-
-
 
         return $el.css('cursor', opt.cursor).on("mousedown", function(e) {
             if(opt.handle === "") {
@@ -30,7 +26,9 @@
                 widthDifference = $el.width()- $('#photoEditor').width(),
                 topPos=0,
                 leftPos=0;
-//console.log(heightDifference)
+            
+            $el.css({'marging-left':0});
+
             $drag.css('z-index', 1000).parents().on("mousemove", function(e) {
       
 				if(heightDifference > widthDifference){
