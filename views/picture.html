@@ -35,8 +35,8 @@
 								
 							</div>
 							<div>
-								{{#ifCond picture.user_id user.id  }}
-									<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="{{title}}" >EDIT</a>
+								{{#ifCond picture.user_id '===' user.id  }}
+									<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="Edit Picture">EDIT</a>
 								{{/ifCond}}
 							</div>
 						</div>
