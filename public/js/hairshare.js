@@ -4,8 +4,10 @@
 			init:function(){
 				"use strict";
 				$( document ).ready(function() {
-				hs.createForm();
-				hs.createPhotoEditor();
+					hs.createForm();
+					hs.createPhotoEditor();
+					hs.createPhotoEditor();
+					hs.followButton();
 				});
 				return false;
 			},
@@ -82,6 +84,7 @@
 					var formData = {};
 
 					formData.comment = $('textarea[name="comment"]').val();
+
 					if(formData.comment.trim().length > 0){
 						$.ajax({
 						  url:location.href,
@@ -89,15 +92,16 @@
 						  data: formData
 						})
 						.done(function(){ 
-							window.location.href = location.href;
-
+							//window.location.href = location.href;
+							$('ul').prepend('<li><span>' + $('.comments li:first-child').find('.picId').html() +'</span><span>'+$('textarea').val()+'</span><span>'+$('.comments li:first-child').find('.username').html()+'</span></li>');
+							 $.scrollTo( 1000, 800 );//change this later
 						})
 						.fail(function(responseTxt){
 							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
 							$('form .message').addClass('error').html(responseTxt.status);
 						})
 					}else{
-						$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+						$('form .form-group').addClass('has-error'); //.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
 						$('form .message').addClass('error').html('Please write a comment');
 					}
 				});
@@ -123,11 +127,16 @@
 			    	imgRotate:0,
 
 			    	init:function(){
-			    	 	orgWidth = $('#cropbox').width(),
-			    	 	orgHeight = $('#cropbox').height();
+			    	 	//orgWidth = $('#cropbox').width(),
+			    	 	//orgHeight = $('#cropbox').height();
 
 						photoEdit.resize();
 			  			$('#cropbox').drags();
+
+			  			//$('input[name=cropX]').val(leftPos);
+			            //$('input[name=cropY]').val(topPos);
+			           	$('input[name=cropW]').val(photoEdit.imgWidth);
+			            $('input[name=cropH]').val(photoEdit.imgHeight);
 
 			    	},
 			    	resize: function(){  
@@ -161,6 +170,9 @@
 			  				console.log('dont know what sort of image this is')
 			  			}
 
+			  			$('input[name=cropW]').val(photoEdit.imgWidth);
+			            $('input[name=cropH]').val(photoEdit.imgHeight);
+
 			  		},
 			  		rotate:function(){
 			  			photoEdit.imgRotate = photoEdit.imgRotate +90;
@@ -186,6 +198,37 @@
 			    	photoEdit.rotate();
 			    });
 			}
+		},
+		followButton: function(){
+			$('#btn-follow').on('click', function(e){ //console.log('test')
+				e.preventDefault();
+				var formData = {};
+
+				formData.follow = ' ';
+		
+				$.ajax({
+				  url:'http://localhost:3000/kaorina1',//location.href,
+				  type: "post",
+				  data: formData
+				})
+				.done(function(responseTxt){ 
+					var follow = '';
+					if(responseTxt.status == 'unfollowed'){
+						follow = 'Follow';
+						$('#btn-follow').removeClass('btn-link');
+					}else{
+						follow = 'Unfollow';
+						$('#btn-follow').addClass('btn-link');
+					}
+						$('#btn-follow').html(follow);
+					//}
+				})
+				.fail(function(responseTxt){
+					$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+					$('form .message').addClass('error').html(responseTxt.status);
+				})
+				
+			});
 		}
 
 	}

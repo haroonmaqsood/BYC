@@ -100,10 +100,20 @@ img{
 	
 }
 
-.btn{
+/*.btn{
 	background: @color-orange;
-}
 
+}*/
+.btn-link{
+	color: @color-error;
+	&:hover{
+		color: @color-error;
+		text-decoration: underline;
+	}
+}
+#btn-follow{
+	text-transform: uppercase;
+}
 .nav-pills > li > a{
 	background: @brand-primary;
 	color: @font-colour;
@@ -116,11 +126,16 @@ img{
 	}
 }
 
+#photoEditorContainer{
+	padding: 0;
+}
 #photoEditor{
 	overflow: hidden;
 	position: relative;
 	display: block;
-	width: 100%;
+	width: 600px;
+	margin:auto;
+	max-width: 600px !important;
 	height: 730px;
 	#cropPhoto{
 		position: absolute;
