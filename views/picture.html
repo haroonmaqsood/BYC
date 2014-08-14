@@ -13,8 +13,8 @@
 
 
 								{{likeStatus}}
-								<form method="post" action="/{{ picture.slug }}">
-										<!-- MISSING CODE IN UNTITLES DOC -->
+								<form method="post" action="/picture/{{ picture.slug }}/like">
+										<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-danger{{else}}btn-success{{/ifCond}}">
 										{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
 									</button>
 								</form>
