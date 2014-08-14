@@ -6230,8 +6230,19 @@ img.rotate-right {
 .message.error {
   color: #ff0000;
 }
-.btn {
-  background: #f7941d;
+/*.btn{
+	background: @color-orange;
+
+}*/
+.btn-link {
+  color: #ff0000;
+}
+.btn-link:hover {
+  color: #ff0000;
+  text-decoration: underline;
+}
+#btn-follow {
+  text-transform: uppercase;
 }
 .nav-pills > li > a {
   background: #2de0c5;
@@ -6240,11 +6251,16 @@ img.rotate-right {
 .nav-pills > li.active a {
   background: #24a390;
 }
+#photoEditorContainer {
+  padding: 0;
+}
 #photoEditor {
   overflow: hidden;
   position: relative;
   display: block;
-  width: 100%;
+  width: 600px;
+  margin: auto;
+  max-width: 600px !important;
   height: 730px;
 }
 #photoEditor #cropPhoto {

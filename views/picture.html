@@ -11,13 +11,13 @@
 							<div class="col-xs-12 col-sm-offset-1 col-sm-10" >
 								<h1>{{picture.title}}</h1>
 
+
 								{{likeStatus}}
 								<form method="post" action="/{{ picture.slug }}">
 										<!-- MISSING CODE IN UNTITLES DOC -->
 										{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
 									</button>
 								</form>
-
 
 								<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
@@ -31,15 +31,15 @@
 
 								<div class="comments">
 									<ul>
-										
+
 									{{#each comments}}
 										<li>
-											<span>{{picture_id}}</span>
-											<span>{{comment}}</span>
-											<span>{{username}}</span>
+											<span class="picId">{{picture_id}}</span>
+											<span class="comment">{{comment}}</span>
+											<span class="username">{{username}}</span>
 										</li>
 									{{/each}}
-										
+
 									</ul>
 								</div>
 								<div>
