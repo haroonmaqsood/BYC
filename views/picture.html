@@ -1,55 +1,45 @@
 {{> header}}
-	<div class="row">
-		<div class="ol-xs-12 col-sm-10">
-	       	<div class="row">
-				<article class="col-xs-12 col-sm-10 pull-right">
-					<header>
-						<h1>photo</h1>
-					</header>
-					<section>
-						<div class="row">
-							<div class="col-xs-12 col-sm-offset-1 col-sm-10" >
-								<h1>{{picture.title}}</h1>
+   	<div class="row">
+		<article class="col-xs-12 col-sm-8">
+			<header>
+				<h1>photo</h1>
+			</header>
+			<section>
+				<h1>{{picture.title}}</h1>
 
-								<img src="/uploads/{{picture.picture}}" class="img-responsive" >
+				<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
-								<form method="post">
-									<div class="form-group">
-										<textarea placeholder="Comment here" name="comment" class="form-control" rows="3"></textarea>
-									</div>
-									<div class="message"></div>
-									<button type="submit" class="btn btn-default" id="btn-comment">Comment</button>
-									
-								</form>
+				<form method="post">
+					<div class="form-group">
+						<textarea placeholder="Comment here" name="comment" class="form-control" rows="3"></textarea>
+					</div>
+					<div class="message"></div>
+					<button type="submit" class="btn btn-default btn-success" id="btn-comment">Comment</button>
+				</form>
 
-								<div class="comments">
-									<ul>
-									{{#each comments}}
-										<li>
-											<span class="picId">{{picture_id}}</span>
-											<span class="comment">{{comment}}</span>
-											<span class="username">{{username}}</span>
-										</li>
-									{{/each}}
-									</ul>
-								</div>
-								<div>
-									{{#ifCond picture.user_id '===' user.id  }}
-										<a class="btn btn-default" href="/picture/{{picture.slug}}/edit" alt="Edit Picture">EDIT</a>
-									{{/ifCond}}
-								</div>
-							</div>
-						</div>
-					</section>
-				</article>
-				<aside class="col-xs-12 col-sm-2">
-						left 
-				</aside>
-			</div>
-		</div>
-		<aside class="col-xs-12 col-sm-2">
-			right
+				<div class="comments">
+					<ul>
+					{{#each comments}}
+						<li>
+							<span class="picId">{{picture_id}}</span>
+							<span class="comment">{{comment}}</span>
+							<span class="username">{{username}}</span>
+						</li>
+					{{/each}}
+					</ul>
+				</div>
+				<div>
+					{{#ifCond picture.user_id '===' user.id  }}
+						<a class="btn btn-default btn-success" href="/picture/{{picture.slug}}/edit" alt="Edit Picture">EDIT</a>
+					{{/ifCond}}
+				</div>
+					
+			</section>
+		</article>
+		<aside class="col-xs-12 col-sm-4">
+				right 
 		</aside>
 	</div>
+	
 
 {{> footer}}
