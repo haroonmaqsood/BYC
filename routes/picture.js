@@ -76,13 +76,39 @@ router.post('/:slug', function (req, res) {
 	  });
 
 	});
-
-
-
-  
-  
-
 });
+
+
+likeStatus
+router.post('/:slug/like', function (req, res) {
+  
+  if (!req.params.slug)
+			return res.send({ status: 'failed'});
+
+	model.getPicturesBySlugToken(req.params.slug, function(responce_getPicturesBySlugToken) {
+		if (!responce_getPicturesBySlugToken)
+			return res.send({ status: 'failed'});
+	  
+		model.followStatus(req.user.id, responce_getProfile[0].id, function(responce_followStatus) {
+			console.log(responce_followStatus)
+			if (responce_followStatus) {
+				// UNFOLLOW
+				model.unfollowUser(req.user.id, responce_getProfile[0].id, function(responce) {
+			    if (!responce) return res.send({ status: 'failed'});
+			    return res.send({ status: 'unfollowed'});
+		  	});
+			} else {
+				// FOLLOW USER
+				model.followUser(req.user.id, responce_getProfile[0].id, function(responce) {
+			    if (!responce) return res.send({ status: 'failed'});
+			  	return res.send({ status: 'followed'});
+			  });
+			}
+		});
+  });
+});
+
+
 
 
 module.exports = router;
