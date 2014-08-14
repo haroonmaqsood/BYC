@@ -69,6 +69,30 @@ $( document ).ready(function() {
 			$('form .message').addClass('error').html(responseTxt.status);
 		})
 	});
+	$('#btn-comment').on('click', function(e){
+		e.preventDefault();
+		var formData = {};
+
+		formData.comment = $('textarea[name="comment"]').val();
+		if(formData.comment.trim().length > 0){
+			$.ajax({
+			  url:location.href,
+			  type: "post",
+			  data: formData
+			})
+			.done(function(){ 
+				window.location.href = location.href;
+
+			})
+			.fail(function(responseTxt){
+				$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+				$('form .message').addClass('error').html(responseTxt.status);
+			})
+		}else{
+			$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+			$('form .message').addClass('error').html('Please write a comment');
+		}
+	});
 
 	$('.countable').jqEasyCounter({
 		'minChars': 3,
@@ -93,7 +117,7 @@ $( document ).ready(function() {
 	    	init:function(){
 	    	 	orgWidth = $('#cropbox').width(),
 	    	 	orgHeight = $('#cropbox').height();
-	    	 	
+
 				photoEdit.resize();
 	  			$('#cropbox').drags();
 

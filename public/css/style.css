@@ -6250,6 +6250,18 @@ img.rotate-right {
 #photoEditor #cropPhoto {
   position: absolute;
 }
+.comments {
+  background: #ffffff;
+  margin-top: 10px;
+}
+.comments ul {
+  list-style: none;
+  padding: 0 10px;
+}
+.comments ul li {
+  border-top: 1px solid #2de0c5;
+  padding: 20px 0;
+}
 @media (max-width: 767px) {
   article form.margin {
     width: 100%;
