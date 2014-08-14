@@ -83,69 +83,64 @@ $( document ).ready(function() {
 	});
 
 
+	if($('#photoEditor').length){
 
+	    var photoEdit = {
+	    	imgWidth:$('#cropbox').width(),
+	    	imgHeight:$('#cropbox').height(),
+	    	imgRotate:0,
 
-    var resizeCropFrame = {
-    	init:function(){
-    		orgWidth = $('#cropbox').width();
+	    	init:function(){
+	    	 	orgWidth = $('#cropbox').width(),
+	    	 	orgHeight = $('#cropbox').height();
 
-    		var containerWidth = $('#photoEditor').width(),
-    			ratioContainer = containerWidth/600,
-    			heightFrame = 730*ratioContainer,
-	    		widthImg = $('#cropbox').width(),
-	  			heightImg = $('#cropbox').height();
+				photoEdit.resize();
+	  			$('#cropbox').drags();
 
-  			$('#photoEditor').css({width:'100%', height:heightFrame});
+	    	},
+	    	resize: function(){  
 
-  			if(widthImg < heightImg){
-  				$('#cropbox').css({width:'100%', height:'auto'});
-  			}else{
-  				$( '#cropbox' ).css({width:'auto', height:'100%'});
-  			}
+	    		var containerWidth = $('#photoEditor').width(),
+	    			ratioContainer = containerWidth/600,
+	    			heightFrame = 730*ratioContainer,
+		    		widthImg = photoEdit.imgWidth,
+		  			heightImg = photoEdit.imgHeight;
 
-  			$('#cropbox').drags();
+	  			$('#photoEditor').css({width:'100%', height:heightFrame});
 
-    	},
-    	resize: function(){
+	  			if(widthImg < heightImg){
+	  				$('#cropbox').css({width:'100%', height:'auto'});
+	  			}else{
+	  				$( '#cropbox' ).css({width:'auto', height:'100%'});
+	  			}
 
-    		var containerWidth = $('#photoEditor').width(),
-    			ratioContainer = containerWidth/600,
-    			heightFrame = 730*ratioContainer,
-	    		widthImg = $('#cropbox').width(),
-	  			heightImg = $('#cropbox').height();
-	  		
-  			//console.log(orgWidth, ratioContainer, heightFrame, widthImg, heightImg)
+	  		},
+	  		rotate:function(){
+	  			photoEdit.imgRotate = photoEdit.imgRotate +90;
 
-  			$('#photoEditor').css({width:'100%', height:heightFrame});
+		    	if(photoEdit.imgRotate>=360){
+		    		photoEdit.imgRotate =0;
+		    	}
+		    	$('input[name=rotate]').val(photoEdit.imgRotate);
 
-  			if(widthImg < heightImg){
-  				$('#cropbox').css({width:'100%', height:'auto'});
-  			}else{
-  				$( '#cropbox' ).css({width:'auto', height:'100%'});
-  			}
+		    	var offsetLeft = $('#photoEditor').width()/2 - $('#cropbox').width()/2;
+		    	
+		    	$('#cropbox').css({left:offsetLeft});
 
-  		}
-    };
-    
-    resizeCropFrame.init();
+		    	photoEdit.resize();
+		    	
+		    	$('#cropbox').rotate(photoEdit.imgRotate);
+	  		}
+	    };
+	    
+	    photoEdit.init();
 
-  	$(window).resize(function(){
-  		resizeCropFrame.resize();
-  	});
-  
-  	var rotate = 0;
-    $('.btn-rotate').on('click', function(){ 
-    	rotate = rotate +90;
-
-    	if(rotate>=360){
-    		rotate =0;
-    	}
-    	$('input[name=rotate]').val(rotate);
-
-    	var offsetLeft = $('#photoEditor').width()/2 - $('#cropbox').width()/2;
-    	//console.log(offsetLeft)
-    	$('#cropbox').css({left:offsetLeft});
-    	resizeCropFrame.resize();
-    	$('#cropbox').rotate(rotate);
-    });
+	  	$(window).resize(function(){
+	  		photoEdit.resize();
+	  	});
+	  
+	    $('.btn-rotate').on('click', function(){ 
+	    	photoEdit.rotate();
+	    });
+	}
 });
