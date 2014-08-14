@@ -79,14 +79,14 @@ router.post('/:slug', function (req, res) {
 });
 
 
-likeStatus
+
 router.post('/:slug/like', function (req, res) {
   
   if (!req.params.slug)
 			return res.send({ status: 'failed'});
 
 	model.getPicturesBySlugToken(req.params.slug, function(responce_getPicturesBySlugToken) {
-		if (!responce_getPicturesBySlugToken)
+		if (!responce_getPicturesBySlugToken || req.user.id === responce_getProfile[0].id)
 			return res.send({ status: 'failed'});
 	  
 		model.followStatus(req.user.id, responce_getProfile[0].id, function(responce_followStatus) {

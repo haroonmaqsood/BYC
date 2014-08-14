@@ -11,12 +11,7 @@
 							<div class="col-xs-12 col-sm-offset-1 col-sm-10" >
 								<h1>{{picture.title}}</h1>
 
-								{{likeStatus}}						
-								<form method="post" action="/{{ profile.username }}/like">
-									<button type="submit" name="follow" class="btn {{#ifCond likeStatus '>=' 1 }}btn-danger{{else}}btn-success{{/ifCond}}">
-										{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
-									</button>
-								</form>
+		
 
 
 							<img src="/uploads/{{picture.picture}}" class="img-responsive" >
