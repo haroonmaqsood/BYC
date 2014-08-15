@@ -9,6 +9,21 @@
 @brand-primary:@color-primary;
 @font-colour: @color-white;
 
+.after() {
+    &:after {
+      content: "";
+      clear: both;
+      display: block;
+    }
+}
+.transition() {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out; /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
 
 body { 
   padding-top: 10px;
@@ -19,6 +34,7 @@ body {
 	&, &:link, &:active, &:visited {
   	color: #00E1C5 !important;
   	border: 2px solid #00E1C5;
+  	.transition();
   }
   &:hover {
   	color: darken(#00E1C5, 5%) !important;
@@ -32,11 +48,24 @@ body {
 		text-decoration: none !important;
   	color: #00E1C5 !important;
   	border: none;
+  	.transition();
   }
   &:hover {
   	color: darken(#00E1C5, 5%) !important;
   	text-decoration: none !important;
   }
+}
+
+footer#site-footer {
+	.btn-link {
+		&, &:link, &:active, &:visited {
+	  	color: #a1a1a1 !important;
+	  	.transition();
+	  }
+	  &:hover {
+	  	color: #00E1C5 !important;
+	  }
+	}
 }
 
 span.nav-devide  {
