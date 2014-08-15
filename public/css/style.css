@@ -6173,12 +6173,6 @@ nav .btn-default:active,
 nav .btn-default:visited {
   color: #00E1C5 !important;
   border: 2px solid #00E1C5;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -ms-transition: all 0.3s ease-out;
-  /* IE10 is actually unprefixed */
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
 }
 nav .btn-default:hover {
   color: #00c8af !important;
@@ -6192,6 +6186,17 @@ nav .btn-link:visited {
   text-decoration: none !important;
   color: #00E1C5 !important;
   border: none;
+}
+nav .btn-link:hover {
+  color: #00c8af !important;
+  text-decoration: none !important;
+}
+.btn-default,
+.btn-default:link,
+.btn-default:active,
+.btn-default:visited {
+  color: #00E1C5 !important;
+  border: 2px solid #00E1C5;
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   -ms-transition: all 0.3s ease-out;
@@ -6199,7 +6204,26 @@ nav .btn-link:visited {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-nav .btn-link:hover {
+.btn-default:hover {
+  color: #00c8af !important;
+  border: 2px solid #00c8af;
+  background-color: transparent !important;
+}
+.btn-link,
+.btn-link:link,
+.btn-link:active,
+.btn-link:visited {
+  text-decoration: none !important;
+  color: #00E1C5 !important;
+  border: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.btn-link:hover {
   color: #00c8af !important;
   text-decoration: none !important;
 }
