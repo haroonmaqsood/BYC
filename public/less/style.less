@@ -12,12 +12,45 @@
 
 body { 
   padding-top: 10px;
+  font-family: 'Montserrat', sans-serif;
 }
 
-a {
+.btn-default {
 	&, &:link, &:active, &:visited {
-  	color: #F92772 !important;
+  	color: #00E1C5 !important;
+  	border: 2px solid #00E1C5;
   }
+  &:hover {
+  	color: darken(#00E1C5, 5%) !important;
+  	border: 2px solid darken(#00E1C5, 5%);
+  	background-color: transparent !important;
+  }
+}
+
+.btn-link {
+	&, &:link, &:active, &:visited {
+		text-decoration: none !important;
+  	color: #00E1C5 !important;
+  	border: none;
+  }
+  &:hover {
+  	color: darken(#00E1C5, 5%) !important;
+  	text-decoration: none !important;
+  }
+}
+
+span.nav-devide  {
+	color: darken(#f6f6f6, 5%);
+}
+
+.nav-hairshare {
+	float: right;
+	margin: 20px;
+	.btn {
+		text-transform: uppercase;
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 700;
+	}
 }
 
 header{

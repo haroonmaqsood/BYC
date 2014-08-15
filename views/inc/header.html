@@ -10,37 +10,40 @@
     <script src="/js/jQueryRotateCompressed.js"></script>
     <script src="/js/jquery.scrollTo.min.js"></script>
     <script src="/js/hairshare.js"></script>
+
+    <!-- GOOGLE FONTS -->
+    <script type="text/javascript">
+	  WebFontConfig = {
+	    google: { families: [ 'Montserrat:400,700:latin' ] }
+	  };
+	  (function() {
+	    var wf = document.createElement('script');
+	    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+	      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+	    wf.type = 'text/javascript';
+	    wf.async = 'true';
+	    var s = document.getElementsByTagName('script')[0];
+	    s.parentNode.insertBefore(wf, s);
+	  })(); 
+	  </script>
   </head>
 
  <body>
  	<div class="container">
  		<header>
-	 		<nav>
-	<!--
+ 			<nav class="nav-hairshare">
 			{{#if isAuth }}
-				
-				Welcome, {{ user.username }}
-				<a href="/logout">Logout</a> | 
-				<a href="/upload">upload</a> | 
-				<a href="/{{ user.username }}">Profile</a>
+				<a class="btn btn-link" href="/">Home</a>
+				<span class="nav-devide">|</span>
+				<a class="btn btn-link" href="/{{ user.username }}">{{ user.username }}</a>
+				<span class="nav-devide">|</span>
+				<a class="btn btn-link" href="/logout">Logout</a>
+				<a class="btn btn-default" href="/upload">upload</a>
 			{{else}}
-				<a href="/login">Login</a> | 
-				<a href="/Signup">Signup</a>	
+				<a class="btn btn-link" href="/">Home</a>
+				<span class="nav-devide">|</span>
+				<a class="btn btn-link" href="/login">Login</a>
+				<a class="btn btn-default" href="/Signup">Signup</a>
 			{{/if}}
-	-->
-				{{#if isAuth }}
-					<ul  class="nav nav-pills">
-						<li>Welcome, {{ user.username }} <small><a href="/logout">Logout</a></small></li>
-						<li><a href="/">Home</a></li>
-						<li><a href="/upload">upload</a></li>
-						<li><a href="/{{ user.username }}">Profile</a></li>
-					</ul>
-				{{else}}
-					<ul  class="nav nav-pills">
-						<li><a href="/">Home</a></li>
-						<li><a href="/login">Login</a></li>
-						<li><a href="/Signup">Signup</a></li>
-					</ul>
-				{{/if}}
 			</nav>
 		</header>
