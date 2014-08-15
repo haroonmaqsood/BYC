@@ -108,15 +108,18 @@ footer#site-footer {
 #tab-menu {
 	.after();
 	.tab {
-		background-color: #f6f6f6;
-		padding: 10px 0;
+		background-color: #97E9DE;
+		color: #ffffff !important;
+		padding: 15px 0;
 		margin: 0 0.5%;
 		float: left;
 		width: 49.5%;
 		font-size: 24px;
+		line-height: 24px;
 		text-align: center;
 		.border-radius-tr(5px);
 		.border-radius-tl(5px);
+		cursor: pointer;
 
 		&:first-child {
 			margin-left: 0 !important;
@@ -127,7 +130,6 @@ footer#site-footer {
 
 		&.selected {
 			background-color: #00E1C5;
-			color: #ffffff;
 		}
 	}
 }
@@ -146,10 +148,46 @@ footer#site-footer {
 	float: left;
 	padding: 20px 0;
 
-	img {
-		width: 150px;
-		height: 182px;
+	.photo-holder {
+		width: 150px + 8px;
+		height: 182px + 8px;
 		border: 4px solid #f6f6f6;
+		position: relative;
+		margin: 0 auto;
+
+		img {
+			width: 150px;
+			height: 182px;
+			z-index: 4;
+		}
+
+		.like {
+			position: absolute;
+			/*background-color: #ffffff;*/
+			/*border: 1px solid red;*/
+			font-size: 30px;
+			line-height: 30px;
+			width: 40px !important;
+			height: 40px !important;
+			.border-radius(500px);
+			top: 6px;
+			right: 8px;
+			z-index: 8;
+			cursor: pointer;
+			color: #EB361A;
+			.transition();
+
+			&:hover {
+				color: darken(#EB361A, 10%);
+			}
+
+			span {
+				display: inline-block;
+				padding: 0;
+			}
+
+
+		}
 	}
 }
 
