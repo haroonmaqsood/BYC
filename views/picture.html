@@ -1,6 +1,11 @@
 {{> header}}
    	<div class="row">
-		<article class="col-xs-12 col-sm-8 pull-right">
+   		
+		<aside class="col-xs-12 col-sm-4 pull-right">
+				right 
+
+		</aside>
+		<article class="col-xs-12 col-sm-8">
 			<header>
 				<h1>photo</h1>
 			</header>
@@ -11,17 +16,19 @@
 						<a class="btn btn-default btn-success" href="/picture/{{picture.slug}}/edit" alt="Edit Picture">EDIT</a>
 					{{/ifCond}}
 				</div>
-				<!-- Like START -->
-				<form method="post" action="/picture/{{ picture.slug }}/like">
-						<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-danger{{else}}btn-success{{/ifCond}}">
+				<div id="photoContainer">
+					<div class='overlay'>
+						<!-- Like START -->
+						<form method="post" action="/picture/{{ picture.slug }}/like">
+								<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-link{{else}}btn-success{{/ifCond}}" id="btn-like">
 
-						{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
-					</button>
-				</form>
-				<!-- Like FINISH -->
-
-				<img src="/uploads/{{picture.picture}}" class="img-responsive" >
-
+								{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
+							</button>
+						</form>
+						<!-- Like FINISH -->
+					</div>
+					<img src="/uploads/{{picture.picture}}" class="img-responsive" >
+				</div>
 				<!-- Comments START -->
 				<form method="post">
 					<div class="form-group">
@@ -48,10 +55,6 @@
 					
 			</section>
 		</article>
-		<aside class="col-xs-12 col-sm-4">
-				left 
-
-		</aside>
 	</div>
 	
 

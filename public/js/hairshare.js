@@ -7,6 +7,7 @@
 					hs.createForm();
 					hs.createPhotoEditor();
 					hs.followButton();
+					hs.likeButton();
 				});
 				return false;
 			},
@@ -104,7 +105,7 @@
 						$('form .message').addClass('error').html('Please write a comment');
 					}
 				});
-
+				
 
 				$('.countable').jqEasyCounter({
 					'minChars': 3,
@@ -215,7 +216,7 @@
 				formData.follow = ' ';
 		
 				$.ajax({
-				  url:'http://localhost:3000/kaorina1',//location.href,
+				  url:location.href,
 				  type: "post",
 				  data: formData
 				})
@@ -231,10 +232,41 @@
 						$('#btn-follow').html(follow);
 					//}
 				})
-				.fail(function(responseTxt){
-					$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-					$('form .message').addClass('error').html(responseTxt.status);
+				//.fail(function(responseTxt){
+					//$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+					//$('form .message').addClass('error').html(responseTxt.status);
+				//})
+				
+			});
+		},
+		likeButton: function(){
+			$('#btn-like').on('click', function(e){ //console.log('test')
+				e.preventDefault();
+				var formData = {};
+
+				formData.like = ' ';
+		
+				$.ajax({
+				  url: location.href +'/like',//'http://localhost:3000/picture/mini-552d/like'
+				  type: "post",
+				  data: formData
 				})
+				.done(function(responseTxt){ 
+					var follow = '';
+					if(responseTxt.status == 'unliked'){
+						follow = 'like';
+						$('#btn-like').removeClass('btn-link');
+					}else{
+						follow = 'unlike';
+						$('#btn-like').addClass('btn-link');
+					}
+						$('#btn-like').html(follow);
+					//}
+				})
+				//.fail(function(responseTxt){
+					//$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+					//$('form .message').addClass('error').html(responseTxt.status);
+				//})
 				
 			});
 		}

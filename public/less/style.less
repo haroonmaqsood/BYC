@@ -15,30 +15,31 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-.btn-default {
-	&, &:link, &:active, &:visited {
-  	color: #00E1C5 !important;
-  	border: 2px solid #00E1C5;
-  }
-  &:hover {
-  	color: darken(#00E1C5, 5%) !important;
-  	border: 2px solid darken(#00E1C5, 5%);
-  	background-color: transparent !important;
-  }
-}
+nav{
+	.btn-default {
+		&, &:link, &:active, &:visited {
+	  	color: #00E1C5 !important;
+	  	border: 2px solid #00E1C5;
+	  }
+	  &:hover {
+	  	color: darken(#00E1C5, 5%) !important;
+	  	border: 2px solid darken(#00E1C5, 5%);
+	  	background-color: transparent !important;
+	  }
+	}
 
-.btn-link {
-	&, &:link, &:active, &:visited {
-		text-decoration: none !important;
-  	color: #00E1C5 !important;
-  	border: none;
-  }
-  &:hover {
-  	color: darken(#00E1C5, 5%) !important;
-  	text-decoration: none !important;
-  }
+	.btn-link {
+		&, &:link, &:active, &:visited {
+			text-decoration: none !important;
+	  	color: #00E1C5 !important;
+	  	border: none;
+	  }
+	  &:hover {
+	  	color: darken(#00E1C5, 5%) !important;
+	  	text-decoration: none !important;
+	  }
+	}
 }
-
 span.nav-devide  {
 	color: darken(#f6f6f6, 5%);
 }
@@ -99,9 +100,6 @@ img{
 	    
 	    /* IE8+ - must be on one line, unfortunately */ 
         -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=3.061616999114022e-16, M12=1, M21=-1, M22=3.061616999114022e-16, SizingMethod='auto expand')";
-   
-
-
 	   
 	}
 	&.rotate-right{
@@ -145,7 +143,7 @@ img{
 		text-decoration: underline;
 	}
 }
-#btn-follow{
+#btn-follow, #btn-like{
 	text-transform: uppercase;
 }
 .nav-pills > li > a{
@@ -188,6 +186,25 @@ img{
 	}
 }
 
+#photoContainer{
+	max-width: 600px;
+	position: relative;
+	overflow: hidden;
+	.center-block();
+	.overlay{
+		background: rgba(255, 255, 255, 0.6);
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top:100%;
+
+	}
+	&:hover{
+		.overlay{
+			top:0;
+		}
+	}
+}
 
 
 @media (max-width: @screen-xs-max) { 
