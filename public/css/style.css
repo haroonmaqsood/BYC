@@ -6203,6 +6203,9 @@ body {
   color: #00c8af !important;
   text-decoration: none !important;
 }
+footer#site-footer {
+  text-align: center;
+}
 footer#site-footer .btn-link,
 footer#site-footer .btn-link:link,
 footer#site-footer .btn-link:active,
