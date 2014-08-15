@@ -224,9 +224,9 @@ module.exports = {
 
     var date  = new Date();
     
-    db.query("INSERT INTO like SET ?", {user_id:user_id, picture_id:picture_id, createdDttm:date }, function (err,results) {
+    db.query("INSERT INTO likes SET ?", {user_id:user_id, picture_id:picture_id, createdDttm:date }, function (err,results) {
 
-      // LOG TO SENTRY 
+      // LOG TO SENTRY
       // if (err) throw err;
       console.log(results)
       if (results.insertId)
@@ -240,7 +240,7 @@ module.exports = {
 
   unlikePicture: function (user_id, picture_id, cb) {
     
-    db.query("UPDATE like SET updatedDttm = NOW(), deletedDttm = NOW() WHERE user_id = ? AND picture_id = ?", [user_id, picture_id], function (err,results) {
+    db.query("UPDATE likes SET updatedDttm = NOW(), deletedDttm = NOW() WHERE user_id = ? AND picture_id = ?", [user_id, picture_id], function (err,results) {
 
       // LOG TO SENTRY
       // if (err) throw err;
@@ -255,6 +255,7 @@ module.exports = {
   },
 
   likeStatus: function (user_id, picture_id, cb) {
+<<<<<<< HEAD
     // db.query("SELECT COUNT(*) FROM like", function (err,results) { // , [user_id, picture_id]   // deletedDttm IS NULL AND  //  WHERE user_id = 18 AND picture_id = 35
     //   console.log(results)
     //   // LOG TO SENTRY
@@ -264,12 +265,16 @@ module.exports = {
 
     // db.query("SELECT * FROM like", function (err,results) {
       db.query("SELECT 1+2 AS LOL", function (err,results) {
+=======
+
+    db.query("SELECT COUNT(*) AS likeCount FROM likes WHERE deletedDttm IS NULL AND user_id = ? AND picture_id = ?", [user_id, picture_id], function (err,results) {
+>>>>>>> 75dc6bf48f2140b02156a0bb31656e532363a4cc
       console.log(results)
       // LOG TO SENTRY
       if (err) throw err;
-      return cb(results);
+      return cb(results[0].likeCount);
     });
-
+    
   },
 
 
