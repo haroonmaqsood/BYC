@@ -23,7 +23,7 @@
 								<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-link{{else}}btn-success{{/ifCond}}" id="btn-like">
 
 								{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
-							</button>
+								</button>
 						</form>
 						<!-- Like FINISH -->
 					</div>
@@ -36,6 +36,8 @@
 					</div>
 					<div class="message"></div>
 					<button type="submit" class="btn btn-default btn-success" id="btn-comment">Comment</button>
+					<input type="hidden" name="photoId" value="{{picture.user_id}}" />
+					<input type="hidden" name="username" value="{{user.username }}" />
 				</form>
 
 				<div class="comments">

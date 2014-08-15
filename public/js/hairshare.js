@@ -93,7 +93,7 @@
 						})
 						.done(function(){ 
 							//window.location.href = location.href;
-							$('ul').prepend('<li><span>' + $('.comments li:first-child').find('.picId').html() +'</span><span>'+$('textarea').val()+'</span><span>'+$('.comments li:first-child').find('.username').html()+'</span></li>');
+							$('ul').prepend('<li><span>' + $('input[name=photoId]').val() +'</span><span>'+$('textarea').val()+'</span><span>'+$('input[name=username]').val()+'</span></li>');
 							 $.scrollTo( 1000, 800 );//change this later
 						})
 						.fail(function(responseTxt){
