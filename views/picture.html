@@ -6,19 +6,23 @@
 			</header>
 			<section>
 				<h1>{{picture.title}}</h1>
+				<div>
+					{{#ifCond picture.user_id '===' user.id  }}
+						<a class="btn btn-default btn-success" href="/picture/{{picture.slug}}/edit" alt="Edit Picture">EDIT</a>
+					{{/ifCond}}
+				</div>
+				<!-- Like START -->
+				<form method="post" action="/picture/{{ picture.slug }}/like">
+						<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-danger{{else}}btn-success{{/ifCond}}">
 
-
-
-								{{likeStatus}}
-								<form method="post" action="/picture/{{ picture.slug }}/like">
-										<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-danger{{else}}btn-success{{/ifCond}}">
-
-										{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
-									</button>
-								</form>
+						{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
+					</button>
+				</form>
+				<!-- Like FINISH -->
 
 				<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
+				<!-- Comments START -->
 				<form method="post">
 					<div class="form-group">
 						<textarea placeholder="Comment here" name="comment" class="form-control" rows="3"></textarea>
@@ -38,11 +42,9 @@
 					{{/each}}
 					</ul>
 				</div>
-				<div>
-					{{#ifCond picture.user_id '===' user.id  }}
-						<a class="btn btn-default btn-success" href="/picture/{{picture.slug}}/edit" alt="Edit Picture">EDIT</a>
-					{{/ifCond}}
-				</div>
+				<!-- Comments FINISH -->
+				
+				
 					
 			</section>
 		</article>
