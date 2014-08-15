@@ -247,7 +247,7 @@
 				formData.like = ' ';
 		
 				$.ajax({
-				  url: location.href +'/like',//'http://localhost:3000/picture/mini-552d/like'
+				  url: location.href +'/like',
 				  type: "post",
 				  data: formData
 				})

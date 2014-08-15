@@ -29,12 +29,15 @@
 				</div>
 			</header>
 			
-			<section>						
+			<section id="dashboard-timeline">
+
+				<div class="photo">						
 			  {{#each userPictures}}
-			  <div class="col-xs-6 col-sm-4">
+			  	<div class="photo-sm">
 				  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/{{picture}}" class="img-responsive" ></a>
 				</div>
 			  {{/each}}
+			  </div>
 			</section>
 		</article>
 	</div>
