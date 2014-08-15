@@ -9,12 +9,28 @@
 @brand-primary:@color-primary;
 @font-colour: @color-white;
 
+.after() {
+    &:after {
+      content: "";
+      clear: both;
+      display: block;
+    }
+}
+.transition() {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out; /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
 
 body { 
   padding-top: 10px;
   font-family: 'Montserrat', sans-serif;
 }
 
+<<<<<<< HEAD
 nav{
 	.btn-default {
 		&, &:link, &:active, &:visited {
@@ -40,6 +56,47 @@ nav{
 	  }
 	}
 }
+=======
+.btn-default {
+	&, &:link, &:active, &:visited {
+  	color: #00E1C5 !important;
+  	border: 2px solid #00E1C5;
+  	.transition();
+  }
+  &:hover {
+  	color: darken(#00E1C5, 5%) !important;
+  	border: 2px solid darken(#00E1C5, 5%);
+  	background-color: transparent !important;
+  }
+}
+
+.btn-link {
+	&, &:link, &:active, &:visited {
+		text-decoration: none !important;
+  	color: #00E1C5 !important;
+  	border: none;
+  	.transition();
+  }
+  &:hover {
+  	color: darken(#00E1C5, 5%) !important;
+  	text-decoration: none !important;
+  }
+}
+
+footer#site-footer {
+	text-align: center;
+	.btn-link {
+		&, &:link, &:active, &:visited {
+	  	color: #a1a1a1 !important;
+	  	.transition();
+	  }
+	  &:hover {
+	  	color: #00E1C5 !important;
+	  }
+	}
+}
+
+>>>>>>> 6df9236469ae5884d0968bd5e0dc3f51b7d4952f
 span.nav-devide  {
 	color: darken(#f6f6f6, 5%);
 }

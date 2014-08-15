@@ -6173,6 +6173,12 @@ nav .btn-default:active,
 nav .btn-default:visited {
   color: #00E1C5 !important;
   border: 2px solid #00E1C5;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 nav .btn-default:hover {
   color: #00c8af !important;
@@ -6186,10 +6192,34 @@ nav .btn-link:visited {
   text-decoration: none !important;
   color: #00E1C5 !important;
   border: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 nav .btn-link:hover {
   color: #00c8af !important;
   text-decoration: none !important;
+}
+footer#site-footer {
+  text-align: center;
+}
+footer#site-footer .btn-link,
+footer#site-footer .btn-link:link,
+footer#site-footer .btn-link:active,
+footer#site-footer .btn-link:visited {
+  color: #a1a1a1 !important;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+footer#site-footer .btn-link:hover {
+  color: #00E1C5 !important;
 }
 span.nav-devide {
   color: #e9e9e9;
