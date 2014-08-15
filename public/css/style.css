@@ -6175,6 +6175,12 @@ nav .btn-default:active,
 nav .btn-default:visited {
   color: #00E1C5 !important;
   border: 2px solid #00E1C5;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 nav .btn-default:hover {
   color: #00c8af !important;
@@ -6188,44 +6194,14 @@ nav .btn-link:visited {
   text-decoration: none !important;
   color: #00E1C5 !important;
   border: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 nav .btn-link:hover {
-  color: #00c8af !important;
-  text-decoration: none !important;
-}
-.btn-default,
-.btn-default:link,
-.btn-default:active,
-.btn-default:visited {
-  color: #00E1C5 !important;
-  border: 2px solid #00E1C5;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -ms-transition: all 0.3s ease-out;
-  /* IE10 is actually unprefixed */
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-}
-.btn-default:hover {
-  color: #00c8af !important;
-  border: 2px solid #00c8af;
-  background-color: transparent !important;
-}
-.btn-link,
-.btn-link:link,
-.btn-link:active,
-.btn-link:visited {
-  text-decoration: none !important;
-  color: #00E1C5 !important;
-  border: none;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -ms-transition: all 0.3s ease-out;
-  /* IE10 is actually unprefixed */
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-}
-.btn-link:hover {
   color: #00c8af !important;
   text-decoration: none !important;
 }
@@ -6412,10 +6388,7 @@ img.rotate-right {
 .message.error {
   color: #ff0000;
 }
-/*.btn{
-	background: @color-orange;
-
-}*/
+/* buttons */
 .btn-link {
   color: #ff0000;
 }
@@ -6427,6 +6400,7 @@ img.rotate-right {
 #btn-like {
   text-transform: uppercase;
 }
+/* navs */
 .nav-pills > li > a {
   background: #2de0c5;
   color: #ffffff;
@@ -6434,6 +6408,7 @@ img.rotate-right {
 .nav-pills > li.active a {
   background: #24a390;
 }
+/* photo editor */
 #photoEditorContainer {
   padding: 0 10px;
 }
