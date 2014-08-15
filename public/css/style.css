@@ -6252,7 +6252,7 @@ img.rotate-right {
   background: #24a390;
 }
 #photoEditorContainer {
-  padding: 0;
+  padding: 0 10px;
 }
 #photoEditor {
   overflow: hidden;

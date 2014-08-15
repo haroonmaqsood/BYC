@@ -145,7 +145,7 @@ module.exports = {
 
   getPictureComments: function (picture_id, cb) {
 
-    db.query("SELECT * FROM comments WHERE picture_id = ?", [picture_id], function (err,results) {
+    db.query("SELECT * FROM comments WHERE picture_id = ? ORDER BY createdDttm DESC", [picture_id], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       
@@ -210,13 +210,67 @@ module.exports = {
   },
 
   followStatus: function (follower, following, cb) {
-    db.query("SELECT COUNT(*) as following FROM follow WHERE deletedDttm IS NULL AND follower = ? AND following = ?", [follower, following], function (err,results) {
+    db.query("SELECT COUNT(*) AS following FROM follow WHERE deletedDttm IS NULL AND follower = ? AND following = ?", [follower, following], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results[0].following);
     });
   },
 
+
+
+
+  likePicture: function (user_id, picture_id, cb) {
+
+    var date  = new Date();
+    
+    db.query("INSERT INTO like SET ?", {user_id:user_id, picture_id:picture_id, createdDttm:date }, function (err,results) {
+
+      // LOG TO SENTRY 
+      // if (err) throw err;
+      console.log(results)
+      if (results.insertId)
+        return cb(results.insertId);
+
+      return cb(false);
+
+    });
+   
+  },
+
+  unlikePicture: function (user_id, picture_id, cb) {
+    
+    db.query("UPDATE like SET updatedDttm = NOW(), deletedDttm = NOW() WHERE user_id = ? AND picture_id = ?", [user_id, picture_id], function (err,results) {
+
+      // LOG TO SENTRY
+      // if (err) throw err;
+      console.log(results)
+      if (results.affectedRows)
+        return cb(results.affectedRows);
+
+      return cb(false);
+
+    });
+
+  },
+
+  likeStatus: function (user_id, picture_id, cb) {
+    // db.query("SELECT COUNT(*) FROM like", function (err,results) { // , [user_id, picture_id]   // deletedDttm IS NULL AND  //  WHERE user_id = 18 AND picture_id = 35
+    //   console.log(results)
+    //   // LOG TO SENTRY
+    //   if (err) throw err;
+    //   return cb(results[0]);
+    // });
+
+    // db.query("SELECT * FROM like", function (err,results) {
+      db.query("SELECT 1+2 AS LOL", function (err,results) {
+      console.log(results)
+      // LOG TO SENTRY
+      if (err) throw err;
+      return cb(results);
+    });
+
+  },
 
 
 

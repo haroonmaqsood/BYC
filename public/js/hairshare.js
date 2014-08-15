@@ -6,7 +6,6 @@
 				$( document ).ready(function() {
 					hs.createForm();
 					hs.createPhotoEditor();
-					hs.createPhotoEditor();
 					hs.followButton();
 				});
 				return false;
@@ -121,52 +120,56 @@
 			},
 			createPhotoEditor: function(){
 				if($('#photoEditor').length){
-				//	var photoEdit = {
-			    	
-					var imgWidth,
-					    imgHeight,
-					    imgRotate; 
+					var imgWidth = 0,
+					    imgHeight =0 ,
+					    imgRotate = 0,
+					    img = $('#cropbox'); 
 
-			    	function init(){
-			    	 	imgWidth = $('#cropbox').width();
-			    		imgHeight = $('#cropbox').height();
+			    	function initPhotoEditor(){ 
+			    	 	imgWidth = img.width();
+			    		imgHeight = img.height();
 			    		imgRotate = 0;
-
 	
-						resize();
-			  			$('#cropbox').drags();
+						var imgOT = resize();
+//console.log(imgOT)
+			  			img.drags({orientation:imgOT});
 
-			  			//$('input[name=cropX]').val(leftPos);
+			  		//console.log(img, img.css.height,imgHeight,imgWidth, img.length, img.width())	//$('input[name=cropX]').val(leftPos);
 			            //$('input[name=cropY]').val(topPos);
-			           	$('input[name=cropW]').val(imgWidth);
-			            $('input[name=cropH]').val(imgHeight);
+			           //	$('input[name=cropW]').val(imgWidth);
+			            //$('input[name=cropH]').val(imgHeight);
 
 			    	};
 			    	function resize(){  
 			    		var containerWidth = $('#photoEditor').width(),
 			    			ratioContainer = containerWidth/600,
 			    			heightFrame = 730*ratioContainer,
-				    		widthImg = imgWidth || $('#cropbox').width(),
-				  			heightImg = imgHeight || $('#cropbox').height(),
-				  			rotateVal = $('input[name=rotate]').val();
+				    		widthImg = imgWidth,
+				  			heightImg = imgHeight,
+				  			rotateVal = $('input[name=rotate]').val(),
+				  			orientation;
 
 			  			$('#photoEditor').css({width:'100%', height:heightFrame});
-console.log(heightImg,widthImg)
+
 			  			if(widthImg < heightImg){
 			  				if ((rotateVal == 90)||(rotateVal == 270)){// rotated landscape
 				  				//console.log('rotated land')
-				  				$('#cropbox').css({width:'100%', height:'auto', 'margin-left':0});
+				  				img.css({width:heightFrame, height:'auto', 'margin-left':0});
+				  				orientation = 'land';
 				  			}else{ //portrait
 				  				//console.log('port')
-				  				$('#cropbox').css({width:'100%', height:'auto', 'margin-left':0});
+				  				img.css({width:'100%', height:'auto', 'margin-left':0});
+				  				orientation = 'port';
 				  			}
 			  			}else if (widthImg > heightImg){ 
 			  				if ((rotateVal == 90)||(rotateVal == 270)){// rotated portrait
 				  				//console.log('rotated po')
-				  				$( '#cropbox' ).css({width:'auto', height:'100%', 'margin-left':'-50%'});
+				  				img.css({width:'auto', height:'100%', 'margin-left':'-50%'});
+				  				orientation = 'port';
 				  			}else{//landscape
 				  				//console.log('land')
-				  				$( '#cropbox' ).css({width:'auto', height:'100%', 'margin-left':0});
+				  				img.css({width:'auto', height:'100%', 'margin-left':0});
+				  				orientation = 'land';
 				  			}
 			  			}else{
 			  				console.log('dont know what sort of image this is')
@@ -175,6 +178,7 @@ console.log(heightImg,widthImg)
 			  			$('input[name=cropW]').val(imgWidth);
 			            $('input[name=cropH]').val(imgHeight);
 
+			            return orientation;
 			  		};
 			  		function rotate(){
 			  			imgRotate = imgRotate +90;
@@ -186,12 +190,14 @@ console.log(heightImg,widthImg)
 
 				    	resize();
 				    	
-				    	$('#cropbox').rotate(imgRotate);
+				    	img.rotate(imgRotate);
 			  		}
 			   // };
 			    
-			    init();
-
+			   
+				$(window).load(function(){
+			  		initPhotoEditor();
+			  	});
 			  	$(window).resize(function(){
 			  		resize();
 			  	});

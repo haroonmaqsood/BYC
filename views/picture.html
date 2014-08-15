@@ -1,11 +1,19 @@
 {{> header}}
    	<div class="row">
-		<article class="col-xs-12 col-sm-8">
+		<article class="col-xs-12 col-sm-8 pull-right">
 			<header>
 				<h1>photo</h1>
 			</header>
 			<section>
 				<h1>{{picture.title}}</h1>
+
+
+				{{likeStatus}}
+								<form method="post" action="/{{ picture.slug }}">
+										<!-- MISSING CODE IN UNTITLES DOC -->
+										{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
+									</button>
+								</form>
 
 				<img src="/uploads/{{picture.picture}}" class="img-responsive" >
 
@@ -37,7 +45,8 @@
 			</section>
 		</article>
 		<aside class="col-xs-12 col-sm-4">
-				right 
+				left 
+
 		</aside>
 	</div>
 	
