@@ -8,15 +8,11 @@
 				<h1>{{picture.title}}</h1>
 
 
-<<<<<<< HEAD
-				{{likeStatus}}
-								<form method="post" action="/{{ picture.slug }}">
-										<!-- MISSING CODE IN UNTITLES DOC -->
-=======
+
 								{{likeStatus}}
 								<form method="post" action="/picture/{{ picture.slug }}/like">
 										<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-danger{{else}}btn-success{{/ifCond}}">
->>>>>>> 75dc6bf48f2140b02156a0bb31656e532363a4cc
+
 										{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
 									</button>
 								</form>
