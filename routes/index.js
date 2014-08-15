@@ -2,9 +2,22 @@ var express			= require('express'),
 		router			= express.Router(),
 		model				= require('../model');
 
-/* GET home page. */
+
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  
+  if (!req.isAuthenticated()) return res.redirect('/login');
+  if (!req.user.steptwo) return res.redirect('/steptwo');
+
+
+  
+
+  return res.render('index');
+  
+
+  
+
+  
+
 });
 
 module.exports = router;
