@@ -6294,12 +6294,12 @@ span.nav-devide {
 .container {
   max-width: 914px;
 }
-header {
-  margin-bottom: 10px;
-}
-header img {
-  max-height: 80px;
-}
+/*header{
+	margin-bottom: 10px;
+	img{
+		max-height: 80px;
+	}
+}*/
 article {
   padding: 20px;
   background: #2de0c5;
@@ -6318,6 +6318,9 @@ article form.full-width {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+section {
+  margin: 0 0 10px 0;
 }
 .message.error {
   color: #ff0000;
@@ -6358,17 +6361,21 @@ article form.full-width {
 #photoEditor #cropPhoto {
   position: absolute;
 }
-.comments {
+/* photo page */
+#comments {
   background: #ffffff;
   margin-top: 10px;
 }
-.comments ul {
+#comments ul {
   list-style: none;
   padding: 0 10px;
 }
-.comments ul li {
-  border-top: 1px solid #2de0c5;
+#comments ul li {
+  border-bottom: 1px solid #2de0c5;
   padding: 20px 0;
+}
+#comments .username {
+  color: #2de0c5;
 }
 #photoContainer {
   max-width: 600px;
@@ -6377,6 +6384,10 @@ article form.full-width {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+#photoContainer img {
+  border: 3px solid #2de0c5;
+  border-radius: 10px;
 }
 #photoContainer .overlay {
   background: rgba(255, 255, 255, 0.6);

@@ -10,6 +10,8 @@
 @font-colour: @color-white;
 
 @site-width: 914px !important;
+@vertical-margin:10px;
+@horizontal-martin:5px;
 
 
 /* MIXINS */
@@ -178,12 +180,12 @@ span.nav-devide  {
 	max-width: @site-width;
 }
 
-header{
+/*header{
 	margin-bottom: 10px;
 	img{
 		max-height: 80px;
 	}
-}
+}*/
 
 article{
 	padding: 20px;
@@ -203,6 +205,9 @@ article{
 	}
 }
 
+section{
+	margin: 0 0 @vertical-margin 0;
+}
 .message{
 	&.error{
 		color: @color-error;
@@ -251,16 +256,21 @@ article{
 		position: absolute;
 	}
 }
-.comments{
+
+/* photo page */
+#comments{
 	background: @color-white;
-	margin-top: 10px;
+	margin-top: @vertical-margin;
 	ul{
 		list-style: none;
 		padding: 0 10px;
 		li{
-			border-top: 1px solid @color-primary;
+			border-bottom: 1px solid @color-primary;
 			padding: 20px 0;
 		}
+	}
+	.username{
+		color:@color-primary;
 	}
 }
 
@@ -269,6 +279,10 @@ article{
 	position: relative;
 	overflow: hidden;
 	.center-block();
+	img{
+		border:3px solid @color-primary;
+		border-radius: 10px;
+	}
 	.overlay{
 		background: rgba(255, 255, 255, 0.6);
 		position: absolute;

@@ -83,7 +83,7 @@
 					e.preventDefault();
 					var formData = {};
 
-					formData.comment = $('textarea[name="comment"]').val();
+					formData.comment = $('input[name="comment"]').val();
 
 					if(formData.comment.trim().length > 0){
 						$.ajax({
@@ -93,15 +93,22 @@
 						})
 						.done(function(){ 
 							//window.location.href = location.href;
-							$('ul').prepend('<li><span>' + $('input[name=photoId]').val() +'</span><span>'+$('textarea').val()+'</span><span>'+$('input[name=username]').val()+'</span></li>');
-							 $.scrollTo( 1000, 800 );//change this later
+							var position,
+								comment = '<div class="row"><div class="col-xs-2"><img src="/img/place-holder.jpg"  alt="place-holder" class="img-responsive" />';
+								comment = comment + '</div><div class="col-xs-10"><span class="username">'+$('input[name=username]').val()+' </span>';
+								comment = comment + '<span class="comment">'+$('input[name=comment]').val()+'</span></div></div>';
+
+							$('#comments').find('ul').prepend('<li>' + comment +'</li>');
+
+							 position = $('#comments ul li:first-child').position().top;
+							 $.scrollTo( position, 500 );//change this later
 						})
 						.fail(function(responseTxt){
 							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
 							$('form .message').addClass('error').html(responseTxt.status);
 						})
 					}else{
-						$('form .form-group').addClass('has-error'); //.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+						$('form .input-group').addClass('has-error'); //.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
 						$('form .message').addClass('error').html('Please write a comment');
 					}
 				});
