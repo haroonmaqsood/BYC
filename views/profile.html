@@ -1,51 +1,43 @@
 {{> header}}
 
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12 col-sm-10">
-	       	<div class="row">
-				<article class="col-xs-12 col-sm-10 pull-right">
-					<header>
-						<div class="col-xs-4">
-							
-						</div>
-						<div class="col-xs-8">
-							ID: {{ profile.id }} <br>
-							Username: {{ profile.username }} <br>
-							Email: {{ profile.email }}<br>
-							Created: {{ profile.createdDttm }}<br>
-							
-
-							{{#ifCond profile.id '!==' user.id }}
-
-								<form method="post" action="/{{ profile.username }}">
-									<button type="submit" name="follow" id="btn-follow" class="btn {{#ifCond followStatus '>=' 1 }}btn-link{{else}}btn-success{{/ifCond}}">
-										{{#ifCond followStatus '>=' 1 }}UNFOLLOW{{else}}FOLLOW{{/ifCond}}
-									</button>
-								</form>
-								
-							{{/ifCond}}
-						</div>
-					</header>
+   	<div class="row">
+		<article class="col-xs-12 col-sm-8 pull-right">
+			<header>
+				<div class="col-xs-4">
 					
-					<section>						
-					  {{#each userPictures}}
-					  <div class="col-xs-6 col-sm-4">
-						  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/{{picture}}" class="img-responsive" ></a>
-						</div>
-					  {{/each}}
-					</section>
-				</article>
-				<aside class="col-xs-12 col-sm-2">
-						left 
-				</aside>
-			</div>
-		</div>
-		<aside class="col-xs-12 col-sm-2">
-			right
+				</div>
+				<div class="col-xs-8">
+					ID: {{ profile.id }} <br>
+					Username: {{ profile.username }} <br>
+					Email: {{ profile.email }}<br>
+					Created: {{ profile.createdDttm }}<br>
+					
+
+					{{#ifCond profile.id '!==' user.id }}
+
+						<form method="post" action="/{{ profile.username }}">
+							<button type="submit" name="follow" id="btn-follow" class="btn {{#ifCond followStatus '>=' 1 }}btn-link{{else}}btn-success{{/ifCond}}">
+								{{#ifCond followStatus '>=' 1 }}UNFOLLOW{{else}}FOLLOW{{/ifCond}}
+							</button>
+						</form>
+						
+					{{/ifCond}}
+				</div>
+			</header>
+			
+			<section>						
+			  {{#each userPictures}}
+			  <div class="col-xs-6 col-sm-4">
+				  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/{{picture}}" class="img-responsive" ></a>
+				</div>
+			  {{/each}}
+			</section>
+		</article>
+		<aside class="col-xs-12 col-sm-4">
+				left 
 		</aside>
 	</div>
-</div>
-<footer>
+
+
+
 {{> footer}}
-</footer>

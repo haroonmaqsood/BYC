@@ -1,31 +1,25 @@
 {{> header}}
-	<div class="row">
-		<div class="col-xs-12 col-sm-10">
-	       	<div class="row">
-				<article class="col-xs-12 col-sm-10 pull-right">
-					<header>
-						<h1>Upload</h1>
-					</header>
 
-					<section>
-						<div class="row">
-							<div class="col-xs-12 col-sm-offset-1 col-sm-10">
-								<form action="/upload" enctype="multipart/form-data" method="post">
-									<!-- <input multiple="multiple" name="upload" type="file" /> -->
-									<input type="file" name="upload" accept="image/*;capture=camera">
-									<input type="submit" value="Upload" class="btn btn-default" />
-								</form>
-							</div>
-						</div>
-					</section>
-				</article>
-				<aside class="col-xs-12 col-sm-2">
-						left 
-				</aside>
-			</div>
-		</div>
-		<aside class="col-xs-12 col-sm-2">
-			right
+   	<div class="row">
+		<article class="col-xs-12 col-sm-8  pull-right">
+			<header>
+				<h1>Upload</h1>
+			</header>
+
+			<section>
+				<div class="row">
+					<div class="col-xs-12 col-sm-offset-1 col-sm-10">
+						<form action="/upload" enctype="multipart/form-data" method="post">
+							<!-- <input multiple="multiple" name="upload" type="file" /> -->
+							<input type="file" name="upload" accept="image/*;capture=camera">
+							<input type="submit" value="Upload" class="btn btn-default" />
+						</form>
+					</div>
+				</div>
+			</section>
+		</article>
+		<aside class="col-xs-12 col-sm-4">
+				left 
 		</aside>
 	</div>
 

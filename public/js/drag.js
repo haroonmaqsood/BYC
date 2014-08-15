@@ -1,6 +1,6 @@
 (function($) {
     $.fn.drags = function(opt) {
-
+       
         opt = $.extend({handle:"",cursor:"move"}, opt);
 
         if(opt.handle === "") {
@@ -30,8 +30,8 @@
             $el.css({'marging-left':0});
 
             $drag.css('z-index', 1000).parents().on("mousemove", function(e) {
-      
-				if(heightDifference > widthDifference){
+      console.log(opt.orientation, e.pageY + pos_y - drg_h)
+				if(opt.orientation == 'port'){
 		    	 	topPos = $el.position().top*-1;
 
 		    		if((topPos>=0)&&(topPos <= heightDifference)){
@@ -50,7 +50,7 @@
 	           		}
 		    	} 
 
-		    	else if(heightDifference < widthDifference){
+		    	else if(opt.orientation == 'land'){
 		    		leftPos = $el.position().left;
 
 		    		if((leftPos >= widthDifference*-1)&&(leftPos<=0)){
@@ -73,8 +73,8 @@
 
             $('input[name=cropX]').val(leftPos);
             $('input[name=cropY]').val(topPos);
-           	$('input[name=cropW]').val($el.width());
-            $('input[name=cropH]').val($el.height());
+           //	$('input[name=cropW]').val($el.width());
+           // $('input[name=cropH]').val($el.height());
 
             });
             e.preventDefault(); // disable selection
