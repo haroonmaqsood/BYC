@@ -6302,10 +6302,11 @@ span.nav-devide {
 }*/
 main {
   max-width: 600px;
-  padding: 0;
+  padding: 0 !important;
 }
 aside {
   max-width: 309px;
+  padding: 0 !important;
 }
 article {
   padding: 20px;
@@ -6432,6 +6433,14 @@ section {
 @media (max-width: 767px) {
   article form.margin {
     width: 100%;
+  }
+  main {
+    max-width: none;
+    padding: 0 !important;
+  }
+  aside {
+    max-width: none;
+    padding: 0 !important;
   }
   .mobile-hide {
     display: none;
