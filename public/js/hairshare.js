@@ -100,15 +100,14 @@
 			    		imgRotate = 0;
 	
 						var imgOT = resize();
-//console.log(imgOT)
+
 			  			img.drags({orientation:imgOT});
 
 			  			addCounter();
-
-			  		//console.log(img, img.css.height,imgHeight,imgWidth, img.length, img.width())	//$('input[name=cropX]').val(leftPos);
-			            //$('input[name=cropY]').val(topPos);
-			           //	$('input[name=cropW]').val(imgWidth);
-			            //$('input[name=cropH]').val(imgHeight);
+			  			
+			  			$('#btn-rotate').on('click', function(){ 
+					    	rotate(); 
+					    });
 
 			    	};
 			    	function resize(){  
@@ -178,76 +177,71 @@
 						});
 			    	}
 			   
-				$(window).load(function(){
-			  		initPhotoEditor();
-			  	});
-			  	$(window).resize(function(){
-			  		resize();
-			  	});
-			  
-			    $('#btn-rotate').on('click', function(){ 
-			    	rotate();
-			    });
-			}
-		},
-		followButton: function(){
-			if($('#follow-form').length){
-				$('#btn-follow').on('click', function(e){ //console.log('test')
-					e.preventDefault();
-					var formData = {};
+					$(window).load(function(){
+				  		initPhotoEditor();
+				  	});
+				  	$(window).resize(function(){
+				  		resize();
+				  	});
+				    
+				}
+			},
+			followButton: function(){
+				if($('#follow-form').length){
+					$('#btn-follow').on('click', function(e){ //console.log('test')
+						e.preventDefault();
+						var formData = {};
 
-					formData.follow = ' ';
-			
-					$.ajax({
-					  url:location.href,
-					  type: "post",
-					  data: formData
-					})
-					.done(function(responseTxt){ 
-						var follow = '';
-						if(responseTxt.status == 'unfollowed'){
-							follow = 'Follow';
-							$('#btn-follow').removeClass('btn-link').addClass('btn-primary');
-						}else{
-							follow = 'Unfollow';
-							$('#btn-follow').removeClass('btn-primary').addClass('btn-link');
-						}
-							$('#btn-follow').html(follow);
-						
-					})
-				});
-			};
-		},
-		likeButton: function(){
-			if($('#like-form').length){
-				$('#btn-like').on('click', function(e){ //console.log('test')
-					e.preventDefault();
-					var formData = {};
+						formData.follow = ' ';
+				
+						$.ajax({
+						  url:location.href,
+						  type: "post",
+						  data: formData
+						})
+						.done(function(responseTxt){ 
+							var follow = '';
+							if(responseTxt.status == 'unfollowed'){
+								follow = 'Follow';
+								$('#btn-follow').removeClass('btn-link').addClass('btn-primary');
+							}else{
+								follow = 'Unfollow';
+								$('#btn-follow').removeClass('btn-primary').addClass('btn-link');
+							}
+								$('#btn-follow').html(follow);
+						});
+					});
+				};
+			},
+			likeButton: function(){
+				if($('#like-form').length){
+					$('#btn-like').on('click', function(e){ //console.log('test')
+						e.preventDefault();
+						var formData = {};
 
-					formData.like = ' ';
-			
-					$.ajax({
-					  url: location.href +'/like',
-					  type: "post",
-					  data: formData
-					})
-					.done(function(responseTxt){ 
-						var follow = '';
-						if(responseTxt.status == 'unliked'){
-							follow = 'like';
-							$('#btn-like').removeClass('btn-link');
-						}else{
-							follow = 'unlike';
-							$('#btn-like').addClass('btn-link');
-						}
-							$('#btn-like').html(follow);
-						//}
-					})
-				});
-			};
-		},
-		commentButton: function(){
-			$('#btn-comment').on('click', function(e){
+						formData.like = ' ';
+				
+						$.ajax({
+						  url: location.href +'/like',
+						  type: "post",
+						  data: formData
+						})
+						.done(function(responseTxt){ 
+							var follow = '';
+							if(responseTxt.status == 'unliked'){
+								follow = 'like';
+								$('#btn-like').removeClass('btn-link');
+							}else{
+								follow = 'unlike';
+								$('#btn-like').addClass('btn-link');
+							}
+								$('#btn-like').html(follow);
+						});
+					});
+				};
+			},
+			commentButton: function(){
+				$('#btn-comment').on('click', function(e){
 					e.preventDefault();
 					var formData = {};
 
@@ -280,18 +274,16 @@
 						$('form .message').addClass('error').html('Please write a comment');
 					}
 				});
-		}
+			}
 
-	}
+		}
 
 	hs.init($); 
   	
   	// IE fails to execute the script randomly without the timeout, /shrug
 	$(window).load(function () {		
-		//Bookadate.customFormElements();
+		//hs.customFormElements();
 	});
 
 	window.hs = $.extend(hairShaire, hs);
 }) (jQuery, window);
-
-//});
