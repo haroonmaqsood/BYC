@@ -11,6 +11,7 @@
 					hs.likeButton();
 					hs.commentButton();
 					hs.loadMorePhotos();
+					hs.uploadPhoto();
 				});
 				return false;
 			},
@@ -296,11 +297,39 @@
 							hiddenDiv.fadeIn();
 						})
 				  	});
-				  	
+
 				  	$(window).resize(function(){
 				  		setBtnSize();
 				  	});
 				}
+			},
+			uploadPhoto: function(){
+				var form = $('#upload-form'),
+					fileUpload = form.find('input[type="file"]'),
+					filename = form.find('input[name="filename"]'),
+					progress = form.find('.progress'),
+					progressBar = progress.find('.progress-bar'),
+					value = 0,
+					interval= null;
+
+				function animateProgressBar(){
+					if(value < 100) {
+						value = value + 10; 
+						progressBar.attr('style', 'width: '+value+'%');
+						progressBar.attr('aria-valuenow',value)
+						//pregoressBar.css({"width":value +'%'});
+					}else{
+						form.submit();
+						clearInterval(interval);
+					}
+				}
+
+				fileUpload.on('change',function(){
+					value =0;
+					filename.val($(this).val());
+					progress.show();
+					interval = setInterval(animateProgressBar,200);
+				})
 			}
 
 		}

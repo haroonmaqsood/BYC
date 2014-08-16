@@ -6343,6 +6343,32 @@ main form .btn-default {
   background: #f7941d;
   color: #ffffff;
 }
+main form .fileUpload {
+  position: relative;
+  overflow: hidden;
+  margin: 10px 0;
+}
+main form .fileUpload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+main form .progress {
+  display: none;
+}
+main form .progress .progress-bar {
+  background-color: #24a390;
+}
+main form input[name=filename] {
+  background: none;
+  border: none;
+}
 aside {
   max-width: 309px;
   padding: 0 !important;

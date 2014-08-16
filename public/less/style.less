@@ -232,6 +232,35 @@ main{
 			background: @color-orange;
 			color: @color-white;
 		}
+		.fileUpload {
+			position: relative;
+			overflow: hidden;
+			margin: @vertical-margin 0;
+		}
+		.fileUpload input.upload {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin: 0;
+			padding: 0;
+			font-size: 20px;
+			cursor: pointer;
+			opacity: 0;
+			filter: alpha(opacity=0);
+		}
+		.progress{
+			display: none;
+			.progress-bar{
+				background-color: @color-dark-primary;
+			}
+		}
+		
+		input{
+			&[name=filename]{
+				background: none;
+				border: none;
+			}
+		}
 	}
 }
 aside{
