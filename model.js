@@ -265,12 +265,40 @@ module.exports = {
   },
 
 
+  getRecentPictures: function (to, from, cb) {
+    db.query("SELECT * FROM picture ORDER BY id DESC LIMIT ?, ?", [to, from], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
+  getFollowing: function (user_id, cb) {
+    user_id = 17;
+    db.query("SELECT following FROM follow WHERE follower = ?", [user_id], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      var result = [];
+
+      for (var i = results.length - 1; i >= 0; i--) {
+        result[i] = results[i].following;
+      };
+
+      return cb(result);
+    });
+  },
 
 
 
-
-
-
+  getPicturesFromUsers: function (users, to, from, cb) {
+    if (users.length === 0) return cb(false);
+    
+    db.query("SELECT * FROM picture WHERE user_id IN (?) ORDER BY id DESC LIMIT ?, ?", [users, to, from], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      return cb(results);
+    });
+  },
 
 
 

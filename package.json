@@ -8,7 +8,6 @@
   "dependencies": {
     "express": "~4.2.0",
     "express-session": "~1.4.0",
-    "body-parser": "~1.0.0",
     "cookie-parser": "~1.0.1",
     "static-favicon": "~1.0.0",
     "morgan": "~1.0.0",
@@ -28,7 +27,9 @@
     "fs-extra": "^0.10.0",
     "util": "^0.10.3",
     "gm": "^1.16.0",
-    "speakingurl": "^0.11.0"
+    "speakingurl": "^0.11.0",
+    "body-parser": "^1.6.4",
+    "async": "^0.9.0"
   },
   "devDependencies": {
     "grunt-contrib-less": "^0.11.3",

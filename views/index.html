@@ -1,12 +1,8 @@
 {{> header}}
 
 <div class="row">
-	<aside class="col-xs-12 col-sm-4 pull-right">
 
-			right 
-
-	</aside>
-	<main class="col-xs-12 col-sm-8 pull-left">
+	<main>
 		
 		<div id="tab-menu">
 			<div class="tab selected"><span class="glyphicon glyphicon-heart"></span> Popular</div>
@@ -17,62 +13,18 @@
 
 			<div class="photo">
 				
+
+				{{#each popular_pics}}
 				<div class="photo-sm">
 					<div class="photo-holder">
-						<div class="like"><span class="glyphicon glyphicon-heart"></span></div>
-						<a href="#">
-							<img src="/img/kitten-place.jpg">
+						<!-- <div class="like"><span class="glyphicon glyphicon-heart"></span></div> -->
+						<a href="/picture/{{slug}}" title="{{title}}">
+							<img src="/uploads/{{picture}}" class="img-responsive" alt="{{title}}">
 						</a>
 					</div>
 				</div>
-				<div class="photo-sm">
-					<div class="photo-holder">
-						<div class="like"><span class="glyphicon glyphicon-heart"></span></div>
-						<a href="#">
-							<img src="/img/kitten-place.jpg">
-						</a>
-					</div>
-				</div>
-				<div class="photo-sm">
-					<div class="photo-holder">
-						<div class="like"><span class="glyphicon glyphicon-heart"></span></div>
-						<a href="#">
-							<img src="/img/kitten-place.jpg">
-						</a>
-					</div>
-				</div>
-				<div class="photo-sm">
-					<div class="photo-holder">
-						<div class="like"><span class="glyphicon glyphicon-heart"></span></div>
-						<a href="#">
-							<img src="/img/kitten-place.jpg">
-						</a>
-					</div>
-				</div>
-				<div class="photo-sm">
-					<div class="photo-holder">
-						<div class="like"><span class="glyphicon glyphicon-heart"></span></div>
-						<a href="#">
-							<img src="/img/kitten-place.jpg">
-						</a>
-					</div>
-				</div>
-				<div class="photo-sm">
-					<div class="photo-holder">
-						<div class="like"><span class="glyphicon glyphicon-heart"></span></div>
-						<a href="#">
-							<img src="/img/kitten-place.jpg">
-						</a>
-					</div>
-				</div>
-				<div class="photo-sm">
-					<div class="photo-holder">
-						<div class="like"><span class="glyphicon glyphicon-heart"></span></div>
-						<a href="#">
-							<img src="/img/kitten-place.jpg">
-						</a>
-					</div>
-				</div>
+				{{/each}}
+				
 
 			</div>
 

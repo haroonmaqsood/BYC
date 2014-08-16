@@ -7,7 +7,8 @@ var express 			= require('express'),
     gm 						= require('gm').subClass({ imageMagick: true }),
     fs            = require('fs-extra'),
     model	        = require('../model'),
-    getSlug       = require('speakingurl');
+    getSlug       = require('speakingurl'),
+    async         = require('async');
 
 
 /* GET users listing. */
@@ -27,45 +28,66 @@ router.post('/', function (req, res) {
 			token			= cryptoToken(16).toString('hex'),
 			file_name = req.user.id+'_'+token;
 
+
   form.parse(req, function(err, fields, files) {
+    console.log('form.parse START');
 
-    res.locals.pic = file_name;
-    res.redirect('/picture/'+token+'/edit');
+    // files.upload.type <--- USE IT TO CHECK IF ITS AN IMG
+    console.log(files.upload.type);
+    
+    // res.locals.pic = file_name;
+    // res.redirect('/picture/'+token+'/edit');
 
+    console.log('form.parse START');
   });
 
   form.on('end', function(fields, files) {
-    
-    var temp_path = this.openedFiles[0].path,
-    		file_ext	= utils.getExtension(this.openedFiles[0].name),
-    		new_location = 'public/uploads/';
+    console.log('form.on end START');
 
-    fs.copy(temp_path, new_location+file_name+file_ext, function(err) {  
-      if (err) {
-        console.error(err);
-      } else {
-      	console.log('uploaded!')
-
-      	var ip     = req.connection.remoteAddress || null,
-      			agent  = req.headers;
-
-      	model.uploadPicture(req.user.id, req.user.id+'_'+token+'.jpg', token, ip, agent, function(responce) {
-      		console.log(responce)
-      	});
-
-      	// CROPABILITY
-				// gm(appDir+'/'+new_location+file_name+file_ext).options({imageMagick: true}).write(appDir+'/'+new_location+file_name+'_crop.jpg', function (err) {
-				//   if (err) {
-				//   	console.log(err);
-				//   	return false
-				//   }
-
-				//   console.log('done');
-				// });
+    var temp_path     = this.openedFiles[0].path,
+    		new_location  = 'public/uploads/',
+        // needle        = files.upload.type,
+        haystack      = ['image/jpeg', 'image/png'];
 
 
-      }
-    });
+    // if (haystack.indexOf(needle)) {
+
+      gm(temp_path).size(function(err, value) {
+        if (err || value.width <= 599 || value.height <= 729) {
+          
+          // LOG TO SENTRY
+          if (err) throw err;
+          res.redirect('/upload?ERROR-OR-WIDTH-HEIGHT-TOO-SHORT');
+        
+        } else {
+
+          // IMAGE RESIZING
+          gm(temp_path).options({imageMagick: true})
+          .resize(600)
+          .write(new_location+file_name+'.jpg', function (err) {
+            if (err) {
+              console.log(err);
+              return false
+            }
+            
+            var ip     = req.connection.remoteAddress || null,
+                agent  = req.headers;
+
+            model.uploadPicture(req.user.id, req.user.id+'_'+token+'.jpg', token, ip, agent, function(responce) {
+              res.locals.pic = file_name;
+              res.redirect('/picture/'+token+'/edit');
+            });
+
+          });
+
+        }
+      });
+
+    // } else {
+    //   res.redirect('/upload?WRONG-FILE-FORMAT');
+    // }
+
+    console.log('form.on end FINISH');
   });
 
 });
