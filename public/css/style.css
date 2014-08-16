@@ -6380,9 +6380,6 @@ section {
 .message.error {
   color: #ff0000;
 }
-.mobile-only {
-  display: none;
-}
 /* buttons */
 .btn-link {
   color: #ff0000;
@@ -6494,27 +6491,31 @@ section {
     max-width: none;
     padding: 0 !important;
   }
-  .mobile-hide {
-    display: none;
-  }
-  .mobile-only {
+  #btn-loadMorePhotos {
     display: inline-block;
     text-align: center;
-  }
-  .mobile-only a {
     text-decoration: none;
     display: block;
   }
-  .mobile-only a span {
+  #btn-loadMorePhotos span {
     color: #800080;
     display: block;
     font-size: 1.2em;
   }
-  .mobile-only a span.glyphicon {
+  #btn-loadMorePhotos span.glyphicon {
     font-size: 4em;
   }
   .panel-default .panel-body .col-xs-4.col-sm-12,
   .panel-default .panel-body .col-xs-3.col-sm-12 {
     padding: 5px;
+  }
+  .mobile-hidden {
+    display: none;
+    border-top: none;
+    margin-top: -50px;
+    border-radius: 0 0 10px 10px;
+  }
+  .mobile-hidden .panel-heading {
+    display: none;
   }
 }
