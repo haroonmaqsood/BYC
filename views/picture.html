@@ -64,13 +64,16 @@
 			  </div>
 			  <div class="panel-body">
 			  	<div class="row">
-				  	<div class="col-xs-4">
+				  	<div class="col-xs-3 col-sm-4">
 				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
 					</div>
-				    <div class="col-xs-4">
+				    <div class="col-xs-3 col-sm-4">
 				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-3 col-sm-4">
+				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
+					</div>
+					<div class="col-xs-3 mobile-only">
 				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
 					</div>
 					<div class="mobile-hide">
@@ -139,20 +142,19 @@
 				</form>
 
 				<div id="comments">
-					<ul>
-					{{#each comments}}
-						<li>
-							<div class="row">
-								<div class="col-xs-2">
-									<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive" />
-								</div>
-								<div class="col-xs-10"> 
+					<ul class="media-list">
+						{{#each comments}}
+							<li class="media">
+								<a class="pull-left" href="#">
+									<img src="/img/place-holder.jpg" alt="place-holder" />
+								</a>
+								<div class="media-body">
 									<span class="username">{{username}}</span>
 									<span class="comment">{{comment}}</span>
 								</div>
-							</div>
-						</li>
-					{{/each}}
+								
+							</li>
+						{{/each}}
 					</ul>
 				</div>
 				<!-- Comments FINISH -->

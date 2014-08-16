@@ -299,6 +299,9 @@ section{
 		li{
 			border-bottom: 1px solid  @color-border;
 			padding: 20px 0;
+			img{
+				max-width: 60px;
+			}
 		}
 	}
 	.username{
@@ -385,5 +388,11 @@ section{
 				}
 			}
 		}
+	}
+}
+
+@media (min-width: @screen-sm-min) { 
+	.mobile-only{
+		display: none;
 	}
 }

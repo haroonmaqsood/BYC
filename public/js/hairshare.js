@@ -104,7 +104,7 @@
 			  			img.drags({orientation:imgOT});
 
 			  			addCounter();
-			  			
+
 			  			$('#btn-rotate').on('click', function(){ 
 					    	rotate(); 
 					    });
@@ -256,11 +256,11 @@
 						.done(function(){ 
 							//window.location.href = location.href;
 							var position,
-								comment = '<div class="row"><div class="col-xs-2"><img src="/img/place-holder.jpg"  alt="place-holder" class="img-responsive" />';
-								comment = comment + '</div><div class="col-xs-10"><span class="username">'+$('input[name=username]').val()+' </span>';
-								comment = comment + '<span class="comment">'+$('input[name=comment]').val()+'</span></div></div>';
+								comment = '<a class="pull-left" href="#"><img src="/img/place-holder.jpg"  alt="place-holder" /></a>';
+								comment = comment + '<div class="media-body"><span class="username">'+$('input[name=username]').val()+' </span>';
+								comment = comment + '<span class="comment">'+$('input[name=comment]').val()+'</span></div>';
 
-							$('#comments').find('ul').prepend('<li>' + comment +'</li>');
+							$('#comments').find('ul').prepend('<li class="media">' + comment +'</li>');
 
 							 position = $('#comments ul li:first-child').position().top;
 							 $.scrollTo( position, 500 );//change this later
