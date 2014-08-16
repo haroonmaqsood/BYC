@@ -280,8 +280,8 @@
 			loadMorePhotos:function(){
 				if($('#btn-loadMorePhotos').length){
 					var btn = $('#btn-loadMorePhotos'),
-						container = btn.closest('div.mobile-only'),
-						hiddenDiv = container.next('.mobile-hide'),
+						//container = btn.closest('div.mobile-only'),
+						hiddenDiv = $('#morePhotos'),
 						imgSize;
 
 					function setBtnSize(){
@@ -291,7 +291,7 @@
 					}
 
 					$(window).load(function(){
-				  		setBtnSize();
+				  		//setBtnSize();
 				  		btn.on('click', function(e){
 							e.preventDefault(); 
 							hiddenDiv.fadeIn();
@@ -299,7 +299,7 @@
 				  	});
 
 				  	$(window).resize(function(){
-				  		setBtnSize();
+				  		//setBtnSize();
 				  	});
 				}
 			},
@@ -316,8 +316,7 @@
 					if(value < 100) {
 						value = value + 10; 
 						progressBar.attr('style', 'width: '+value+'%');
-						progressBar.attr('aria-valuenow',value)
-						//pregoressBar.css({"width":value +'%'});
+						progressBar.attr('aria-valuenow',value);
 					}else{
 						form.submit();
 						clearInterval(interval);
