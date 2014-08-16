@@ -15,19 +15,28 @@
 					Email: {{ profile.email }}<br>
 					Created: {{ profile.createdDttm }}<br>
 				</div>
+				{{#ifCond profile.id '!==' user.id }}
+				<div class="col-xs-12">
+					<form method="post" action="/{{ profile.username }}" id="follow-form">
+						<button type="submit" name="follow" id="btn-follow" class="btn btn-block {{#ifCond followStatus '>=' 1 }}btn-link{{else}}btn-primary{{/ifCond}}">
+							{{#ifCond followStatus '>=' 1 }}UNFOLLOW{{else}}FOLLOW{{/ifCond}}
+						</button>
+					</form>
+				</div>
+				{{/ifCond}}
 			  </div>
 			  <div class="panel-footer">
-			  	<div class="row stats">
+			  	<div class="row badges">
 				  	<div class="col-xs-4">
-					    <strong>25</strong>
+					    <span class="badge">25</span>
 					    <span>Hairsnaps</span>
 					</div>
 				    <div class="col-xs-4">
-					    <strong>4k</strong>
+					    <span class="badge">4k</span>
 					    <span>Hairshares</span>
 					</div>
 					<div class="col-xs-4">
-					    <strong>1</strong>
+					    <span class="badge">1</span>
 					    <span>Likes</span>
 					</div>
 				</div>
@@ -92,24 +101,6 @@
 
 		</aside>
 		<main class="col-xs-12 col-sm-8">
-			<header>
-				<div class="col-xs-4">
-					
-				</div>
-				<div class="col-xs-8">
-					
-					{{#ifCond profile.id '!==' user.id }}
-
-						<form method="post" action="/{{ profile.username }}">
-							<button type="submit" name="follow" id="btn-follow" class="btn {{#ifCond followStatus '>=' 1 }}btn-link{{else}}btn-success{{/ifCond}}">
-								{{#ifCond followStatus '>=' 1 }}UNFOLLOW{{else}}FOLLOW{{/ifCond}}
-							</button>
-						</form>
-						
-					{{/ifCond}}
-				</div>
-			</header>
-			
 			<section id="dashboard-timeline">
 
 				<div class="photo">						

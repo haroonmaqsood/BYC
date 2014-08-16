@@ -2,7 +2,7 @@
    	<div class="row">
    		
 		<aside class="col-xs-12 col-sm-4 pull-right">
-				<div class="panel panel-default">
+			<div class="panel panel-default">
 			  <div class="panel-body row">
 			    <div class="col-xs-4">
 					<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive" />
@@ -13,19 +13,28 @@
 					Email: {{ profile.email }}<br>
 					Created: {{ profile.createdDttm }}<br>
 				</div>
+				{{#ifCond profile.id '!==' user.id }}
+				<div class="col-xs-12">
+					<form method="post" action="/{{ profile.username }}">
+						<button type="submit" name="follow" id="btn-follow" class="btn btn-block {{#ifCond followStatus '>=' 1 }}btn-link{{else}}btn-primary{{/ifCond}}">
+							{{#ifCond followStatus '>=' 1 }}UNFOLLOW{{else}}FOLLOW{{/ifCond}}
+						</button>
+					</form>
+				</div>
+				{{/ifCond}}
 			  </div>
 			  <div class="panel-footer">
-			  	<div class="row stats">
+			  	<div class="row badges">
 				  	<div class="col-xs-4">
-					    <strong>25</strong>
+					    <span class="badge">25</span>
 					    <span>Hairsnaps</span>
 					</div>
 				    <div class="col-xs-4">
-					    <strong>4k</strong>
+					    <span class="badge">4k</span>
 					    <span>Hairshares</span>
 					</div>
 					<div class="col-xs-4">
-					    <strong>1</strong>
+					    <span class="badge">1</span>
 					    <span>Likes</span>
 					</div>
 				</div>
@@ -89,7 +98,8 @@
 			</div> 
 
 		</aside>
-		<main class="col-xs-12 col-sm-8">			
+		<main class="col-xs-12 col-sm-8">		
+			<h1 class="sr-only">View photo</h1>	
 			<section>
 				{{#ifCond picture.title '!==' ''}}
 				<h1>{{picture.title}}</h1>
@@ -102,7 +112,7 @@
 						{{/ifCond}}
 
 						<!-- Like START -->
-						<form method="post" action="/picture/{{ picture.slug }}/like">
+						<form method="post" action="/picture/{{ picture.slug }}/like" id="like-form">
 								<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-link{{else}}btn-success{{/ifCond}}" id="btn-like">
 
 								{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}

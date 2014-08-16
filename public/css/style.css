@@ -6300,14 +6300,6 @@ span.nav-devide {
 		max-height: 80px;
 	}
 }*/
-main {
-  max-width: 600px;
-  padding: 0 !important;
-}
-aside {
-  max-width: 309px;
-  padding: 0 !important;
-}
 article {
   padding: 20px;
   background: #2de0c5;
@@ -6326,6 +6318,32 @@ article form.full-width {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+main {
+  max-width: 600px;
+  padding: 0 !important;
+}
+main form {
+  padding: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+main form.margin {
+  text-align: center;
+  padding: 10% 20%;
+}
+main form.full-width {
+  width: 100%;
+  max-width: 600px;
+}
+main form#signup-form,
+main form#login-form {
+  background: #2de0c5;
+}
+aside {
+  max-width: 309px;
+  padding: 0 !important;
 }
 section {
   margin: 0 0 10px 0;
@@ -6421,14 +6439,15 @@ section {
 .panel-default .panel-body .col-xs-4.col-sm-12 {
   padding: 10px 20px;
 }
-.panel-default .stats {
+.panel-default .badges {
   text-align: center;
   color: #800080;
 }
-.panel-default .stats strong {
+.panel-default .badges .badge {
   font-size: 30px;
   display: block;
   color: #eee509;
+  background: none;
 }
 @media (max-width: 640px) {
   article form.margin {

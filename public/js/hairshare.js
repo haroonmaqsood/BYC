@@ -4,127 +4,88 @@
 			init:function(){
 				"use strict";
 				$( document ).ready(function() {
-					hs.createForm();
+					hs.registeration();
+					hs.login();
 					hs.createPhotoEditor();
 					hs.followButton();
 					hs.likeButton();
+					hs.commentButton();
 				});
 				return false;
 			},
-			createForm: function(){
-				$('input#btn-login').on('click', function(e){
-					e.preventDefault();
-					var formData = {};
+			registeration: function(){
+				if($('#signup-form').length){
 
-					formData.username = $('input[name="username"]').val();
-					formData.password = $('input[name="password"]').val();
-					
-					$.ajax({
-					  url:"login",
-					  type: "post",
-					  data: formData
-					})
-					.done(function(){
-						window.location.href = "/";
-					})
-					.fail(function(){
-						$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-						$('form .message').addClass('error').html('Wrong login');
-					})
-				});
+					$('input#btn-signup').on('click', function(e){
+						e.preventDefault();
+						var formData = {};
 
-				$('input#btn-signup').on('click', function(e){
-					e.preventDefault();
-					var formData = {};
+						formData.email = $('input[name="email"]').val();
+						formData.username = $('input[name="username"]').val();
+						formData.password = $('input[name="password"]').val();
 
-					formData.email = $('input[name="email"]').val();
-					formData.username = $('input[name="username"]').val();
-					formData.password = $('input[name="password"]').val();
-
-					$.ajax({
-					  url:"Signup",
-					  type: "post",
-					  data: formData
-					})
-					.done(function(){ 
-						window.location.href = "/steptwo";
-					})
-					.fail(function(responseTxt){ 
-						$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-						$('form .message').addClass('error').html(responseTxt.status);
-					})
-				});
-				$('input#btn-steptwo').on('click', function(e){
-					e.preventDefault();
-					var formData = {};
-
-					formData.q1 = $('select[name="q1"]').val();
-					formData.q2 = $('input[name="q2"]').val();
-					formData.q3 = $('select[name="q3"]').val();
-					formData.q4 = $('select[name="q4"]').val();
-					formData.q5 = $('select[name="q5"]').val();
-					formData.q6 = $('input[name="q6"]').val();
-					formData.q7 = $('select[name="q7"]').val();
-
-					$.ajax({
-					  url:"steptwo",
-					  type: "post",
-					  data: formData
-					})
-					.done(function(){ 
-						window.location.href = "/";
-					})
-					.fail(function(responseTxt){
-						$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-						$('form .message').addClass('error').html(responseTxt.status);
-					})
-				});
-				$('#btn-comment').on('click', function(e){
-					e.preventDefault();
-					var formData = {};
-
-					formData.comment = $('input[name="comment"]').val();
-
-					if(formData.comment.trim().length > 0){
 						$.ajax({
-						  url:location.href,
+						  url:"Signup",
 						  type: "post",
 						  data: formData
 						})
 						.done(function(){ 
-							//window.location.href = location.href;
-							var position,
-								comment = '<div class="row"><div class="col-xs-2"><img src="/img/place-holder.jpg"  alt="place-holder" class="img-responsive" />';
-								comment = comment + '</div><div class="col-xs-10"><span class="username">'+$('input[name=username]').val()+' </span>';
-								comment = comment + '<span class="comment">'+$('input[name=comment]').val()+'</span></div></div>';
+							window.location.href = "/steptwo";
+						})
+						.fail(function(responseTxt){ 
+							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+							$('form .message').addClass('error').html(responseTxt.status);
+						})
+					});
+					$('input#btn-steptwo').on('click', function(e){
+						e.preventDefault();
+						var formData = {};
 
-							$('#comments').find('ul').prepend('<li>' + comment +'</li>');
+						formData.q1 = $('select[name="q1"]').val();
+						formData.q2 = $('input[name="q2"]').val();
+						formData.q3 = $('select[name="q3"]').val();
+						formData.q4 = $('select[name="q4"]').val();
+						formData.q5 = $('select[name="q5"]').val();
+						formData.q6 = $('input[name="q6"]').val();
+						formData.q7 = $('select[name="q7"]').val();
 
-							 position = $('#comments ul li:first-child').position().top;
-							 $.scrollTo( position, 500 );//change this later
+						$.ajax({
+						  url:"steptwo",
+						  type: "post",
+						  data: formData
+						})
+						.done(function(){ 
+							window.location.href = "/";
 						})
 						.fail(function(responseTxt){
 							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
 							$('form .message').addClass('error').html(responseTxt.status);
 						})
-					}else{
-						$('form .input-group').addClass('has-error'); //.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-						$('form .message').addClass('error').html('Please write a comment');
-					}
-				});
-				
+					});
+				}
+			
+			},
+			login: function(){
+				$('input#btn-login').on('click', function(e){
+						e.preventDefault();
+						var formData = {};
 
-				$('.countable').jqEasyCounter({
-					'minChars': 3,
-					'maxChars': 80,
-					'maxCharsWarning': 85,
-					'msgFontSize': '12px',
-					'msgFontColor': '#000',
-					'msgFontFamily': 'Verdana',
-					'msgTextAlign': 'left',
-					'msgWarningColor': '#F00',
-					'msgAppendMethod': 'insertAfter'				
-				});
+						formData.username = $('input[name="username"]').val();
+						formData.password = $('input[name="password"]').val();
+						
+						$.ajax({
+						  url:"login",
+						  type: "post",
+						  data: formData
+						})
+						.done(function(){
+							window.location.href = "/";
+						})
+						.fail(function(){
+							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+							$('form .message').addClass('error').html('Wrong login');
+						})
+					});
 			},
 			createPhotoEditor: function(){
 				if($('#photoEditor').length){
@@ -141,6 +102,8 @@
 						var imgOT = resize();
 //console.log(imgOT)
 			  			img.drags({orientation:imgOT});
+
+			  			addCounter();
 
 			  		//console.log(img, img.css.height,imgHeight,imgWidth, img.length, img.width())	//$('input[name=cropX]').val(leftPos);
 			            //$('input[name=cropY]').val(topPos);
@@ -200,8 +163,20 @@
 				    	
 				    	img.rotate(imgRotate);
 			  		}
-			   // };
-			    
+			   		
+			   		function addCounter(){
+				    	$('.countable').jqEasyCounter({
+							'minChars': 3,
+							'maxChars': 80,
+							'maxCharsWarning': 85,
+							'msgFontSize': '12px',
+							'msgFontColor': '#000',
+							'msgFontFamily': 'Verdana',
+							'msgTextAlign': 'left',
+							'msgWarningColor': '#F00',
+							'msgAppendMethod': 'insertAfter'				
+						});
+			    	}
 			   
 				$(window).load(function(){
 			  		initPhotoEditor();
@@ -210,72 +185,101 @@
 			  		resize();
 			  	});
 			  
-			    $('.btn-rotate').on('click', function(){ 
+			    $('#btn-rotate').on('click', function(){ 
 			    	rotate();
 			    });
 			}
 		},
 		followButton: function(){
-			$('#btn-follow').on('click', function(e){ //console.log('test')
-				e.preventDefault();
-				var formData = {};
+			if($('#follow-form').length){
+				$('#btn-follow').on('click', function(e){ //console.log('test')
+					e.preventDefault();
+					var formData = {};
 
-				formData.follow = ' ';
-		
-				$.ajax({
-				  url:location.href,
-				  type: "post",
-				  data: formData
-				})
-				.done(function(responseTxt){ 
-					var follow = '';
-					if(responseTxt.status == 'unfollowed'){
-						follow = 'Follow';
-						$('#btn-follow').removeClass('btn-link');
-					}else{
-						follow = 'Unfollow';
-						$('#btn-follow').addClass('btn-link');
-					}
-						$('#btn-follow').html(follow);
-					//}
-				})
-				//.fail(function(responseTxt){
-					//$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-					//$('form .message').addClass('error').html(responseTxt.status);
-				//})
-				
-			});
+					formData.follow = ' ';
+			
+					$.ajax({
+					  url:location.href,
+					  type: "post",
+					  data: formData
+					})
+					.done(function(responseTxt){ 
+						var follow = '';
+						if(responseTxt.status == 'unfollowed'){
+							follow = 'Follow';
+							$('#btn-follow').removeClass('btn-link').addClass('btn-primary');
+						}else{
+							follow = 'Unfollow';
+							$('#btn-follow').removeClass('btn-primary').addClass('btn-link');
+						}
+							$('#btn-follow').html(follow);
+						
+					})
+				});
+			};
 		},
 		likeButton: function(){
-			$('#btn-like').on('click', function(e){ //console.log('test')
-				e.preventDefault();
-				var formData = {};
+			if($('#like-form').length){
+				$('#btn-like').on('click', function(e){ //console.log('test')
+					e.preventDefault();
+					var formData = {};
 
-				formData.like = ' ';
-		
-				$.ajax({
-				  url: location.href +'/like',
-				  type: "post",
-				  data: formData
-				})
-				.done(function(responseTxt){ 
-					var follow = '';
-					if(responseTxt.status == 'unliked'){
-						follow = 'like';
-						$('#btn-like').removeClass('btn-link');
+					formData.like = ' ';
+			
+					$.ajax({
+					  url: location.href +'/like',
+					  type: "post",
+					  data: formData
+					})
+					.done(function(responseTxt){ 
+						var follow = '';
+						if(responseTxt.status == 'unliked'){
+							follow = 'like';
+							$('#btn-like').removeClass('btn-link');
+						}else{
+							follow = 'unlike';
+							$('#btn-like').addClass('btn-link');
+						}
+							$('#btn-like').html(follow);
+						//}
+					})
+				});
+			};
+		},
+		commentButton: function(){
+			$('#btn-comment').on('click', function(e){
+					e.preventDefault();
+					var formData = {};
+
+					formData.comment = $('input[name="comment"]').val();
+
+					if(formData.comment.trim().length > 0){
+						$.ajax({
+						  url:location.href,
+						  type: "post",
+						  data: formData
+						})
+						.done(function(){ 
+							//window.location.href = location.href;
+							var position,
+								comment = '<div class="row"><div class="col-xs-2"><img src="/img/place-holder.jpg"  alt="place-holder" class="img-responsive" />';
+								comment = comment + '</div><div class="col-xs-10"><span class="username">'+$('input[name=username]').val()+' </span>';
+								comment = comment + '<span class="comment">'+$('input[name=comment]').val()+'</span></div></div>';
+
+							$('#comments').find('ul').prepend('<li>' + comment +'</li>');
+
+							 position = $('#comments ul li:first-child').position().top;
+							 $.scrollTo( position, 500 );//change this later
+						})
+						.fail(function(responseTxt){
+							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+							$('form .message').addClass('error').html(responseTxt.status);
+						})
 					}else{
-						follow = 'unlike';
-						$('#btn-like').addClass('btn-link');
+						$('form .input-group').addClass('has-error'); //.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+						$('form .message').addClass('error').html('Please write a comment');
 					}
-						$('#btn-like').html(follow);
-					//}
-				})
-				//.fail(function(responseTxt){
-					//$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-					//$('form .message').addClass('error').html(responseTxt.status);
-				//})
-				
-			});
+				});
 		}
 
 	}

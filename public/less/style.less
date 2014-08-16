@@ -194,14 +194,7 @@ span.nav-devide  {
 		max-height: 80px;
 	}
 }*/
-main{
-	max-width: 600px;
-	padding: 0 !important;
-}
-aside{
-	max-width: 309px;
-	padding: 0 !important;
-}
+
 article{
 	padding: 20px;
 	background: @color-primary;
@@ -219,7 +212,31 @@ article{
 		}
 	}
 }
-
+main{
+	max-width: 600px;
+	padding: 0 !important;
+	form{
+		padding: 20px;
+		
+		.center-block();
+		&.margin{
+			text-align: center;
+			padding: 10% 20%;
+		}
+		&.full-width{
+			width: 100%;
+			max-width: 600px;
+		}
+		&#signup-form,
+		&#login-form{
+			background: @color-primary;	
+		}
+	}
+}
+aside{
+	max-width: 309px;
+	padding: 0 !important;
+}
 section{
 	margin: 0 0 @vertical-margin 0;
 }
@@ -328,13 +345,14 @@ section{
 			}
 		}
 	}
-	.stats{
+	.badges{
 		text-align: center;
 		color: @color-purple;
-		strong{
+		.badge{
 			font-size:@large-font-size;
 			display: block;
 			color: @color-yellow;
+			background: none;
 		}
 	}
 }

@@ -6,75 +6,88 @@
 		<aside class="col-xs-12 col-sm-4 pull-right">
 				right 
 		</aside>
-		<article class="col-xs-12 col-sm-8">
+		<main class="col-xs-12 col-sm-8">
 			<header>
 				<h1>Questions</h1>
 			</header>
 
 			<section>
-				<form method="post">
+				<form method="post" id="signup-form" class="form-horizontal"  role="form">
+					<div class="form-group">
+						<label class="col-sm-6 control-label">When did you last cut your hair?</label>
+						<div class="col-sm-6">
+							<select name="q1" class="form-control">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group has-feedback">
+						<label class="col-sm-6 control-label">How much did it cost you rougly?</label>
+						<div class="col-sm-6">
+							<input type="text" name="q2" class="form-control" placeholder="cost">
+						</div>
+					</div>
 
-					<label>When did you last cut your hair?</label>
-					<select name="q1">
-						<option value="one">One</option>
-						<option value="two">Two</option>
-						<option value="three">Three</option>
-					</select>
+					<div class="form-group has-feedback">
+						<label class="col-sm-6 control-label">What is your favourite hairstyle?</label>
+						<div class="col-sm-6">
+							<select name="q3" class="form-control">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
+						</div>
+					</div>
 
-					<br>
+					<div class="form-group has-feedback">
+						<label class="col-sm-6 control-label">What type of hair do you have?</label>
+						<div class="col-sm-6">
+							<select name="q4" class="form-control">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
+						</div>
+					</div>
 
-					<label>How much did it cost you rougly?</label>
-					<input type="text" name="q2" placeholder="cost">
+					<div class="form-group has-feedback">
+						<label class="col-sm-6 control-label">Current hair colour?</label>
+						<div class="col-sm-6">
+							<select name="q5" class="form-control">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
+						</div>
+					</div>
 
-					<br>
+					<div class="form-group has-feedback">
+						<label class="col-sm-6 control-label">Current salon location?</label>
+						<div class="col-sm-6">
+							<input type="text" name="q6" class="form-control" placeholder="location">
+						</div>
+					</div>
 
-					<label>What is your favourite hairstyle?</label>
-					<select name="q3">
-						<option value="one">One</option>
-						<option value="two">Two</option>
-						<option value="three">Three</option>
-					</select>
-
-					<br>
-
-					<label>What type of hair do you have?</label>
-					<select name="q4">
-						<option value="one">One</option>
-						<option value="two">Two</option>
-						<option value="three">Three</option>
-					</select>
-
-					<br>
-
-					<label>Current hair colour?</label>
-					<select name="q5">
-						<option value="one">One</option>
-						<option value="two">Two</option>
-						<option value="three">Three</option>
-					</select>
-
-					<br>
-
-					<label>Current salon location?</label>
-					<input type="text" name="q6" placeholder="location">
-
-					<br>
-
-					<label>How often do you cut?</label>
-					<select name="q7">
-						<option value="one">One</option>
-						<option value="two">Two</option>
-						<option value="three">Three</option>
-					</select>
-
-					<br>
+					<div class="form-group has-feedback">
+						<label class="col-sm-6 control-label">How often do you cut?</label>
+						<div class="col-sm-6">
+							<select name="q7" class="form-control">
+								<option value="one">One</option>
+								<option value="two">Two</option>
+								<option value="three">Three</option>
+							</select>
+						</div>
+					</div>
 
 					<input type="submit" name="submit" class="btn btn-default"  id="btn-steptwo">
 
 				</form>
 
 			</section>
-		</article>
+		</main>
 	</div>
 
 
