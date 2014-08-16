@@ -10,6 +10,7 @@
 					hs.followButton();
 					hs.likeButton();
 					hs.commentButton();
+					hs.loadMorePhotos();
 				});
 				return false;
 			},
@@ -274,6 +275,32 @@
 						$('form .message').addClass('error').html('Please write a comment');
 					}
 				});
+			},
+			loadMorePhotos:function(){
+				if($('#btn-loadMorePhotos').length){
+					var btn = $('#btn-loadMorePhotos'),
+						container = btn.closest('div.mobile-only'),
+						hiddenDiv = container.next('.mobile-hide'),
+						imgSize;
+
+					function setBtnSize(){
+						imgSize = container.prev('div').find('img').height();
+
+						btn.height(imgSize);	
+					}
+
+					$(window).load(function(){
+				  		setBtnSize();
+				  		btn.on('click', function(e){
+							e.preventDefault(); 
+							hiddenDiv.fadeIn();
+						})
+				  	});
+				  	
+				  	$(window).resize(function(){
+				  		setBtnSize();
+				  	});
+				}
 			}
 
 		}

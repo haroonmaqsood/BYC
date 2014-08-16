@@ -246,6 +246,9 @@ section{
 	}
 	
 }
+.mobile-only{
+	display: none;
+}
 
 /* buttons */
 .btn-link{
@@ -341,7 +344,8 @@ section{
 		color: @color-panel-header;
 	}
 	.panel-body{
-		.col-xs-4{
+		.col-xs-4,
+		.col-xs-3{
 			padding:@horizontal-margin;
 			&.col-sm-12{
 				padding: @vertical-margin @vertical-margin*2;
@@ -379,20 +383,30 @@ section{
 	.mobile-hide{
 		display: none;
 	}
+	.mobile-only{
+		display: inline-block;
+		text-align: center;
+		a{
+			text-decoration: none;
+			display: block;
+			span{
+				color: @color-purple;
+				display: block;
+				font-size: 1.2em;
+				&.glyphicon{
+					font-size: 4em;	
+				}
+			}	
+		}
+	}
 	.panel-default {
 		.panel-body{
-			.col-xs-4{
-				padding:@horizontal-margin;
+			.col-xs-4,
+			.col-xs-3{
 				&.col-sm-12{
 					padding: @horizontal-margin;
 				}
 			}
 		}
-	}
-}
-
-@media (min-width: @screen-sm-min) { 
-	.mobile-only{
-		display: none;
 	}
 }

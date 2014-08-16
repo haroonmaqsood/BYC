@@ -6351,6 +6351,9 @@ section {
 .message.error {
   color: #ff0000;
 }
+.mobile-only {
+  display: none;
+}
 /* buttons */
 .btn-link {
   color: #ff0000;
@@ -6436,10 +6439,12 @@ section {
   background-color: #2de0c5;
   color: #ffffff;
 }
-.panel-default .panel-body .col-xs-4 {
+.panel-default .panel-body .col-xs-4,
+.panel-default .panel-body .col-xs-3 {
   padding: 5px;
 }
-.panel-default .panel-body .col-xs-4.col-sm-12 {
+.panel-default .panel-body .col-xs-4.col-sm-12,
+.panel-default .panel-body .col-xs-3.col-sm-12 {
   padding: 10px 20px;
 }
 .panel-default .badges {
@@ -6467,15 +6472,24 @@ section {
   .mobile-hide {
     display: none;
   }
-  .panel-default .panel-body .col-xs-4 {
-    padding: 5px;
-  }
-  .panel-default .panel-body .col-xs-4.col-sm-12 {
-    padding: 5px;
-  }
-}
-@media (min-width: 640px) {
   .mobile-only {
-    display: none;
+    display: inline-block;
+    text-align: center;
+  }
+  .mobile-only a {
+    text-decoration: none;
+    display: block;
+  }
+  .mobile-only a span {
+    color: #800080;
+    display: block;
+    font-size: 1.2em;
+  }
+  .mobile-only a span.glyphicon {
+    font-size: 4em;
+  }
+  .panel-default .panel-body .col-xs-4.col-sm-12,
+  .panel-default .panel-body .col-xs-3.col-sm-12 {
+    padding: 5px;
   }
 }
