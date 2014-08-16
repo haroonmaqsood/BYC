@@ -6338,8 +6338,13 @@ main form.full-width {
   max-width: 600px;
 }
 main form#signup-form,
-main form#login-form {
+main form#login-form,
+main form#upload-form {
   background: #2de0c5;
+}
+main form .btn-default {
+  background: #f7941d;
+  color: #ffffff;
 }
 aside {
   max-width: 309px;

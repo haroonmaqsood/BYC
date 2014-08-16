@@ -5,25 +5,22 @@
 		<aside class="col-xs-12 col-sm-4 pull-right">
 				right 
 		</aside>
-		<article class="col-xs-12 col-sm-8">
+		<main class="col-xs-12 col-sm-8">
 			<header>
-				<h1>Upload</h1>
+				<h1>Upload photo</h1>
 			</header>
 
 			<section>
-				<div class="row">
-					<div class="col-xs-12 col-sm-offset-1 col-sm-10">
-						<form action="/upload" enctype="multipart/form-data" method="post">
-							<!-- <input multiple="multiple" name="upload" type="file" /> -->
-							<input type="file" name="upload" accept="image/*;capture=camera">
-							<input type="submit" value="Upload" class="btn btn-default" />
-						</form>
-					</div>
-				</div>
+				
+				<form action="/upload" enctype="multipart/form-data" method="post" id="upload-form">
+					<p>Please choose a photo</a>
+					<!-- <input multiple="multiple" name="upload" type="file" /> -->
+					<input type="file" name="upload" accept="image/*;capture=camera">
+					<input type="submit" value="Upload" class="btn btn-default" />
+				</form>
+					
 			</section>
-		</article>
+		</main>
 	</div>
-
-
 
 {{> footer}}
