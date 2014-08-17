@@ -92,7 +92,7 @@
 			createPhotoEditor: function(){
 				if($('#photoEditor').length){
 					var imgWidth = 0,
-					    imgHeight =0 ,
+					    imgHeight = 0,
 					    imgRotate = 0,
 					    img = $('#cropbox'); 
 

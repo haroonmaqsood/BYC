@@ -105,9 +105,23 @@
 			<section>
 				<div class="row">
 					<div class="col-xs-12" id="photoEditorContainer">
-						<div id="photoEditor">
-							<img src="/uploads/{{picture.picture}}" class="cropimage" id="cropbox"/>
+
+
+						<div id="crop" class="hs">
+							<div class="cropMain"></div>
+							<div class="cropSlider"></div>
+							<button class="cropButton">Crop</button>
 						</div>
+
+<!-- 						<div id="crop" class="hs-mobile hidden">
+							<div class="cropMain"></div>
+							<div class="cropSlider"></div>
+							<button class="cropButton">Crop</button>
+						</div> -->
+
+						<!-- <div id="photoEditor">
+							<img src="/uploads/{{picture.picture}}" class="cropimage" id="cropbox"/>
+						</div> -->
 						<form method="post" class="full-width" id="edit-form">
 							<div class="results">
 							    <b>X</b>: <input type="number" name="cropX" />
@@ -126,4 +140,44 @@
 			</section>
 		</main>
 	</div>
+
+	<script src="/js/crop.js"></script>
+	<script>
+
+			var hs = new CROP('');
+			hs.init('.hs');
+			hs.loadImg('/uploads/{{picture.picture}}');
+
+
+
+		function crop() {
+			if ($(window).width() <= 600) {
+				$('.cropMain').html('');
+				$('.cropSlider').html('');
+				$('#crop').removeClass('hs');
+				$('#crop').addClass('hs-mobile');
+				hs.init('.hs-mobile');
+				hs.loadImg('/uploads/{{picture.picture}}');
+			} else {
+				$('.cropMain').html('');
+				$('.cropSlider').html('');
+				$('#crop').removeClass('hs-mobile');
+				$('#crop').addClass('hs');
+				hs.init('.hs');
+				hs.loadImg('/uploads/{{picture.picture}}');
+			}
+		}
+
+		crop();
+		$(window).resize(function() {
+			crop();
+		});
+
+		// send coordinates for processing
+		// you may call the coordinates with the function coordinates(one);
+		$(document).on('click', 'button', function() {
+			console.log($.param(coordinates(hs)))
+		});
+
+	</script>
 {{> footer}}

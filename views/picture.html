@@ -108,12 +108,13 @@
 				{{#ifCond picture.title '!==' ''}}
 				<h1>{{picture.title}}</h1>
 				{{/ifCond}}
+				
+				{{#ifCond picture.user_id '===' user.id  }}
+					<a class="btn btn-default btn-success" href="/picture/{{picture.slug}}/edit" title="Edit Picture">EDIT</a>
+				{{/ifCond}}
+				
 				<div id="photoContainer">
 					<div class='overlay'>
-
-						{{#ifCond picture.user_id '===' user.id  }}
-							<a class="btn btn-default btn-success" href="/picture/{{picture.slug}}/edit" title="Edit Picture">EDIT</a>
-						{{/ifCond}}
 
 						<!-- Like START -->
 						<form method="post" action="/picture/{{ picture.slug }}/like" id="like-form">
