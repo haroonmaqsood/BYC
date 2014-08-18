@@ -101,16 +101,31 @@ hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
 
 
 // MySQL
-var mysql = require('mysql');
-global.db = mysql.createConnection({
-  host     : '127.0.0.1',
-  port     : '8889',
-  user     : 'root',
-  password : 'root',
-  database : 'AlexPhotoProject',
-});
 
-db.connect();
+if (app.get('env') === 'development') {
+  var mysql = require('mysql');
+  global.db = mysql.createConnection({
+    host     : '127.0.0.1',
+    port     : '8889',
+    user     : 'root',
+    password : 'root',
+    database : 'AlexPhotoProject',
+  });
+  db.connect();
+} 
+
+if (app.get('env') === 'production') {
+  var mysql = require('mysql');
+  global.db = mysql.createConnection({
+    host     : '127.0.0.1',
+    port     : '3306',
+    user     : 'root',
+    password : 'Spectrum3',
+    database : 'AlexPhotoProject',
+  });
+  db.connect();
+} 
+  
 
 var incPass = require('./inc/passport');
 incPass.funcTest(app);
