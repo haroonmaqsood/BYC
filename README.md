@@ -5,6 +5,8 @@
 - Cropping tool
 - Like button styling
 - Upload Page
+- If someone follows 3 people then they are forced to the follow tab.
+- Invert like so when someone likes you then the counter goes up. 
 
 ##### ALEX
 - Placeholder Image

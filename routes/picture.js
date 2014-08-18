@@ -5,6 +5,8 @@ var express			= require('express'),
 
 
 router.get('/:slug', function(req, res, next) {
+	if (!req.isAuthenticated() )
+  	return res.redirect('/login');
 	var slug = '';
 	if (req.params.slug)
 		slug = req.params.slug;

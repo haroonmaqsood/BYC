@@ -6,6 +6,10 @@ var express 				= require('express'),
 
 /* GET users listing. */
 router.get('/:username', function(req, res, next) {
+
+	if (!req.isAuthenticated() )
+  	return res.redirect('/login');
+
 	var username = "GUEST";
 
 	if (req.params.username !== 'undefined') {
