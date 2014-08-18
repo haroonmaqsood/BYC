@@ -342,7 +342,7 @@
 				}
 			},
 			loadImages: function(){
-				if($('#dashboard-timeline').length){
+				if($('#index #dashboard-timeline').length){
 					var formData = {},
 						url = '/api/following?'; 
 
