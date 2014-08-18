@@ -189,8 +189,8 @@
 				}
 			},
 			followButton: function(){
-				if($('#follow-form').length){
-					$('#btn-follow').on('click', function(e){ //console.log('test')
+				if($('#btn-follow').length){
+					$('#btn-follow').on('click', function(e){ 
 						e.preventDefault();
 						var formData = {};
 
