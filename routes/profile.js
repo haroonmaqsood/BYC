@@ -26,17 +26,22 @@ router.get('/:username', function(req, res, next) {
 	  	}
 	  	res.locals.profile = responce_getProfile[0];
 	  	
-	  	model.getPictures(responce_getProfile[0].id, function(responce_getPictures) {
+	  	model.getPictures(responce_getProfile[0].id, true, function(responce_getPictures) {
 	  		res.locals.userPictures = responce_getPictures;
 	  		
-	  		if (req.user.id !== responce_getProfile[0].id) {
-		  		model.followStatus(req.user.id, res.locals.profile.id, function(responce_followStatus) {
-		  			res.locals.followStatus = responce_followStatus;
-		  			return res.render('profile');
-		  		});
-		  	} else {
-		  		return res.render('profile');
-		  	}
+	  		model.getPictures(responce_getProfile[0].id, false, function(responce_getPicturesNoneCropped) {
+	  		res.locals.userPicturesNoneCropped = responce_getPicturesNoneCropped;
+
+		  		if (req.user.id !== responce_getProfile[0].id) {
+			  		model.followStatus(req.user.id, res.locals.profile.id, function(responce_followStatus) {
+			  			res.locals.followStatus = responce_followStatus;
+			  			return res.render('profile');
+			  		});
+			  	} else {
+			  		return res.render('profile');
+			  	}
+
+		  	});
 
 	  	});
 

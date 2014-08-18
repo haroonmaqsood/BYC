@@ -104,9 +104,9 @@
 			</div> 
 		</aside>
 		<main class="col-xs-12 col-sm-8">
-			<section id="dashboard-timeline">
-
-				<div class="photo">						
+			<h2>Public</h2>
+			<section id="dashboard-timeline">				
+				<div class="photo">		
 			  {{#each userPictures}}
 			  	<div class="photo-sm">
 				  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/cropped/{{picture}}" class="img-responsive" ></a>
@@ -114,6 +114,19 @@
 			  {{/each}}
 			  </div>
 			</section>
+
+			<h2>Requires Attention (Not Public)</h2>
+			<section id="dashboard-timeline">
+				<div class="photo">						
+			  {{#each userPicturesNoneCropped}}
+			  	<div class="photo-sm">
+				  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/{{picture}}" class="img-responsive" ></a>
+				</div>
+			  {{/each}}
+			  </div>
+			</section>
+
+			
 		</main>
 	</div>
 
