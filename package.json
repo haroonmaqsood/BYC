@@ -25,7 +25,6 @@
     "valid-url": "^1.0.9",
     "formidable": "^1.0.15",
     "fs-extra": "^0.10.0",
-    "util": "^0.10.3",
     "gm": "^1.16.0",
     "speakingurl": "^0.11.0",
     "body-parser": "^1.6.4",
