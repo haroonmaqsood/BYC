@@ -265,12 +265,15 @@ module.exports = {
   },
 
 
-  getRecentPictures: function (to, from, cb) {
-    db.query("SELECT * FROM picture ORDER BY id DESC LIMIT ?, ?", [to, from], function (err,results) {
+  getRecentPictures: function (from, too, cb) {
+    console.log(from)
+    console.log(too)
+    var query = db.query("SELECT * FROM picture ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
     });
+    console.log(query.sql);
   },
 
   getFollowing: function (user_id, cb) {
@@ -289,10 +292,12 @@ module.exports = {
 
 
 
-  getPicturesFromUsers: function (users, to, from, cb) {
+  getPicturesFromUsers: function (users, from, too, cb) {
+    console.log(from)
+    console.log(too)
     if (users.length === 0) return cb(false);
     
-    db.query("SELECT * FROM picture WHERE user_id IN (?) ORDER BY id DESC LIMIT ?, ?", [users, to, from], function (err,results) {
+    db.query("SELECT * FROM picture WHERE user_id IN (?) ORDER BY id DESC LIMIT ?, ?", [users, from, too], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);

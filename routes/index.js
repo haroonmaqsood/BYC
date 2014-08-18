@@ -19,12 +19,12 @@ router.get('/', function(req, res) {
 
   // });
 
-  // POPULAR
-  model.getRecentPictures(0, 10, function(responce) {
-  	res.locals.popular_pics = responce
+  // // POPULAR
+  // model.getRecentPictures(0, 10, function(responce) {
+  // 	res.locals.popular_pics = responce
 
-  	return res.render('index');
-  });  
+  // 	return res.render('index');
+  // });  
 
 });
 

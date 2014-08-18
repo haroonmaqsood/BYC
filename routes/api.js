@@ -10,11 +10,13 @@ router.get('/popular', function(req, res) {
 
 
   // POPULAR
-  var from   = req.body.from,
-      too    = req.body.to;
+  var from   = parseInt(req.query.from),
+      too    = parseInt(req.query.too);
+  
 
   if (!from) from = 0;
   if (!too) too = 10;
+
   model.getRecentPictures(from, too, function(responce) {
   	return res.send(responce);
   });  
@@ -31,8 +33,8 @@ router.get('/following', function(req, res) {
 
   // FOLLOWING
   model.getFollowing(req.user.id, function(following) {
-    var from   = req.body.from,
-        too    = req.body.to;
+    var from   = parseInt(req.query.from),
+        too    = parseInt(req.query.too);
   
     if (!from) from = 0;
     if (!too) too = 10;
