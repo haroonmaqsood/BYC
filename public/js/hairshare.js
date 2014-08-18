@@ -12,6 +12,7 @@
 					hs.commentButton();
 					hs.loadMorePhotos();
 					hs.uploadPhoto();
+					hs.loadImages();
 				});
 				return false;
 			},
@@ -20,14 +21,15 @@
 
 					$('input#btn-signup').on('click', function(e){
 						e.preventDefault();
-						var formData = {};
+						var formData = {},
+							url = "Signup";
 
 						formData.email = $('input[name="email"]').val();
 						formData.username = $('input[name="username"]').val();
 						formData.password = $('input[name="password"]').val();
 
 						$.ajax({
-						  url:"Signup",
+						  url: url,
 						  type: "post",
 						  data: formData
 						})
@@ -41,7 +43,8 @@
 					});
 					$('input#btn-steptwo').on('click', function(e){
 						e.preventDefault();
-						var formData = {};
+						var formData = {},
+							url = "steptwo";
 
 						formData.q1 = $('select[name="q1"]').val();
 						formData.q2 = $('input[name="q2"]').val();
@@ -52,7 +55,7 @@
 						formData.q7 = $('select[name="q7"]').val();
 
 						$.ajax({
-						  url:"steptwo",
+						  url: url,
 						  type: "post",
 						  data: formData
 						})
@@ -70,13 +73,14 @@
 			login: function(){
 				$('input#btn-login').on('click', function(e){
 						e.preventDefault();
-						var formData = {};
+						var formData = {},
+							url = "login";
 
 						formData.username = $('input[name="username"]').val();
 						formData.password = $('input[name="password"]').val();
 						
 						$.ajax({
-						  url:"login",
+						  url:url,
 						  type: "post",
 						  data: formData
 						})
@@ -192,12 +196,13 @@
 				if($('#btn-follow').length){
 					$('#btn-follow').on('click', function(e){ 
 						e.preventDefault();
-						var formData = {};
+						var formData = {},
+							url = location.href;
 
 						formData.follow = ' ';
 				
 						$.ajax({
-						  url:location.href,
+						  url:url,
 						  type: "post",
 						  data: formData
 						})
@@ -219,12 +224,13 @@
 				if($('#like-form').length){
 					$('#btn-like').on('click', function(e){ //console.log('test')
 						e.preventDefault();
-						var formData = {};
+						var formData = {},
+							url = location.href +'/like';
 
 						formData.like = ' ';
 				
 						$.ajax({
-						  url: location.href +'/like',
+						  url: url,
 						  type: "post",
 						  data: formData
 						})
@@ -243,39 +249,42 @@
 				};
 			},
 			commentButton: function(){
-				$('#btn-comment').on('click', function(e){
-					e.preventDefault();
-					var formData = {};
+				if($('#btn-comment').length){
+					$('#btn-comment').on('click', function(e){
+						e.preventDefault();
+						var formData = {},
+							url = location.href;
 
-					formData.comment = $('input[name="comment"]').val();
+						formData.comment = $('input[name="comment"]').val();
 
-					if(formData.comment.trim().length > 0){
-						$.ajax({
-						  url:location.href,
-						  type: "post",
-						  data: formData
-						})
-						.done(function(){ 
-							//window.location.href = location.href;
-							var position,
-								comment = '<a class="pull-left" href="#"><img src="/img/place-holder.jpg"  alt="place-holder" /></a>';
-								comment = comment + '<div class="media-body"><span class="username">'+$('input[name=username]').val()+' </span>';
-								comment = comment + '<span class="comment">'+$('input[name=comment]').val()+'</span></div>';
+						if(formData.comment.trim().length > 0){
+							$.ajax({
+							  url:url,
+							  type: "post",
+							  data: formData
+							})
+							.done(function(){ 
+								//window.location.href = location.href;
+								var position,
+									comment = '<a class="pull-left" href="#"><img src="/img/place-holder.jpg"  alt="place-holder" /></a>';
+									comment = comment + '<div class="media-body"><span class="username">'+$('input[name=username]').val()+' </span>';
+									comment = comment + '<span class="comment">'+$('input[name=comment]').val()+'</span></div>';
 
-							$('#comments').find('ul').prepend('<li class="media">' + comment +'</li>');
+								$('#comments').find('ul').prepend('<li class="media">' + comment +'</li>');
 
-							 position = $('#comments ul li:first-child').position().top;
-							 $.scrollTo( position, 500 );//change this later
-						})
-						.fail(function(responseTxt){
-							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-							$('form .message').addClass('error').html(responseTxt.status);
-						})
-					}else{
-						$('form .input-group').addClass('has-error'); //.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-						$('form .message').addClass('error').html('Please write a comment');
-					}
-				});
+								 position = $('#comments ul li:first-child').position().top;
+								 $.scrollTo( position, 500 );//change this later
+							})
+							.fail(function(responseTxt){
+								$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+								$('form .message').addClass('error').html(responseTxt.status);
+							})
+						}else{
+							$('form .input-group').addClass('has-error'); //.append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+							$('form .message').addClass('error').html('Please write a comment');
+						}
+					});
+				}
 			},
 			loadMorePhotos:function(){
 				if($('#btn-loadMorePhotos').length){
@@ -304,31 +313,65 @@
 				}
 			},
 			uploadPhoto: function(){
-				var form = $('#upload-form'),
-					fileUpload = form.find('input[type="file"]'),
-					filename = form.find('input[name="filename"]'),
-					progress = form.find('.progress'),
-					progressBar = progress.find('.progress-bar'),
-					value = 0,
-					interval= null;
+				if($('#upload-form').length){
+					var form = $('#upload-form'),
+						fileUpload = form.find('input[type="file"]'),
+						filename = form.find('input[name="filename"]'),
+						progress = form.find('.progress'),
+						progressBar = progress.find('.progress-bar'),
+						value = 0,
+						interval= null;
 
-				function animateProgressBar(){
-					if(value < 100) {
-						value = value + 10; 
-						progressBar.attr('style', 'width: '+value+'%');
-						progressBar.attr('aria-valuenow',value);
-					}else{
-						form.submit();
-						clearInterval(interval);
+					function animateProgressBar(){
+						if(value < 100) {
+							value = value + 10; 
+							progressBar.attr('style', 'width: '+value+'%');
+							progressBar.attr('aria-valuenow',value);
+						}else{
+							form.submit();
+							clearInterval(interval);
+						}
 					}
-				}
 
-				fileUpload.on('change',function(){
-					value =0;
-					filename.val($(this).val());
-					progress.show();
-					interval = setInterval(animateProgressBar,200);
-				})
+					fileUpload.on('change',function(){
+						value =0;
+						filename.val($(this).val());
+						progress.show();
+						interval = setInterval(animateProgressBar,200);
+					})
+				}
+			},
+			loadImages: function(){
+				if($('#dashboard-timeline').length){
+					var formData = {},
+						url = '/api/following?'; 
+
+					formData.from = 1;
+					formData.too = 10;
+
+					$.ajax({
+					  url: url,
+					  type: "get",
+					  data: formData
+					})
+					.done(function(response){ 
+						var html = '';
+
+						$.each($(response), function(){ console.log(response)
+							html = html + '<div class="photo-sm"><div class="photo-holder">';
+							html = html + '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
+							html = html + '<img src="/uploads/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
+							html = html + '</a></div></div>';
+						})
+						
+						$('.photo').html(html);
+						 
+					})
+					.fail(function(responseTxt){
+						console.log('something went wrong:' + responseTxt)
+					})
+					
+				}
 			}
 
 		}
