@@ -12,7 +12,7 @@
 					hs.commentButton();
 					hs.loadMorePhotos();
 					hs.uploadPhoto();
-					//hs.loadImages();
+					hs.loadImages();
 				});
 				return false;
 			},
@@ -341,55 +341,80 @@
 					})
 				}
 			},
+			loadPopular :function(){
+				var formData = {},
+					url = '/api/popular',
+					activeTab = $('.tab-pane.active'); 
+
+				formData.from = 0;
+				formData.too = 10;
+
+				$.ajax({
+				  url: url,
+				  type: "get",
+				  data: formData
+				})
+				.done(function(response){ 
+					var html = '';
+
+					$.each($(response), function(){ console.log(response)
+						html = html + '<div class="photo-sm"><div class="photo-holder">';
+						html = html + '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
+						html = html + '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
+						html = html + '</a></div></div>';
+					})
+					
+					$('#popular').html(html);
+					 
+				})
+				.fail(function(responseTxt){
+					console.log('something went wrong:' + responseTxt)
+				})	
+
+			},
+			loadFollowing :function(){
+				var formData = {},
+					url = '/api/following',
+					activeTab = $('.tab-pane.active'); 
+
+				formData.from = 0;
+				formData.too = 10;
+
+				$.ajax({
+				  url: url,
+				  type: "get",
+				  data: formData
+				})
+				.done(function(response){ 
+					var html = '';
+
+					$.each($(response), function(){ console.log(response)
+						html = html + '<div class="photo-sm"><div class="photo-holder">';
+						html = html + '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
+						html = html + '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
+						html = html + '</a></div></div>';
+					})
+					
+					$('#following').html(html);
+					 
+				})
+				.fail(function(responseTxt){
+					console.log('something went wrong:' + responseTxt)
+				})	
+			},
 			loadImages: function(){
-				if($('#index #dashboard-timeline').length){
-					var formData = {},
-						url = '',
-						activeTab = $('.tab-pane.active'); 
-
-						url = '/api/popular?';
-						container ='.popular';
-
-					formData.from = 1;
-					formData.too = 10;
-
-				//	if(activeTab.attr('id') == 'popular'){
-						
-				//	}else if(activeTab.attr('id') == 'popular'){
-				//		url = '/api/following?';
-				//	}else{
-				//		console.log('error');
-				//		container ='.following';
-				//	}
-
-					$.ajax({
-					  url: url,
-					  type: "get",
-					  data: formData
-					})
-					.done(function(response){ 
-						var html = '';
-
-						$.each($(response), function(){ //console.log(response)
-							html = html + '<div class="photo-sm"><div class="photo-holder">';
-							html = html + '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
-							html = html + '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
-							html = html + '</a></div></div>';
-						})
-						
-						$(container).html(html);
-						 
-					})
-					.fail(function(responseTxt){
-						console.log('something went wrong:' + responseTxt)
-					})	
-
-					//hs.addTabs('#tab-menu');
+				if($('#index').length){
+					hs.loadPopular();
+					hs.loadFollowing();
+					
+					hs.addTabs('#tab-menu');
 				}
 			},
 			addTabs:function(tabName){
 				$(tabName+' a').click(function (e) { console.log(this);
 				  e.preventDefault()
+				  $('.tab').removeClass('selected');
+				  $(this).closest('.tab').addClass('selected');
 				  $(this).tab('show')
 				})
 			}

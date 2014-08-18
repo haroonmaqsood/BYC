@@ -146,7 +146,17 @@ footer#site-footer {
 		}
 	}
 }
-
+.tab{
+	a{
+		text-decoration: none;
+		display: block;
+	}
+	&.selected{
+		a{
+			color: @color-white;
+		}	
+	}
+}
 #dashboard-timeline {
 	border: 2px solid #00E1C5;
 	/*border-top: none !important;*/

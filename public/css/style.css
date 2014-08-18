@@ -6426,6 +6426,13 @@ footer#site-footer .btn-link:hover {
   background-color: #00E1C5;
   color: #ffffff;
 }
+.tab a {
+  text-decoration: none;
+  display: block;
+}
+.tab.selected a {
+  color: #ffffff;
+}
 #dashboard-timeline {
   border: 2px solid #00E1C5;
   /*border-top: none !important;*/
