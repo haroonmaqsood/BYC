@@ -6,6 +6,9 @@
 - Like button styling
 - Upload Page
 
+##### ALEX
+- Placeholder Image
+- Vector hairshare shape
 
 
 #### Technical
