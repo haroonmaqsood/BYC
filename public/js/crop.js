@@ -300,8 +300,12 @@ var CROP = (function () {
 					w: (c.width() - (40*2)) * (imgInfo.aw / (imgInfo.w * imgInfo.s)),
 					h: (c.height() - (40*2)) * (imgInfo.ah / (imgInfo.h * imgInfo.s)),
 					image: imgsrc,
-				};;
+				};
 
+				$('#cropX').val( coordinates.x );
+				$('#cropY').val( coordinates.y );
+				$('#cropW').val( coordinates.w );
+				$('#cropH').val( coordinates.h );
 			// return coodinates
 			return coordinates;
 		}

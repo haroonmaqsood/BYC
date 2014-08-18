@@ -12,7 +12,7 @@ module.exports = function(grunt) {
       express: {
         files:  ['./Gruntfile.js', './app.js', 'public/**/*.js', 'public/**/*.html', 'public/**/style.less', 'views/**/*.html', 'routes/**/*.js', 
           'model.js', 'configs/**/*.js', 'bin/**/*.js'],
-        tasks:  [ 'less:production', 'express:dev' ],
+        tasks:  [ 'less:dev', 'express:dev' ],
         options: {
           spawn: false // for grunt-contrib-watch v0.5.0+, "nospawn: true" for lower versions. 
                        // Without this option specified express won't be reloaded
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     },
 
   less: {
-    production: {
+    dev: {
       options: {
         cleancss: false
       },
@@ -38,5 +38,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
 
   // can be an array of tasks, but tasks are all run via the watch config for now
-  grunt.registerTask('default', ['less:production', 'express:dev', 'watch']);
+  grunt.registerTask('default', ['less:dev', 'express:dev', 'watch']);
 };

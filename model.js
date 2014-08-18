@@ -131,8 +131,8 @@ module.exports = {
   },
 
 
-  updateImageTitle: function (title, slug, id, cb) {
-    db.query("UPDATE picture SET title = ?, slug = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, id], function (err,results) {
+  updateImageTitle: function (title, slug, crop, id, cb) {
+    db.query("UPDATE picture SET title = ?, slug = ?, crop = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, crop, id], function (err,results) {
 
       // LOG TO SENTRY
       if (err) throw err;
@@ -266,14 +266,11 @@ module.exports = {
 
 
   getRecentPictures: function (from, too, cb) {
-    console.log(from)
-    console.log(too)
-    var query = db.query("SELECT * FROM picture ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
+    db.query("SELECT * FROM picture ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
     });
-    console.log(query.sql);
   },
 
   getFollowing: function (user_id, cb) {
