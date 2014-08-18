@@ -20,9 +20,7 @@ router.get('/:slug', function(req, res, next) {
 	      var err = new Error('The Picture you are looking for does not exist.');
 	  		err.status = 404;
 	  		return next(err);
-	  	}
-
-	  	
+	  	}	  	
 
 	  	model.getPictureComments(responce_picture[0].id, function(responce_comments) {
 	  		//!THIS IS FOR ADDING USERNAME TO COMMENTS YET TO FINISH!

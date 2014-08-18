@@ -133,6 +133,10 @@ footer#site-footer {
 		.border-radius-tr(5px);
 		.border-radius-tl(5px);
 
+		@media (max-width: 466px) { 
+			font-size: 16px;
+		}
+
 		&:first-child {
 			margin-left: 0 !important;
 		}
@@ -167,9 +171,18 @@ footer#site-footer {
 
 .photo-sm {
 	text-align: center;
-	width: 33.33%;
+	/*width: 33.33%;*/
+	width: 25%;
 	float: left;
 	padding: 14px 0;
+
+	@media (max-width: 620px) { 
+		width: 33.33%;
+	}
+
+	@media (max-width: 466px) { 
+		width: 50%;
+	}
 
 	img {
 		width: 150px;
@@ -197,12 +210,12 @@ span.nav-devide  {
 
 
 
-/*header{
+header{
 	margin-bottom: 10px;
 	img{
 		max-height: 80px;
 	}
-}*/
+}
 
 article{
 	padding: 20px;
@@ -221,8 +234,24 @@ article{
 		}
 	}
 }
-main{
+.sixhun {
 	max-width: 600px;
+
+	.photo-sm {
+		width: 33.33%;
+
+		@media (max-width: 620px) { 
+			width: 50%;
+		}
+
+/*		@media (max-width: 466px) { 
+			width: 50%;
+		}*/
+
+	}
+
+}
+main{
 	padding: 0 !important;
 	form{
 		padding: 20px;

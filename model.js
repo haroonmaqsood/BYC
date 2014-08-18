@@ -101,7 +101,7 @@ module.exports = {
     var cropped = 'AND crop IS NOT NULL';
     if (!crop) cropped = 'AND crop IS NULL';
 
-    var query = db.query("SELECT * FROM picture WHERE user_id = ? "+cropped, user_id, function (err,results) {
+    db.query("SELECT * FROM picture WHERE user_id = ? "+cropped, user_id, function (err,results) {
 
       // LOG TO SENTRY
       if (err) throw err;
@@ -110,7 +110,6 @@ module.exports = {
 
     });
 
-    console.log(query.sql)
   },
 
 
@@ -167,7 +166,6 @@ module.exports = {
 
       // LOG TO SENTRY
       // if (err) throw err;
-      console.log(results)
       if (results.insertId)
         return cb(results.insertId);
 
@@ -186,7 +184,6 @@ module.exports = {
 
       // LOG TO SENTRY
       // if (err) throw err;
-      console.log(results)
       if (results.insertId)
         return cb(results.insertId);
 
@@ -202,7 +199,6 @@ module.exports = {
 
       // LOG TO SENTRY
       // if (err) throw err;
-      console.log(results)
       if (results.affectedRows)
         return cb(results.affectedRows);
 
@@ -231,7 +227,6 @@ module.exports = {
 
       // LOG TO SENTRY
       // if (err) throw err;
-      console.log(results)
       if (results.insertId)
         return cb(results.insertId);
 
@@ -247,7 +242,6 @@ module.exports = {
 
       // LOG TO SENTRY
       // if (err) throw err;
-      console.log(results)
       if (results.affectedRows)
         return cb(results.affectedRows);
 
@@ -259,7 +253,6 @@ module.exports = {
 
   likeStatus: function (user_id, picture_id, cb) {
     db.query("SELECT COUNT(*) AS likeCount FROM likes WHERE deletedDttm IS NULL AND user_id = ? AND picture_id = ?", [user_id, picture_id], function (err,results) {
-      console.log(results)
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results[0].likeCount);
@@ -293,10 +286,7 @@ module.exports = {
 
 
   getPicturesFromUsers: function (users, from, too, cb) {
-    console.log(from)
-    console.log(too)
     if (users.length === 0) return cb(false);
-    
     db.query("SELECT * FROM picture WHERE user_id IN (?) AND crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [users, from, too], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
@@ -304,7 +294,21 @@ module.exports = {
     });
   },
 
+  countUserLikes: function (user_id, cb) {
+    db.query("SELECT count(*) AS count FROM likes WHERE user_id = ?", [user_id], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      return cb(results);
+    });
+  },
 
+  countUserPictures: function (user_id, cb) {
+    db.query("SELECT count(*) AS count FROM picture WHERE user_id = ? AND crop IS NOT NULL AND deletedDttm IS NULL", [user_id], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      return cb(results);
+    });
+  },
 
 
 
