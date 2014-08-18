@@ -6517,26 +6517,15 @@ article form.full-width {
   max-width: 600px;
 }
 .sixhun .photo-sm {
-  text-align: center;
   width: 33.33%;
-  float: left;
-  padding: 14px 0;
+  /*		@media (max-width: 466px) { 
+			width: 50%;
+		}*/
 }
 @media (max-width: 620px) {
   .sixhun .photo-sm {
-    width: 33.33%;
-  }
-}
-@media (max-width: 466px) {
-  .sixhun .photo-sm {
     width: 50%;
   }
-}
-.sixhun .photo-sm img {
-  width: 150px;
-  height: 182px;
-  border: 4px solid #f6f6f6;
-  margin: 0 auto;
 }
 main {
   padding: 0 !important;
