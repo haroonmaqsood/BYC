@@ -9,22 +9,22 @@ router.get('/', function(req, res) {
   if (!req.user.steptwo) return res.redirect('/steptwo');
 
 
-  // FOLLOWING
-  model.getFollowing(req.user.id, function(following) {
+  // // FOLLOWING
+  // model.getFollowing(req.user.id, function(following) {
 
-  	model.getPicturesFromUsers(following, 0, 10, function(pictures) {
-	  	res.locals.popular_pics = pictures
-	  	return res.render('index');
-	  });  
+  // 	model.getPicturesFromUsers(following, 0, 10, function(pictures) {
+	 //  	res.locals.popular_pics = pictures
+	 //  	return res.render('index');
+	 //  });  
 
-  });
+  // });
 
   // POPULAR
-  // model.getRecentPictures(0, 10, function(responce) {
-  // 	res.locals.popular_pics = responce
+  model.getRecentPictures(0, 10, function(responce) {
+  	res.locals.popular_pics = responce
 
-  // 	return res.render('index');
-  // });  
+  	return res.render('index');
+  });  
 
 });
 

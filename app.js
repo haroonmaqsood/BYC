@@ -15,6 +15,7 @@ var express       = require('express'),
 
 
 var index         = require('./routes/index'),
+    api           = require('./routes/api'),
     login         = require('./routes/login'),
     signup        = require('./routes/signup'),
     stepTwo       = require('./routes/steptwo'),
@@ -116,6 +117,7 @@ incPass.funcTest(app);
 
 
 app.use('/', index);
+app.use('/api', api);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/steptwo', stepTwo);

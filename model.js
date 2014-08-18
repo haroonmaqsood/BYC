@@ -274,7 +274,6 @@ module.exports = {
   },
 
   getFollowing: function (user_id, cb) {
-    user_id = 17;
     db.query("SELECT following FROM follow WHERE follower = ?", [user_id], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
