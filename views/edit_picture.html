@@ -124,11 +124,11 @@
 						</div> -->
 						<form method="post" class="full-width" id="edit-form">
 							<div class="results">
-							    <b>X</b>: <input type="number" name="cropX" />
-							    <b>Y</b>: <input type="number" name="cropY" />
-							    <b>W</b>: <input type="number" name="cropW" />
-							    <b>H</b>: <input type="number" name="cropH" />
-							    <b>rotate</b>: <input type="number" name="rotate" value="0"/>
+							    <b>X</b>: <input type="hidden" name="cropX" id="cropX" />
+							    <b>Y</b>: <input type="hidden" name="cropY" id="cropY" />
+							    <b>W</b>: <input type="hidden" name="cropW" id="cropW" />
+							    <b>H</b>: <input type="hidden" name="cropH" id="cropH" />
+							    <b>rotate</b>: <input type="text" name="rotate" value="0"/>
 							</div>
 							<textarea name="title" placeholder="Image Title" rows="2" class="countable form-control"></textarea><br/>
 							<button type="button" class="btn btn-default" id="btn-rotate" >Rotate</button>
@@ -144,11 +144,9 @@
 	<script src="/js/crop.js"></script>
 	<script>
 
-			var hs = new CROP('');
-			hs.init('.hs');
-			hs.loadImg('/uploads/{{picture.picture}}');
-
-
+		var hs = new CROP('');
+		hs.init('.hs');
+		hs.loadImg('/uploads/{{picture.picture}}');
 
 		function crop() {
 			if ($(window).width() <= 600) {
