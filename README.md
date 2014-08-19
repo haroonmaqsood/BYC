@@ -1,6 +1,15 @@
 ### INSTALL
 
 
+### DEPLOY
+http://stackoverflow.com/questions/8332333/node-js-setting-up-environment-specific-configs-to-be-used-with-everyauth
+
+NODE_ENV=production node bin/www
+
+
+NODE_ENV=production forever bin/www
+
+
 ### TODO
 - Cropping tool
 - Like button styling
