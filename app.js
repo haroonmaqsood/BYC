@@ -8,7 +8,6 @@ var express       = require('express'),
     session       = require('express-session'),
     RedisStore    = require('connect-redis')(session),
     passport      = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
     hbs           = require('hbs'),
     mysql         = require('mysql');
 
