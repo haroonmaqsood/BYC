@@ -31,7 +31,7 @@ router.get('/:username', function(req, res, next) {
   	}
   	res.locals.profile = responce_getProfile[0];
 	
-		async.series([
+		async.parallel([
 	    
 	    function(callback) {
 	    	model.getPictures(responce_getProfile[0].id, true, function(responce_getPictures) {
@@ -62,19 +62,24 @@ router.get('/:username', function(req, res, next) {
 	    },
 
 	    function(callback) {
-	    	if (req.user.id === responce_getProfile[0].id) {
-		  		res.render('profile');
-		  		callback();
-		  	} else {
+	    	if (req.user.id !== responce_getProfile[0].id) {
 		    	model.followStatus(req.user.id, res.locals.profile.id, function(responce_followStatus) {
 			 			res.locals.followStatus = responce_followStatus;
-			  		res.render('profile');
 			  		callback();
 			  	});
-		  	}
+		    } else {
+		    	callback();
+		    }
 	    }
 
-		]);  
+		],
+		function(err, results){
+		  
+		  return res.render('profile');
+
+		});
+
+
 
 	});
 
