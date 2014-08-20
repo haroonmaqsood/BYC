@@ -25,7 +25,16 @@ router.post('/', function(req, res) {
     return res.send({ status: 'success'});
   });
 
-	
+	// // WORKING CODE REPLACE ABOVE WITH THIS 
+	// passport.authenticate('local', function (err, user) {
+ //    console.log(user)
+ //    if (err) { return next(err); }
+ //    if (!user) { return res.redirect('/login'); }
+ //    req.logIn(user, function(err) {
+ //      if (err) { return next(err); }
+ //      return res.redirect('/');
+ //    });
+ //    })(req, res, next);
 
 });
 

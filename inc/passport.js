@@ -2,7 +2,7 @@ var passport      = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     bcrypt        = require('bcrypt-nodejs');
 
-var funcTest = function(app) {
+var passportAuth = function(app) {
   
 
   passport.use(new LocalStrategy(
@@ -21,7 +21,7 @@ var funcTest = function(app) {
   });
 
 
-  function check_auth_user(username,password,done,public_id) {
+  function check_auth_user(username, password, done) {
 
     db.query("SELECT * FROM users WHERE email = ? OR username = ? limit 1", [username, username], function (err,results) {
 
@@ -52,4 +52,4 @@ var funcTest = function(app) {
 
 };
 
-module.exports.funcTest = funcTest;
+module.exports.passportAuth = passportAuth;

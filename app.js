@@ -9,9 +9,8 @@ var express       = require('express'),
     RedisStore    = require('connect-redis')(session),
     passport      = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    bcrypt        = require('bcrypt-nodejs'),
-    hbs           = require('hbs');
-
+    hbs           = require('hbs'),
+    mysql         = require('mysql');
 
 
 var index         = require('./routes/index'),
@@ -42,14 +41,10 @@ app.use(passport.session());
 
 
 app.use(function(req, res, next) {
-  // console.log(req.user);
-
   if (req.user) {
     res.locals.isAuth = true;
     res.locals.user   = req.user;
   }
-
-
   return next();
 });
 
@@ -103,7 +98,6 @@ hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
 // MySQL
 
 if (app.get('env') === 'development') {
-  var mysql = require('mysql');
   global.db = mysql.createConnection({
     host     : '127.0.0.1',
     port     : '8889',
@@ -115,7 +109,6 @@ if (app.get('env') === 'development') {
 } 
 
 if (app.get('env') === 'production') {
-  var mysql = require('mysql');
   global.db = mysql.createConnection({
     host     : '127.0.0.1',
     port     : '3306',
@@ -126,9 +119,8 @@ if (app.get('env') === 'production') {
   db.connect();
 } 
   
-
 var incPass = require('./inc/passport');
-incPass.funcTest(app);
+incPass.passportAuth(app);
 
 
 app.use('/', index);
