@@ -20,8 +20,9 @@ var index         = require('./routes/index'),
     logout        = require('./routes/logout'),
     profile       = require('./routes/profile'),
     picture       = require('./routes/picture'),
-    edit_picture  = require('./routes/edit_picture');
+    edit_picture  = require('./routes/edit_picture'),
     upload        = require('./routes/upload'),
+    ad            = require('./routes/ad');
 
 
 global.appDir  = __dirname;
@@ -131,7 +132,9 @@ app.use('/picture', edit_picture);
 app.use('/picture', picture);
 app.use('/upload', upload);
 app.use('/logout', logout);
+app.use('/ad', ad);
 app.use('/', profile);
+
 
 
 
