@@ -10,6 +10,10 @@ NODE_ENV=production node bin/www
 NODE_ENV=production forever bin/www
 
 
+NODE_ENV=production forever start --spinSleepTime 10000 bin/www
+
+
+
 ### TODO
 - Cropping tool
 - Like button styling
