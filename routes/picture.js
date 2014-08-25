@@ -1,5 +1,6 @@
 var express			= require('express'),
 		router			= express.Router(),
+		async				= require('async'),
 		model				= require('../model');
 
 
@@ -25,23 +26,30 @@ router.get('/:slug', function(req, res, next) {
 	  	}	  	
 
 	  	model.getPictureComments(responce_picture[0].id, function(responce_comments) {
-	  		//!THIS IS FOR ADDING USERNAME TO COMMENTS YET TO FINISH!
-	  		// for (var i = responce_comments.length - 1; i >= 0; i--) {
-					// model.getUsernameFromId(responce_comments[i].user_id, function(err, result){
-					//     // console.log(err || result);
-					//     // responce_comments[i].push({username: result});
-					//     console.log(responce_comments)
-					//     // console.log(responce_comments[i].username)
-					// });
-	  		// };
 
-		  	res.locals.comments = responce_comments;
-		  	res.locals.picture = responce_picture[0];
+	  		// Gets comment username
+	  		var index;
+	  		async.eachSeries(responce_comments, function(comment, callback) {
+			    index = responce_comments.indexOf(comment);
+			    model.getUsernameFromId(comment.user_id, function(result){
+					    responce_comments[index].username = result[0].username;
+					    return callback();
+					});
+			    
+			  }, function(err) {
 
-	  		model.likeStatus(req.user.id, responce_picture[0].id, function(responce_likeStatus) {
-	  			res.locals.likeStatus = responce_likeStatus;
-	  			return res.render('picture');
-	  		});
+			  	res.locals.comments = responce_comments;
+			  	res.locals.picture = responce_picture[0];
+
+		  		model.likeStatus(req.user.id, responce_picture[0].id, function(responce_likeStatus) {
+		  			res.locals.likeStatus = responce_likeStatus;
+		  			return res.render('picture');
+		  		});
+	  		
+			  });
+
+
+		  	
 	  	
 		  });
 
@@ -104,7 +112,7 @@ router.post('/:slug/like', function (req, res) {
 		  	});
 			} else {
 				// FOLLOW USER
-				model.likePicture(req.user.id, responce_getPicturesBySlugToken[0].id, function(responce) {
+				model.likePicture(req.user.id, responce_getPicturesBySlugToken[0].id, responce_getPicturesBySlugToken[0].user_id, function(responce) {
 			    if (!responce) return res.send({ status: 'failed'});
 			  	return res.send({ status: 'liked'});
 			  });

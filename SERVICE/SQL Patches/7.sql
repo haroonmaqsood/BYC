@@ -1,0 +1,1 @@
+ALTER TABLE likes ADD owner_id int(11) NOT NULL AFTER picture_id;

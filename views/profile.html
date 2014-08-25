@@ -112,6 +112,7 @@
 			  </div>
 			</section>
 
+			{{#ifCond profile.id '===' user.id }}
 			<h2>Dumpbox <small>(Not Public)</small></h2>
 			<section id="dashboard-timeline">
 				<div class="photo">						
@@ -122,7 +123,7 @@
 			  {{/each}}
 			  </div>
 			</section>
-
+			{{/ifCond}}
 			
 		</main>
 	</div>

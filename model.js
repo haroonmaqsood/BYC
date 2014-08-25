@@ -53,25 +53,17 @@ module.exports = {
   },
 
   getProfile: function (username, cb) {
-
-    var date = new Date();
     db.query("SELECT * FROM users WHERE username = ? LIMIT 1", username, function (err,results) {
-
-      // LOG TO SENTRY
       if (err) throw err;
-
       return cb(results);
-
-
-
     });
   },
 
 
   getUsernameFromId: function (user_id, cb) {
-    var query = db.query("SELECT username FROM users WHERE id = ?", user_id);
-    query.on('result', function(row) {
-        cb(row.username);
+    db.query("SELECT username FROM users WHERE id = ?", user_id, function (err,results) { 
+      if (err) throw err;
+      return cb(results);
     });
   },
 
@@ -219,11 +211,11 @@ module.exports = {
 
 
 
-  likePicture: function (user_id, picture_id, cb) {
+  likePicture: function (user_id, picture_id, owner_id, cb) {
 
     var date  = new Date();
     
-    db.query("INSERT INTO likes SET ?", {user_id:user_id, picture_id:picture_id, createdDttm:date }, function (err,results) {
+    db.query("INSERT INTO likes SET ?", {user_id:user_id, picture_id:picture_id, owner_id:owner_id, createdDttm:date }, function (err,results) {
 
       // LOG TO SENTRY
       // if (err) throw err;
@@ -294,8 +286,8 @@ module.exports = {
     });
   },
 
-  countUserLikes: function (user_id, cb) {
-    db.query("SELECT count(*) AS count FROM likes WHERE user_id = ?", [user_id], function (err,results) {
+  countUserLikes: function (owner_id, cb) {
+    db.query("SELECT count(*) AS count FROM likes WHERE owner_id = ?", [owner_id], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
