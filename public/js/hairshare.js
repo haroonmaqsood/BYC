@@ -175,6 +175,14 @@
 			followButton: function(){
 				var btn = $('#btn-follow');
 				if(btn.length){
+
+					jQuery('.btn-follow').each(function() {
+					    var currentBtn 	= $(this),
+					    		value 			= currentBtn.data('username');
+
+					    
+					});
+
 					btn.on('click', function(e){ 
 						e.preventDefault();
 						var formData = {},
@@ -203,7 +211,7 @@
 			},
 			likeButton: function(){
 				if($('#like-form').length){
-					$('#btn-like').on('click', function(e){ //console.log('test')
+					$('#btn-like').on('click', function(e){
 						e.preventDefault();
 						var formData = {},
 							url = location.href +'/like';
