@@ -59,6 +59,13 @@ module.exports = {
     });
   },
 
+  getProfileById: function (id, cb) {
+    db.query("SELECT * FROM users WHERE id = ? LIMIT 1", id, function (err,results) {
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
 
   getUsernameFromId: function (user_id, cb) {
     db.query("SELECT username FROM users WHERE id = ?", user_id, function (err,results) { 
@@ -117,6 +124,17 @@ module.exports = {
   getPicturesBySlugToken: function (slug, cb) {
 
     db.query("SELECT * FROM picture WHERE slug = ?", [slug], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      
+      return cb(results);
+    });
+  },
+
+
+  getPicturesByID: function (id, cb) {
+
+    db.query("SELECT * FROM picture WHERE id = ?", [id], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       
@@ -261,22 +279,6 @@ module.exports = {
     });
   },
 
-  getFollowing: function (user_id, cb) {
-    db.query("SELECT following FROM follow WHERE follower = ?", [user_id], function (err,results) {
-      // LOG TO SENTRY
-      if (err) throw err;
-      var result = [];
-
-      for (var i = results.length - 1; i >= 0; i--) {
-        result[i] = results[i].following;
-      };
-
-      return cb(result);
-    });
-  },
-
-
-
   getPicturesFromUsers: function (users, from, too, cb) {
     if (users.length === 0) return cb(false);
     db.query("SELECT * FROM picture WHERE user_id IN (?) AND crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [users, from, too], function (err,results) {
@@ -285,6 +287,26 @@ module.exports = {
       return cb(results);
     });
   },
+
+
+  getUserPictureLikes: function (owner_id, limit, cb) {
+    db.query("SELECT *, count(picture_id) AS like_count FROM likes WHERE owner_id = ? GROUP BY picture_id ORDER BY like_count DESC LIMIT ?", [owner_id, limit], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
+
+  countLikes: function (picture_id, cb) {
+    db.query("SELECT count(*) AS count FROM likes WHERE picture_id = ?", picture_id, function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
+
 
   countUserLikes: function (owner_id, cb) {
     db.query("SELECT count(*) AS count FROM likes WHERE owner_id = ?", [owner_id], function (err,results) {
@@ -303,6 +325,19 @@ module.exports = {
   },
 
 
+  getFollowing: function (user_id, cb) {
+    db.query("SELECT following FROM follow WHERE follower = ?", [user_id], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      var result = [];
+
+      for (var i = results.length - 1; i >= 0; i--) {
+        result[i] = results[i].following;
+      };
+
+      return cb(result);
+    });
+  },
 
 
 

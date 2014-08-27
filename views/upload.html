@@ -8,19 +8,13 @@
 			</header>
 
 			<section>
-				
-<!-- 				<form action="/upload" enctype="multipart/form-data" method="post" >
-					<input multiple="multiple" name="upload" type="file" />
-					<button type="submit">Upload</button>
-				</form> -->
-
-				
+				<div class="alert alert-danger none" role="alert"></div>
 				<form action="/upload" enctype="multipart/form-data" method="post" id="upload-form">
 					<div class="fileUpload btn btn-default">
 						<span>Choose a photo</span>
-						<input type="file"  class="upload" name="upload" accept="image/*;capture=camera">
+						<input type="file"  class="upload" id="imageUpload" name="upload" accept="image/*;capture=camera">
 					</div>
-					<input type="text" name="filename" />
+
 					<div class="progress">
 					  <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
 					  </div>

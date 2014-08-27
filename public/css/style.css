@@ -6336,6 +6336,9 @@ button.close {
   box-shadow: inset 0 3px 5px #e6e6e6;
 }
 /* MIXINS */
+.none {
+  display: none;
+}
 /* CSS STYLING */
 body {
   padding-top: 10px;

@@ -10,7 +10,9 @@
 					<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive" />
 				</div>
 				<div class="pull-right col-xs-8">
-					Username: {{ profile.username }} <br>
+					ID: {{ profile.id }} <br>
+					Username: <a href="/{{ profile.username }}" title="{{ profile.username }}">{{ profile.username }}</a> <br>
+					Email: {{ profile.email }}<br>
 				</div>
 				{{#ifCond profile.id '!==' user.id }}
 				<div class="col-xs-12">
@@ -45,15 +47,11 @@
 			  </div>
 			  <div class="panel-body">
 			  	<div class="row">
+				  {{#each userPicsTop}}
 				  	<div class="col-xs-3 col-sm-12">
-					    <img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive" />
-					</div>
-				    <div class="col-xs-3 col-sm-12">
-					    <img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive" />
-					</div>
-					<div class="col-xs-3 col-sm-12">
-					    <img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive" />
-					</div>
+				    	<a href="/picture/{{ slug }}"><img src="/uploads/cropped/{{ picture }}" alt="{{ title }}" class="img-responsive"/></a>
+						</div>
+					{{/each}}
 					<div class="col-xs-3 btn-more visible-xs-block">
 						<a href="#" title="Load more photos" id="btn-loadMorePhotos">
 					    	<span class="glyphicon glyphicon-plus-sign"></span>
@@ -63,47 +61,12 @@
 				</div>
 			  </div>
 			</div>
-			<div class="panel panel-default mobile-hidden" id="morePhotos">
-			  <div class="panel-heading">
-			    <h3 class="panel-title">View more hair snaps</h3>
-			  </div>
-			  <div class="panel-body">
-			  	<div class="row">
-				  	<div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-				    <div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-					<div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-					<div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-				    <div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-					<div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-					<div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-				    <div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-					<div class="col-xs-3 col-sm-4">
-				    	<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive"/>
-					</div>
-				</div>
-			  </div>
-			</div> 
+
 		</aside>
 		<main class="sixhun col-xs-12 col-sm-8">
 			<h2>Public</h2>
 			<section id="dashboard-timeline">				
-				<div class="photo">		
+				<div class="photo">	
 			  {{#each userPictures}}
 			  	<div class="photo-sm">
 				  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/cropped/{{picture}}" class="img-responsive" ></a>

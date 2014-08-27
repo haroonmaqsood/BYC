@@ -94,103 +94,83 @@
 					});
 			},
 			createPhotoEditor: function(){
-				if($('#photoEditor').length){
-					var imgWidth = 0,
-					    imgHeight = 0,
-					    imgRotate = 0,
-					    img = $('#cropbox'); 
+				if(!$('#editForm').length)
+					return false;
 
-			    	function initPhotoEditor(){ 
-			    	 	imgWidth = img.width();
-			    		imgHeight = img.height();
-			    		imgRotate = 0;
-	
-						var imgOT = resize();
 
-			  			img.drags({orientation:imgOT});
+					var cropHS 				= new CROP(''),
+					unCroppedPicture 	= $('#unCroppedPicture').val();
+					cropHS.init('.hs');
+					cropHS.loadImg(unCroppedPicture);
 
-			  			addCounter();
+					function crop() {
+						if ($(window).width() <= 600) {
+							$('.cropMain').html('');
+							$('.cropSlider').html('');
+							$('#crop').removeClass('hs');
+							$('#crop').addClass('hs-mobile');
+							cropHS.init('.hs-mobile');
+							cropHS.loadImg(unCroppedPicture);
+						} else {
+							$('.cropMain').html('');
+							$('.cropSlider').html('');
+							$('#crop').removeClass('hs-mobile');
+							$('#crop').addClass('hs');
+							cropHS.init('.hs');
+							cropHS.loadImg(unCroppedPicture);
+						}
+					}
 
-			  			$('#btn-rotate').on('click', function(){ 
-					    	rotate(); 
-					    });
+					crop();
+					$(window).resize(function() {
+						crop();
+					});
 
-			    	};
-			    	function resize(){  
-			    		var containerWidth = $('#photoEditor').width(),
-			    			ratioContainer = containerWidth/600,
-			    			heightFrame = 730*ratioContainer,
-				    		widthImg = imgWidth,
-				  			heightImg = imgHeight,
-				  			rotateVal = $('input[name=rotate]').val(),
-				  			orientation;
+					// send coordinates for processing
+					// you may call the coordinates with the function coordinates(one);
+					$(document).on('click', 'button', function(e) {
+						e.preventDefault();
+						coordinates(cropHS);
+						var title = $('#title').val();
+						if ( title.trim().length >= 3 && title.length <= 80 ) {
+							
+							var formData = {};
 
-			  			$('#photoEditor').css({width:'100%', height:heightFrame});
+							formData.title = $('#title').val();
+							formData.cropX = $('#cropX').val();
+							formData.cropY = $('#cropY').val();
+							formData.cropW = $('#cropW').val();
+							formData.cropH = $('#cropH').val();
+							console.log(formData.cropX)
+				      console.log(formData.cropY)
+				      console.log(formData.cropW)
+				      console.log(formData.cropH)
 
-			  			if(widthImg < heightImg){
-			  				if ((rotateVal == 90)||(rotateVal == 270)){// rotated landscape
-				  				//console.log('rotated land')
-				  				img.css({width:heightFrame, height:'auto', 'margin-left':0});
-				  				orientation = 'land';
-				  			}else{ //portrait
-				  				//console.log('port')
-				  				img.css({width:'100%', height:'auto', 'margin-left':0});
-				  				orientation = 'port';
-				  			}
-			  			}else if (widthImg > heightImg){ 
-			  				if ((rotateVal == 90)||(rotateVal == 270)){// rotated portrait
-				  				//console.log('rotated po')
-				  				img.css({width:'auto', height:'100%', 'margin-left':'-50%'});
-				  				orientation = 'port';
-				  			}else{//landscape
-				  				//console.log('land')
-				  				img.css({width:'auto', height:'100%', 'margin-left':0});
-				  				orientation = 'land';
-				  			}
-			  			}else{
-			  				console.log('dont know what sort of image this is')
-			  			}
+							$.ajax({
+							  url: 	document.URL,
+							  type: "post",
+							  data: formData
+							})
+							.done(function(response){
+								window.location.href = response.redirect;
+							})
+							.fail(function(response){
+								$('.alert-danger').html(response.responseJSON.reason).slideDown();
+							})
 
-			  			$('input[name=cropW]').val(imgWidth);
-			            $('input[name=cropH]').val(imgHeight);
+							// $('#editForm').submit();
+			      } else {     	
+			        $('.alert-danger').html('Title Size must be between 3-80 Characters').slideDown();
+			      }
 
-			            return orientation;
-			  		};
-			  		function rotate(){
-			  			imgRotate = imgRotate +90;
+						
+					});
 
-				    	if(imgRotate>=360){
-				    		imgRotate =0;
-				    	}
-				    	$('input[name=rotate]').val(imgRotate);
 
-				    	resize();
-				    	
-				    	img.rotate(imgRotate);
-			  		}
-			   		
-			   		function addCounter(){
-				    	$('.countable').jqEasyCounter({
-							'minChars': 3,
-							'maxChars': 80,
-							'maxCharsWarning': 85,
-							'msgFontSize': '12px',
-							'msgFontColor': '#000',
-							'msgFontFamily': 'Verdana',
-							'msgTextAlign': 'left',
-							'msgWarningColor': '#F00',
-							'msgAppendMethod': 'insertAfter'				
-						});
-			    	}
-			   
-					$(window).load(function(){
-				  		initPhotoEditor();
-				  	});
-				  	$(window).resize(function(){
-				  		resize();
-				  	});
-				    
-				}
+				// $('input#imageTitle').on('click', function(e){
+				// 	e.preventDefault();
+					
+				// });
 			},
 			followButton: function(){
 				if($('#btn-follow').length){
@@ -334,10 +314,35 @@
 					}
 
 					fileUpload.on('change',function(){
-						value =0;
-						filename.val($(this).val());
-						progress.show();
-						interval = setInterval(animateProgressBar,200);
+													
+		        var avatar = $(this).val();
+		        var extension = avatar.split('.').pop().toUpperCase();
+		        if(avatar.length < 1) {
+		            avatarok = 0;
+		            $('.alert-danger').html("Woops looks like you have not selected an image yet.");
+		        }
+		        else if (extension!="PNG" && extension!="JPG" && extension!="JPEG"){
+		            avatarok = 0;
+		            $('.alert-danger').html("invalid file type please only upload PNG or JPEG images. You upload a "+extension);
+		        }
+		        else {
+		            avatarok = 1;
+		        }
+		        if(avatarok == 1) {
+		            
+		          value = 0;
+							filename.val($(this).val());
+							progress.show();
+							interval = setInterval(animateProgressBar,200);
+
+		        }
+		        else {
+		            $('.alert-danger').slideDown();
+		        }
+		        return false;
+
+
+
 					})
 				}
 			},

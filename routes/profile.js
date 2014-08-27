@@ -30,51 +30,70 @@ router.get('/:username', function(req, res, next) {
   		return next(err);
   	}
   	res.locals.profile = responce_getProfile[0];
-	
-		async.parallel([
+		async.parallel({
 	    
-	    function(callback) {
+	    getPictures: function(callback) {
 	    	model.getPictures(responce_getProfile[0].id, true, function(responce_getPictures) {
 	  			res.locals.userPictures = responce_getPictures;
-	    		callback();
+	    		return callback();
 	    	});
 	    },
 
-	    function(callback) {
+	    countUserLikes: function(callback) {
 	    	model.countUserLikes(responce_getProfile[0].id, function(responce_countUserLikes) {
 	  			res.locals.countUserLikes = responce_countUserLikes[0].count;
-	    		callback();
+	    		return callback();
 	    	});
 	    },
 
-	    function(callback) {
+	    countUserPictures: function(callback) {
 	    	model.countUserPictures(responce_getProfile[0].id, function(responce_countUserPictures) {
 	  			res.locals.countUserPictures = responce_countUserPictures[0].count;
-	    		callback();
+	    		return callback();
 	    	});
 	    },
 
-	    function(callback) {
+	    getUserPictureLikes: function(callbackOne){ 
+	    	model.getUserPictureLikes(responce_getProfile[0].id, 3, function(responce_getUserPictureLikes) {
+
+	    		async.eachSeries(responce_getUserPictureLikes, function(picture, callbackTwo) {
+				    index = responce_getUserPictureLikes.indexOf(picture);
+				    model.getPicturesByID(picture.picture_id, function(result){
+						    responce_getUserPictureLikes[index].picture = result[0].picture;
+						    responce_getUserPictureLikes[index].title 	= result[0].title;
+						    responce_getUserPictureLikes[index].slug 		= result[0].slug;
+						    
+						    return callbackTwo();
+						});
+				    
+				  }, function(err) {
+				  	res.locals.userPicsTop = responce_getUserPictureLikes;
+				  	return callbackOne();
+				  });
+	    		
+				});
+	    },
+
+	    getPicturesNoneCropped: function(callback) {
 	    	model.getPictures(responce_getProfile[0].id, false, function(responce_getPicturesNoneCropped) {
 	  			res.locals.userPicturesNoneCropped = responce_getPicturesNoneCropped;
-	    		callback();
+	    		return callback();
 	    	});
 	    },
 
-	    function(callback) {
+	    followStatus: function(callback) {
 	    	if (req.user.id !== responce_getProfile[0].id) {
 		    	model.followStatus(req.user.id, res.locals.profile.id, function(responce_followStatus) {
 			 			res.locals.followStatus = responce_followStatus;
-			  		callback();
+			  		return callback();
 			  	});
 		    } else {
-		    	callback();
+		    	return callback();
 		    }
 	    }
 
-		],
+		},
 		function(err, results){
-		  
 		  return res.render('profile');
 
 		});
@@ -99,7 +118,6 @@ router.post('/:username', function(req, res, next) {
 			return res.send({ status: 'failed'});
 	  
 		model.followStatus(req.user.id, responce_getProfile[0].id, function(responce_followStatus) {
-			console.log(responce_followStatus)
 			if (responce_followStatus) {
 				// UNFOLLOW
 				model.unfollowUser(req.user.id, responce_getProfile[0].id, function(responce) {

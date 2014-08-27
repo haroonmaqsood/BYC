@@ -1,4 +1,7 @@
 {{> header}}
+		
+		<input id="unCroppedPicture" type='hidden' value='/uploads/{{picture.picture}}'>
+
    	<div class="row">
    		<aside class="col-xs-12 col-sm-4  pull-right">
 			<div class="panel panel-default">
@@ -110,28 +113,16 @@
 						<div id="crop" class="hs">
 							<div class="cropMain"></div>
 							<div class="cropSlider"></div>
-							<button class="cropButton">Crop</button>
 						</div>
-
-<!-- 						<div id="crop" class="hs-mobile hidden">
-							<div class="cropMain"></div>
-							<div class="cropSlider"></div>
-							<button class="cropButton">Crop</button>
-						</div> -->
-
-						<!-- <div id="photoEditor">
-							<img src="/uploads/{{picture.picture}}" class="cropimage" id="cropbox"/>
-						</div> -->
-						<form method="post" class="full-width" id="edit-form">
+						<div class="alert alert-danger none" role="alert"></div>
+						<form method="post" class="full-width" id="editForm">
 							<div class="results">
-							    <b>X</b>: <input type="hidden" name="cropX" id="cropX" />
-							    <b>Y</b>: <input type="hidden" name="cropY" id="cropY" />
-							    <b>W</b>: <input type="hidden" name="cropW" id="cropW" />
-							    <b>H</b>: <input type="hidden" name="cropH" id="cropH" />
-							    <b>rotate</b>: <input type="text" name="rotate" value="0"/>
+							    <input type="hidden" name="cropX" id="cropX" />
+							    <input type="hidden" name="cropY" id="cropY" />
+							    <input type="hidden" name="cropW" id="cropW" />
+							    <input type="hidden" name="cropH" id="cropH" />
 							</div>
-							<textarea name="title" placeholder="Image Title" rows="2" class="countable form-control">{{picture.title}}</textarea><br/>
-							<button type="button" class="btn btn-default" id="btn-rotate" >Rotate</button>
+							<textarea id="title" name="title" placeholder="Image Title" rows="2" class="countable form-control">{{picture.title}}</textarea><br/>
 							<button type="submit" class="btn btn-primary" id="btn-editPhoto">Save</button>
 
 						</form>
@@ -140,42 +131,5 @@
 			</section>
 		</main>
 	</div>
-
-	<script src="/js/crop.js"></script>
-	<script>
-
-		var hs = new CROP('');
-		hs.init('.hs');
-		hs.loadImg('/uploads/{{picture.picture}}');
-
-		function crop() {
-			if ($(window).width() <= 600) {
-				$('.cropMain').html('');
-				$('.cropSlider').html('');
-				$('#crop').removeClass('hs');
-				$('#crop').addClass('hs-mobile');
-				hs.init('.hs-mobile');
-				hs.loadImg('/uploads/{{picture.picture}}');
-			} else {
-				$('.cropMain').html('');
-				$('.cropSlider').html('');
-				$('#crop').removeClass('hs-mobile');
-				$('#crop').addClass('hs');
-				hs.init('.hs');
-				hs.loadImg('/uploads/{{picture.picture}}');
-			}
-		}
-
-		crop();
-		$(window).resize(function() {
-			crop();
-		});
-
-		// send coordinates for processing
-		// you may call the coordinates with the function coordinates(one);
-		$(document).on('click', 'button', function() {
-			console.log($.param(coordinates(hs)))
-		});
-
-	</script>
+	
 {{> footer}}
