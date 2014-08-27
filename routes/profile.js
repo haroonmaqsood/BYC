@@ -16,7 +16,6 @@ router.get('/:username', function(req, res, next) {
     username = req.params.username;
   }
 
-
   if (username.length > 20) {
 	  var err = new Error('Profile does not exsist mofo!');
 	  err.status = 404;
@@ -42,6 +41,13 @@ router.get('/:username', function(req, res, next) {
 	    countUserLikes: function(callback) {
 	    	model.countUserLikes(responce_getProfile[0].id, function(responce_countUserLikes) {
 	  			res.locals.countUserLikes = responce_countUserLikes[0].count;
+	    		return callback();
+	    	});
+	    },
+
+	    countUserFollowers: function(callback) {
+	    	model.countUserFollowers(responce_getProfile[0].id, function(responce_countUserFollowers) {
+	  			res.locals.countUserFollowers = responce_countUserFollowers[0].count;
 	    		return callback();
 	    	});
 	    },

@@ -7,13 +7,13 @@ var express     = require('express'),
     utils       = require('../inc/utils');
 
 router.get('/', function(req, res) {
-  if ( req.isAuthenticated() ) {
-    if (!req.user.steptwo)
-      return res.redirect('/steptwo');
-    return res.redirect('/');
-  }
+  if ( !req.isAuthenticated() )
+    return res.redirect('/login');
 
-  res.render('signup');
+  if (!req.user.steptwo)
+      return res.redirect('/steptwo');
+
+  res.render('settings');
 });
 
 router.post('/', function (req, res) {
@@ -25,7 +25,7 @@ router.post('/', function (req, res) {
       agent     = req.headers,
       token     = cryptoToken(16).toString('hex');
   
-  if ( (email.length > 100 || email.length < 5) || (username.length > 20 || username.length < 3) || !utils.validateEmail(email) || !utils.isAlphaNumeric(username) || password.length < 3 || password.length > 150 ) {
+  if ( (email.length > 100 || email.length < 5) || (username.length > 20 || username.length < 3) || !utils.validateEmail(email) || !utils.isAlphaNumeric(username) || password.length < 3 || password.length > 500 ) {
     return res.send({ status: 'invalid field(s)' });
   }
 

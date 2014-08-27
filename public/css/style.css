@@ -6694,6 +6694,21 @@ section {
   color: #eee509;
   background: none;
 }
+.hairshare img,
+.photo-sm img {
+  -webkit-border-bottom-left-radius: 20% !important;
+  -moz-border-radius-bottomleft: 20% !important;
+  border-bottom-left-radius: 20% !important;
+  -webkit-border-bottom-right-radius: 20% !important;
+  -moz-border-radius-bottomright: 20% !important;
+  border-bottom-right-radius: 20% !important;
+  -webkit-border-top-left-radius: 2% !important;
+  -moz-border-radius-topleft: 2% !important;
+  border-top-left-radius: 2% !important;
+  -webkit-border-top-right-radius: 2% !important;
+  -moz-border-radius-topright: 2% !important;
+  border-top-right-radius: 2% !important;
+}
 @media (max-width: 640px) {
   article form.margin {
     width: 100%;

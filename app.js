@@ -12,19 +12,6 @@ var express       = require('express'),
     mysql         = require('mysql');
 
 
-var index         = require('./routes/index'),
-    api           = require('./routes/api'),
-    login         = require('./routes/login'),
-    signup        = require('./routes/signup'),
-    stepTwo       = require('./routes/steptwo'),
-    logout        = require('./routes/logout'),
-    profile       = require('./routes/profile'),
-    picture       = require('./routes/picture'),
-    edit_picture  = require('./routes/edit_picture'),
-    upload        = require('./routes/upload'),
-    ad            = require('./routes/ad');
-
-
 global.appDir  = __dirname;
 
 app.use(favicon());
@@ -45,6 +32,20 @@ app.use(function(req, res, next) {
     res.locals.isAuth = true;
     res.locals.user   = req.user;
   }
+
+  global.options = {};
+  res.locals.options = options;
+  
+  if (app.get('env') === 'development') {
+    options.root_url = 'http://local.mee.la:3000/';
+  } 
+
+  if (app.get('env') === 'production') {
+    options.root_url = 'http://178.62.8.5:3000/';
+  } 
+  
+
+
   return next();
 });
 
@@ -117,23 +118,30 @@ if (app.get('env') === 'production') {
     database : 'AlexPhotoProject',
   });
   db.connect();
+
+
 } 
   
 var incPass = require('./inc/passport');
 incPass.passportAuth(app);
 
 
-app.use('/', index);
-app.use('/api', api);
-app.use('/login', login);
-app.use('/signup', signup);
-app.use('/steptwo', stepTwo);
-app.use('/picture', edit_picture);
-app.use('/picture', picture);
-app.use('/upload', upload);
-app.use('/logout', logout);
-app.use('/ad', ad);
-app.use('/', profile);
+
+
+
+app.use('/', require('./routes/index'));
+app.use('/api', require('./routes/api'));
+app.use('/login', require('./routes/login'));
+app.use('/signup', require('./routes/signup'));
+app.use('/forgot', require('./routes/forgot'));
+app.use('/steptwo', require('./routes/steptwo'));
+app.use('/picture', require('./routes/picture'));
+app.use('/picture', require('./routes/edit_picture'));
+app.use('/upload', require('./routes/upload'));
+app.use('/logout', require('./routes/logout'));
+app.use('/settings', require('./routes/settings'));
+// app.use('/ad', ad);
+app.use('/', require('./routes/profile'));
 
 
 

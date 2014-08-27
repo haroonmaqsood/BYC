@@ -56,10 +56,7 @@ router.post('/:slug/edit', function (req, res) {
       if ( (!title.length > 2 || title.length > 81) ) {
         return res.send(400, { status: 'failed', reason: 'Title Size must be between 3-80 Characters' });
       }
-      console.log(cropX)
-      console.log(cropY)
-      console.log(cropW)
-      console.log(cropH)
+
       // If all cropping fields are not provided
       if (cropX == '' || cropY == ''  || cropW == ''  || cropH == '' ) return res.send(400, { status: 'failed', reason: 'Please make sure the image is inside the crop margins from all sides.' });
 

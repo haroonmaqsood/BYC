@@ -173,8 +173,9 @@
 				// });
 			},
 			followButton: function(){
-				if($('#btn-follow').length){
-					$('#btn-follow').on('click', function(e){ 
+				var btn = $('#btn-follow');
+				if(btn.length){
+					btn.on('click', function(e){ 
 						e.preventDefault();
 						var formData = {},
 							url = location.href;
@@ -190,12 +191,12 @@
 							var follow = '';
 							if(responseTxt.status == 'unfollowed'){
 								follow = 'Follow';
-								$('#btn-follow').removeClass('btn-link').addClass('btn-primary');
+								btn.removeClass('btn-link').addClass('btn-primary');
 							}else{
 								follow = 'Unfollow';
-								$('#btn-follow').removeClass('btn-primary').addClass('btn-link');
+								btn.removeClass('btn-primary').addClass('btn-link');
 							}
-								$('#btn-follow').html(follow);
+								btn.html(follow);
 						});
 					});
 				};

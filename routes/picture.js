@@ -82,15 +82,23 @@ router.get('/:slug', function(req, res, next) {
 					    		
 		  					});
 					    },
-
-
 					    countLikes: function(callbackOne) {
 					    	model.countLikes(responce_picture[0].id, function(responce_countLikes) {
 					  			res.locals.countLikes = responce_countLikes[0].count;
 					    		return callbackOne();
 					    	});
 					    },
-					    
+					    followStatus: function(callbackOne) {
+					    	console.log(res.locals.profile)
+					    	if (req.user.id !== responce_picture[0].id) {
+						    	model.followStatus(req.user.id, responce_picture[0].user_id, function(responce_followStatus) {
+							 			res.locals.followStatus = responce_followStatus;
+							  		return callbackOne();
+							  	});
+						    } else {
+						    	return callbackOne();
+						    }
+					    }
 
 
 					}, function(err){

@@ -74,6 +74,21 @@ module.exports = {
     });
   },
 
+  getProfileFromEmail: function (email, cb) {
+    db.query("SELECT * FROM users WHERE email = ?", email, function (err,results) { 
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
+
+  getProfileFromUsername: function (username, cb) {
+    db.query("SELECT * FROM users WHERE username = ?", username, function (err,results) { 
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
 
   uploadPicture: function (user_id, picture, token, ip, agent, cb) {
 
@@ -324,6 +339,13 @@ module.exports = {
     });
   },
 
+  countUserFollowers: function (user_id, cb) {
+    db.query("SELECT count(*) AS count FROM follow WHERE following = ? AND deletedDttm IS NULL", [user_id], function (err,results) {
+      // LOG TO SENTRY
+      if (err) throw err;
+      return cb(results);
+    });
+  },
 
   getFollowing: function (user_id, cb) {
     db.query("SELECT following FROM follow WHERE follower = ?", [user_id], function (err,results) {
@@ -341,6 +363,20 @@ module.exports = {
 
 
 
+  updatePassword: function (user_id, newPassword, newToken, cb) {
+    
+    db.query("UPDATE users SET updatedDttm = NOW(), password = ?, token = ? WHERE id = ?", [newPassword, newToken, user_id], function (err,results) {
+
+      // LOG TO SENTRY
+      // if (err) throw err;
+      if (results.affectedRows)
+        return cb(results.affectedRows);
+
+      return cb(false);
+
+    });
+
+  },
 
 
 
