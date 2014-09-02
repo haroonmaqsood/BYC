@@ -16,13 +16,7 @@
 				</div>
 				{{#ifCond profile.id '!==' user.id }}
 				<div class="col-xs-12">
-					<form method="post" action="/{{ profile.username }}">
-						<button type="submit" name="follow" id="btn-follow" class="btn btn-block {{#ifCond followStatus '>=' 1 }}btn-link{{else}}btn-primary{{/ifCond}}">
-							{{#ifCond followStatus '>=' 1 }}UNFOLLOW{{else}}FOLLOW{{/ifCond}}
-						</button>
-					</form>
-
-					<a href="#"></a>
+					<div class="followUser" data-username="{{ profile.username }}"></div>
 				</div>
 				{{/ifCond}}
 			  </div>

@@ -173,41 +173,98 @@
 				// });
 			},
 			followButton: function(){
-				var btn = $('#btn-follow');
-				if(btn.length){
 
-					jQuery('.btn-follow').each(function() {
-					    var currentBtn 	= $(this),
-					    		value 			= currentBtn.data('username');
-
-					    
-					});
-
-					btn.on('click', function(e){ 
-						e.preventDefault();
-						var formData = {},
-							url = location.href;
-
-						formData.follow = ' ';
 				
-						$.ajax({
-						  url:url,
-						  type: "post",
-						  data: formData
-						})
-						.done(function(responseTxt){ 
-							var follow = '';
-							if(responseTxt.status == 'unfollowed'){
-								follow = 'Follow';
-								btn.removeClass('btn-link').addClass('btn-primary');
-							}else{
-								follow = 'Unfollow';
-								btn.removeClass('btn-primary').addClass('btn-link');
-							}
-								btn.html(follow);
-						});
+				var $followUser = $('.followUser');
+				if(!$followUser.length) return console.log('$followUser: error this broke!');
+				var status = cssClass = "";
+
+				$.ajax({
+				  url:'/api/checkFollow/'+ $followUser.data('username'),
+				  type: "get"
+				})
+				.done(function(responseTxt) {
+					
+					if (responseTxt.result === 0) {
+						status = 'Follow';
+						cssClass = 'btn-primary';
+					} else if (responseTxt.result === 1) {
+						status = 'Unfollow';
+						cssClass = 'btn-link';
+					};
+
+					$followUser.html('<a href="#" class="none btn btn-block '+cssClass+'">'+status+'</a>');
+					$('.followUser a').slideDown();
+
+				})
+				.fail(function(responseTxt) {
+					console.log('$followUser: error this broke! 2');
+					console.log(responseTxt)
+				});
+					
+
+				$followUser.on('click', function(e){ 
+					e.preventDefault();
+					var $this = $(this);
+
+					$.ajax({
+					  url:'/api/doFollow/'+ $(this).data('username'),
+					  type: "post"
+					})
+					.done(function(responseTxt) {
+
+						if (responseTxt.status === 'unfollowed') {
+							$this.find('.btn').html('Follow').addClass('btn-primary').removeClass('btn-link');
+						} else if (responseTxt.status === 'followed') {
+							$this.find('.btn').html('Unfollow').addClass('btn-link').removeClass('btn-primary');
+						};
+
+					})
+					.fail(function(responseTxt) {
+						console.log('$followUser: error this broke! 2');
+						console.log(responseTxt)
 					});
-				};
+
+
+
+				});
+				// var btn = $('#btn-follow');
+				// if(btn.length){
+
+				// 	jQuery('.btn-follow').each(function() {
+				// 	    var currentBtn 	= $(this),
+				// 	    		value 			= currentBtn.data('username');
+
+				// 	    btn.on('click', function(e){ 
+				// 		e.preventDefault();
+				// 		var formData = {},
+				// 			url = location.href;
+
+				// 		formData.follow = ' ';
+				
+				// 		$.ajax({
+				// 		  url:url,
+				// 		  type: "post",
+				// 		  data: formData
+				// 		})
+				// 		.done(function(responseTxt){ 
+				// 			var follow = '';
+				// 			if(responseTxt.status == 'unfollowed'){
+				// 				follow = 'Follow';
+				// 				btn.removeClass('btn-link').addClass('btn-primary');
+				// 			}else{
+				// 				follow = 'Unfollow';
+				// 				btn.removeClass('btn-primary').addClass('btn-link');
+				// 			}
+				// 				btn.html(follow);
+				// 		});
+				// 	});
+					    
+
+				// 	});
+
+					
+				// };
 			},
 			likeButton: function(){
 				if($('#like-form').length){

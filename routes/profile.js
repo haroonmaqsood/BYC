@@ -87,17 +87,6 @@ router.get('/:username', function(req, res, next) {
 	    	});
 	    },
 
-	    followStatus: function(callback) {
-	    	if (req.user.id !== responce_getProfile[0].id) {
-		    	model.followStatus(req.user.id, res.locals.profile.id, function(responce_followStatus) {
-			 			res.locals.followStatus = responce_followStatus;
-			  		return callback();
-			  	});
-		    } else {
-		    	return callback();
-		    }
-	    }
-
 		},
 		function(err, results){
 		  return res.render('profile');
@@ -108,37 +97,6 @@ router.get('/:username', function(req, res, next) {
 
 	});
 
-});
-
-
-
-
-
-router.post('/:username', function(req, res, next) {
-	
-	if (!req.params.username || req.params.username.length > 20)
-			return res.send({ status: 'failed'});
-
-	model.getProfile(req.params.username, function(responce_getProfile) {
-		if (!responce_getProfile || req.user.id === responce_getProfile[0].id)
-			return res.send({ status: 'failed'});
-	  
-		model.followStatus(req.user.id, responce_getProfile[0].id, function(responce_followStatus) {
-			if (responce_followStatus) {
-				// UNFOLLOW
-				model.unfollowUser(req.user.id, responce_getProfile[0].id, function(responce) {
-			    if (!responce) return res.send({ status: 'failed'});
-			    return res.send({ status: 'unfollowed'});
-		  	});
-			} else {
-				// FOLLOW USER
-				model.followUser(req.user.id, responce_getProfile[0].id, function(responce) {
-			    if (!responce) return res.send({ status: 'failed'});
-			  	return res.send({ status: 'followed'});
-			  });
-			}
-		});
-  });
 });
 
 
