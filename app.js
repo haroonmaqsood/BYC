@@ -9,7 +9,8 @@ var express       = require('express'),
     RedisStore    = require('connect-redis')(session),
     passport      = require('passport'),
     hbs           = require('hbs'),
-    mysql         = require('mysql');
+    mysql         = require('mysql'),
+    validator     = require('express-validator');
 
 
 global.appDir  = __dirname;
@@ -25,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ store: new RedisStore({}), secret: 'm9889MJHAI7nlfds8n77w37', cookie: { maxAge : 14515200 } }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(validator([]));
 
 app.use(function(req, res, next) {
   if (req.user) {

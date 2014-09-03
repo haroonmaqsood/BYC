@@ -1,54 +1,43 @@
 module.exports = {
   
   signup: function (email, username, password, ip, agent, token, cb) {
-
     var date  = new Date(),
         agent = JSON.stringify(agent);
-    
     db.query("INSERT INTO users SET ?", {email:email, username:username, password:password, ip:ip, agent:agent, token:token, createdDttm:date }, function (err,results) {
-
-      // LOG TO SENTRY
-      // if (err) throw err;
-
+      if (err) throw err;
       if (results.insertId)
         return cb(results.insertId);
-
       return cb(false);
-
     });
-   
+  },
+
+  updateEmail: function (email, id, cb) {   
+    db.query("UPDATE users SET email = ?, updatedDttm = NOW() WHERE id = ?", [email, id], function (err,results) {
+      if (err) throw err;
+      cb(results);
+    });
+  },
+
+  updatePassword: function (password, id, cb) {   
+    db.query("UPDATE users SET password = ?, updatedDttm = NOW() WHERE id = ?", [password, id], function (err,results) {
+      if (err) throw err;
+      cb(results);
+    });
   },
 
   stepTwo: function (id, q1, q2, q3, q4, q5, q6, q7, cb) {
     db.query("UPDATE users SET q1 = ?, q2 = ?, q3 = ?, q4 = ?, q5 = ?, q6 = ?, q7 = ?, updatedDttm = NOW() WHERE id = ?", [q1, q2, q3, q4, q5, q6, q7, id], function (err,results) {
-
-      // LOG TO SENTRY
       if (err) throw err;
       cb(results);
-      // if (results)
-        // return results.insertId;
-
-      // return false;
-
     });
   },
 
   stepTwoComplete: function (id, cb) {
 
     var date = new Date();
-    db.query("UPDATE users SET steptwo = ?, updatedDttm = NOW() WHERE id = ?", [date, id], function (err,results) {
-
-      // LOG TO SENTRY
+    db.query("UPDATE users SET steptwo = NOW(), updatedDttm = NOW() WHERE id = ?", [id], function (err,results) {
       if (err) throw err;
-
-      var date = new Date();
-      cb(date);
-
-      // if (results)
-        // return results.insertId;
-
-      // return false;
-
+      cb(results);
     });
   },
 

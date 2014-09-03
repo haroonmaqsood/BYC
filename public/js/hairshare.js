@@ -13,6 +13,7 @@
 					hs.loadMorePhotos();
 					hs.uploadPhoto();
 					hs.loadImages();
+					hs.settings();
 				});
 				return false;
 			},
@@ -228,43 +229,7 @@
 
 
 				});
-				// var btn = $('#btn-follow');
-				// if(btn.length){
 
-				// 	jQuery('.btn-follow').each(function() {
-				// 	    var currentBtn 	= $(this),
-				// 	    		value 			= currentBtn.data('username');
-
-				// 	    btn.on('click', function(e){ 
-				// 		e.preventDefault();
-				// 		var formData = {},
-				// 			url = location.href;
-
-				// 		formData.follow = ' ';
-				
-				// 		$.ajax({
-				// 		  url:url,
-				// 		  type: "post",
-				// 		  data: formData
-				// 		})
-				// 		.done(function(responseTxt){ 
-				// 			var follow = '';
-				// 			if(responseTxt.status == 'unfollowed'){
-				// 				follow = 'Follow';
-				// 				btn.removeClass('btn-link').addClass('btn-primary');
-				// 			}else{
-				// 				follow = 'Unfollow';
-				// 				btn.removeClass('btn-primary').addClass('btn-link');
-				// 			}
-				// 				btn.html(follow);
-				// 		});
-				// 	});
-					    
-
-				// 	});
-
-					
-				// };
 			},
 			likeButton: function(){
 				if($('#like-form').length){
@@ -429,10 +394,10 @@
 					var html = '';
 
 					$.each($(response), function(){ console.log(response)
-						html = html + '<div class="photo-sm"><div class="photo-holder">';
-						html = html + '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
-						html = html + '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
-						html = html + '</a></div></div>';
+						html += '<div class="photo-sm"><div class="photo-holder">';
+						html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
+						html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
+						html += '</a></div></div>';
 					})
 					
 					$('#popular').html(html);
@@ -460,10 +425,10 @@
 					var html = '';
 
 					$.each($(response), function(){ console.log(response)
-						html = html + '<div class="photo-sm"><div class="photo-holder">';
-						html = html + '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
-						html = html + '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
-						html = html + '</a></div></div>';
+						html += '<div class="photo-sm"><div class="photo-holder">';
+						html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
+						html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
+						html += '</a></div></div>';
 					})
 					
 					$('#following').html(html);
@@ -488,8 +453,40 @@
 				  $(this).closest('.tab').addClass('selected');
 				  $(this).tab('show')
 				})
-			}
+			},
 
+			settings:function(){
+			  $('#testPostSubmit').on('click', function(e){
+			    e.preventDefault();
+			    var formData = {};
+
+			    formData.testPostPostparam = $('input[name="testPostPostparam"]').val();
+			    formData.testPostUrlparam = $('input[name="testPostUrlparam"]').val();
+
+			    $.ajax({
+			      url:location.href,
+			      type: "post",
+			      data: formData
+			    })
+			    .done(function(responseTxt){ 
+			      console.log(responseTxt.responseJSON)
+			      $('.form-group').removeClass('has-error');
+			      $('.form-group').addClass('has-success');
+			      window.location.href = responseTxt.responseJSON.redirect;
+			    })
+			    .fail(function(responseTxt){
+			      // console.log(responseTxt.responseJSON)
+			      $('.control-label').remove();
+			      $('.form-group').removeClass('has-error');
+			      for (var i = responseTxt.responseJSON.length - 1; i >= 0; i--) {
+			        $('#'+responseTxt.responseJSON[i].param).addClass('has-error');
+			        $('<label class="control-label pull-right">'+responseTxt.responseJSON[i].msg+'</label>').insertAfter('#'+responseTxt.responseJSON[i].param+' label');
+			      };
+			      // $('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+			      // $('form .message').addClass('error').html(responseTxt.status);
+			    })
+
+			  });
 		}
 
 	hs.init($); 
