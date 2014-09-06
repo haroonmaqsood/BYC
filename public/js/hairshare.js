@@ -50,6 +50,7 @@
 					});
 					$('#btn-steptwo').on('click', function(e){
 						e.preventDefault();
+						formData.gender = $('input[name="gender"]').val();
 						formData.firstName = $('input[name="firstName"]').val();
 						formData.lastName = $('input[name="lastName"]').val();
 						formData.hairType = $('select[name="hairType"]').val();
@@ -77,7 +78,7 @@
 				        $('<label class="control-label pull-right">'+responseTxt.responseJSON[i].msg+'</label>').insertAfter('#'+responseTxt.responseJSON[i].param+' label');
 				      };
 						})
-						
+
 					});
 				}
 			

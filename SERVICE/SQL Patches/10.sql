@@ -1,0 +1,1 @@
+ALTER TABLE users ADD gender varchar(7) NULL AFTER picture;
