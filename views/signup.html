@@ -1,29 +1,28 @@
 {{> header}}
 
    	<div class="row">
-   		<aside class="col-xs-12 col-sm-4 pull-right">
-				left 
-		</aside>
-		<main class="col-xs-12 col-sm-8">
+		<main>
+
 			<header>
-				<h1>Signup</h1>
+				<h1 class="text-center">Signup</h1>
 			</header>
-			<section>
-				<form method="post"  class="margin" id="signup-form">
-					<div class="form-group has-feedback">
-						<label class="control-label sr-only" for="inputError2">email</label>
-						<input type="email" name="email" class="form-control" placeholder="email">
+
+			<section class="col-md-4 col-md-offset-4">
+				<div class="alert none alert-fix-padding" role="alert"></div>
+				<form method="post" id="signup-form">
+					<div class="form-group" id="email">
+						<label>Email</label>
+						<input type="email" name="email" class="form-control input-lg" placeholder="Email Address">
 					</div>
-					<div class="form-group has-feedback">
-						<label class="control-label sr-only" for="inputError2">username</label>
-						<input type="text" name="username" class="form-control" placeholder="username">
+					<div class="form-group" id="username">
+						<label>Username</label>
+						<input type="text" name="username" class="form-control input-lg" placeholder="Username">
 					</div>
-					<div class="form-group has-feedback">
-						<label class="control-label sr-only" for="inputError2">password</label>
-						<input type="password" name="password" class="form-control" placeholder="password">
+					<div class="form-group" id="password">
+						<label>Password</label>
+						<input type="password" name="password" class="form-control input-lg" placeholder="Password">
 					</div>
-				<div class="message"></div>
-				<input type="submit" name="submit" class="btn btn-default" id="btn-signup">
+					<button type="submit" class="btn btn-primary btn-lg" id="btn-signup">Signup</button>
 				</form>
 			</section>
 		</main>		

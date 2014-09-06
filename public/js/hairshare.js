@@ -19,34 +19,37 @@
 			},
 			registeration: function(){
 				if($('#signup-form').length){
+					var formData = {};
 
-					$('input#btn-signup').on('click', function(e){
+					$('#btn-signup').on('click', function(e){
 						e.preventDefault();
-						var formData = {},
-							url = "Signup";
-
 						formData.email = $('input[name="email"]').val();
 						formData.username = $('input[name="username"]').val();
 						formData.password = $('input[name="password"]').val();
 
 						$.ajax({
-						  url: url,
-						  type: "post",
+						  url: 'signup',
+						  type: 'post',
 						  data: formData
 						})
-						.done(function(){ 
-							window.location.href = "/steptwo";
+						.done(function(responseTxt){ 
+							console.log(responseTxt)
+				      $('.form-group').removeClass('has-error');
+				      $('.form-group').addClass('has-success');
+				      $('.control-label').remove();
+      				window.location.href = responseTxt.redirect;
 						})
 						.fail(function(responseTxt){ 
-							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-							$('form .message').addClass('error').html(responseTxt.status);
+				      $('.control-label').remove();
+				      $('.form-group').removeClass('has-error');
+				      for (var i = responseTxt.responseJSON.length - 1; i >= 0; i--) {
+				        $('#'+responseTxt.responseJSON[i].param).addClass('has-error');
+				        $('<label class="control-label pull-right">'+responseTxt.responseJSON[i].msg+'</label>').insertAfter('#'+responseTxt.responseJSON[i].param+' label');
+				      };
 						})
 					});
-					$('input#btn-steptwo').on('click', function(e){
+					$('#btn-steptwo').on('click', function(e){
 						e.preventDefault();
-						var formData = {},
-							url = "steptwo";
-
 						formData.q1 = $('select[name="q1"]').val();
 						formData.q2 = $('input[name="q2"]').val();
 						formData.q3 = $('select[name="q3"]').val();
@@ -56,8 +59,8 @@
 						formData.q7 = $('select[name="q7"]').val();
 
 						$.ajax({
-						  url: url,
-						  type: "post",
+						  url: 'steptwo',
+						  type: 'post',
 						  data: formData
 						})
 						.done(function(){ 
@@ -72,7 +75,7 @@
 			
 			},
 			login: function(){
-				$('input#btn-login').on('click', function(e){
+				$('#btn-login').on('click', function(e){
 						e.preventDefault();
 						var formData = {},
 							url = "login";
@@ -89,8 +92,8 @@
 							window.location.href = "/";
 						})
 						.fail(function(){
-							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-							$('form .message').addClass('error').html('Wrong login');
+							$('form .form-group').addClass('has-error');
+							$('.alert').addClass('alert-danger').html('Incorrect Login').slideDown();
 						})
 					});
 			},
@@ -177,7 +180,7 @@
 
 				
 				var $followUser = $('.followUser');
-				if(!$followUser.length) return console.log('$followUser: error this broke!');
+				if(!$followUser.length) return;
 				var status = cssClass = "";
 
 				$.ajax({
@@ -393,7 +396,7 @@
 				.done(function(response){ 
 					var html = '';
 
-					$.each($(response), function(){ console.log(response)
+					$.each($(response), function(){
 						html += '<div class="photo-sm"><div class="photo-holder">';
 						html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
 						html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
@@ -424,7 +427,7 @@
 				.done(function(response){ 
 					var html = '';
 
-					$.each($(response), function(){ console.log(response)
+					$.each($(response), function(){
 						html += '<div class="photo-sm"><div class="photo-holder">';
 						html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
 						html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
@@ -460,8 +463,8 @@
 			    e.preventDefault();
 			    var formData = {};
 
-			    formData.testPostPostparam = $('input[name="testPostPostparam"]').val();
-			    formData.testPostUrlparam = $('input[name="testPostUrlparam"]').val();
+			    formData.email = $('input[name="email"]').val();
+			    formData.password = $('input[name="password"]').val();
 
 			    $.ajax({
 			      url:location.href,
@@ -469,7 +472,7 @@
 			      data: formData
 			    })
 			    .done(function(responseTxt){ 
-			      console.log(responseTxt.responseJSON)
+			    	console.log()
 			      $('.form-group').removeClass('has-error');
 			      $('.form-group').addClass('has-success');
 			      window.location.href = responseTxt.responseJSON.redirect;
@@ -487,7 +490,9 @@
 			    })
 
 			  });
-		}
+		},
+
+	}
 
 	hs.init($); 
   	

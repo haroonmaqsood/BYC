@@ -47,6 +47,20 @@ module.exports = {
       return cb(results);
     });
   },
+  
+  checkEmail: function (email, cb) {
+    db.query("SELECT COUNT(*) AS count FROM users WHERE email = ?", email, function (err,results) {
+      if (err) throw err;
+      return cb(results[0].count);
+    });
+  },
+
+  checkUsername: function (username, cb) {
+    db.query("SELECT COUNT(*) AS count FROM users WHERE username = ?", username, function (err,results) {
+      if (err) throw err;
+      return cb(results[0].count);
+    });
+  },
 
   getProfileById: function (id, cb) {
     db.query("SELECT * FROM users WHERE id = ? LIMIT 1", id, function (err,results) {

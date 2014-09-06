@@ -6547,11 +6547,6 @@ main form.full-width {
   width: 100%;
   max-width: 600px;
 }
-main form#signup-form,
-main form#login-form,
-main form#upload-form {
-  background: #2de0c5;
-}
 main form .btn-default {
   background: #f7941d;
   color: #ffffff;
@@ -6708,6 +6703,10 @@ section {
   -webkit-border-top-right-radius: 2% !important;
   -moz-border-radius-topright: 2% !important;
   border-top-right-radius: 2% !important;
+}
+.alert-fix-padding {
+  margin-bottom: 0 !important;
+  margin-top: 8px !important;
 }
 @media (max-width: 640px) {
   article form.margin {
