@@ -50,26 +50,34 @@
 					});
 					$('#btn-steptwo').on('click', function(e){
 						e.preventDefault();
-						formData.q1 = $('select[name="q1"]').val();
-						formData.q2 = $('input[name="q2"]').val();
-						formData.q3 = $('select[name="q3"]').val();
-						formData.q4 = $('select[name="q4"]').val();
-						formData.q5 = $('select[name="q5"]').val();
-						formData.q6 = $('input[name="q6"]').val();
-						formData.q7 = $('select[name="q7"]').val();
+						formData.firstName = $('input[name="firstName"]').val();
+						formData.lastName = $('input[name="lastName"]').val();
+						formData.hairType = $('select[name="hairType"]').val();
+						formData.course = $('select[name="course"]').val();
+						formData.lastHairSalon = $('select[name="lastHairSalon"]').val();
+						formData.lastCutCost = $('input[name="lastCutCost"]').val();
 
 						$.ajax({
 						  url: 'steptwo',
 						  type: 'post',
 						  data: formData
 						})
-						.done(function(){ 
-							window.location.href = "/";
+						.done(function(responseTxt){ 
+							console.log(responseTxt)
+				      $('.form-group').removeClass('has-error');
+				      $('.form-group').addClass('has-success');
+				      $('.control-label').remove();
+      				window.location.href = responseTxt.redirect;
 						})
-						.fail(function(responseTxt){
-							$('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-							$('form .message').addClass('error').html(responseTxt.status);
+						.fail(function(responseTxt){ 
+				      $('.control-label').remove();
+				      $('.form-group').removeClass('has-error');
+				      for (var i = responseTxt.responseJSON.length - 1; i >= 0; i--) {
+				        $('#'+responseTxt.responseJSON[i].param).addClass('has-error');
+				        $('<label class="control-label pull-right">'+responseTxt.responseJSON[i].msg+'</label>').insertAfter('#'+responseTxt.responseJSON[i].param+' label');
+				      };
 						})
+						
 					});
 				}
 			

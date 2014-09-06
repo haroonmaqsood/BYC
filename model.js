@@ -25,8 +25,8 @@ module.exports = {
     });
   },
 
-  stepTwo: function (id, q1, q2, q3, q4, q5, q6, q7, cb) {
-    db.query("UPDATE users SET q1 = ?, q2 = ?, q3 = ?, q4 = ?, q5 = ?, q6 = ?, q7 = ?, updatedDttm = NOW() WHERE id = ?", [q1, q2, q3, q4, q5, q6, q7, id], function (err,results) {
+  stepTwo: function (id, firstName, lastName, hairType, course, lastSalon, lastCutCost, cb) {
+    db.query("UPDATE users SET firstName = ?, lastName = ?, hairType = ?, course = ?, lastSalon = ?, lastCutCost = ?, updatedDttm = NOW() WHERE id = ?", [firstName, lastName, hairType, course, lastSalon, lastCutCost, id], function (err,results) {
       if (err) throw err;
       cb(results);
     });
