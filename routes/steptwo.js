@@ -33,13 +33,9 @@ router.post('/', function (req, res) {
   if (errors)
     return res.send(errors, 400);
 
-  console.log(req.body.gender);
-  console.log(req.param('gender'));
   var gender = 'female';
   if (req.param('gender'))
     gender = 'male';
-
-  console.log(gender);
 
   var firstName     = req.param('firstName'),
   		lastName	    = req.param('lastName'),
@@ -47,13 +43,12 @@ router.post('/', function (req, res) {
   		course	      = req.param('course'),
   		lastHairSalon = req.param('lastHairSalon'),
   		lastCutCost	  = req.param('lastCutCost');
- 
  	
 	model.stepTwo(req.user.id, gender, firstName, lastName, hairType, course, lastHairSalon, lastCutCost, function(responce) {
 
   	model.stepTwoComplete(req.user.id, function(response) {    		
   		req.user.steptwo = response;
-  		return res.send({ status: 'success'});
+  		return res.send({ redirect: '/'});
   	});
 
 	});
