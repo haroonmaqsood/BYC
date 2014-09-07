@@ -5,10 +5,10 @@ var express			= require('express'),
 
 router.get('/', function(req, res) {
   
-  if (!req.isAuthenticated()) return res.redirect('/login');
+  if (!req.isAuthenticated()) return res.render('index');
   if (!req.user.steptwo) return res.redirect('/steptwo');
   
-  return res.render('index');
+  return res.render('dashboard');
 });
 
 module.exports = router;

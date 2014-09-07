@@ -91,7 +91,7 @@
 				      $('.form-group').removeClass('has-error');
 				      for (var i = responseTxt.responseJSON.length - 1; i >= 0; i--) {
 				        $('#'+responseTxt.responseJSON[i].param).addClass('has-error');
-				        $('<label class="control-label pull-right">'+responseTxt.responseJSON[i].msg+'</label>').insertAfter('#'+responseTxt.responseJSON[i].param+' label');
+				        $('<label class="control-label">'+responseTxt.responseJSON[i].msg+'</label>').insertAfter('#'+responseTxt.responseJSON[i].param+' label');
 				      };
 						})
 
@@ -216,13 +216,13 @@
 					
 					if (responseTxt.result === 0) {
 						status = 'Follow';
-						cssClass = 'btn-primary';
+						cssClass = 'btn-hs';
 					} else if (responseTxt.result === 1) {
 						status = 'Unfollow';
-						cssClass = 'btn-link';
+						cssClass = 'btn-hs-two';
 					};
 
-					$followUser.html('<a href="#" class="none btn btn-block '+cssClass+'">'+status+'</a>');
+					$followUser.html('<a href="#" class="none btn btn-hs btn-block '+cssClass+'">'+status+'</a>');
 					$('.followUser a').slideDown();
 
 				})
@@ -243,9 +243,9 @@
 					.done(function(responseTxt) {
 
 						if (responseTxt.status === 'unfollowed') {
-							$this.find('.btn').html('Follow').addClass('btn-primary').removeClass('btn-link');
+							$this.find('.btn').html('Follow').addClass('btn-hs').removeClass('btn-hs-two');
 						} else if (responseTxt.status === 'followed') {
-							$this.find('.btn').html('Unfollow').addClass('btn-link').removeClass('btn-primary');
+							$this.find('.btn').html('Unfollow').addClass('btn-hs-two').removeClass('btn-hs');
 						};
 
 					})

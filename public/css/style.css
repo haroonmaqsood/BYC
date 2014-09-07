@@ -6446,7 +6446,7 @@ footer#site-footer .btn-link:hover {
   color: #ffffff;
 }
 #dashboard-timeline {
-  border: 2px solid #00E1C5;
+  border: 1px solid #00E1C5;
   background-color: #ffffff;
   -webkit-border-bottom-right-radius: 5px;
   -moz-border-radius-bottomright: 5px;
@@ -6454,6 +6454,7 @@ footer#site-footer .btn-link:hover {
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
+  padding: 20px 0;
 }
 #dashboard-timeline:after {
   content: "";
@@ -6648,25 +6649,25 @@ section {
   color: #2de0c5;
 }
 #photoContainer {
-  position: relative;
-  overflow: hidden;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-#photoContainer img {
-  border: 3px solid #2de0c5;
-  border-radius: 10px;
-}
-#photoContainer .overlay {
-  background: rgba(255, 255, 255, 0.6);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 100%;
-}
-#photoContainer:hover .overlay {
-  top: 0;
+  /*	position: relative;
+	overflow: hidden;
+	.center-block();
+	img{
+		border:3px solid @color-primary;
+		border-radius: 10px;
+	}*/
+  /*	.overlay{
+		background: rgba(255, 255, 255, 0.6);
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top:100%;
+	}
+	&:hover{
+		.overlay{
+			top:0;
+		}
+	}*/
 }
 /* SIDEBAR */
 .panel-default {
@@ -6693,21 +6694,6 @@ section {
   display: block;
   color: #eee509;
   background: none;
-}
-.hairshare img,
-.photo-sm img {
-  -webkit-border-bottom-left-radius: 20% !important;
-  -moz-border-radius-bottomleft: 20% !important;
-  border-bottom-left-radius: 20% !important;
-  -webkit-border-bottom-right-radius: 20% !important;
-  -moz-border-radius-bottomright: 20% !important;
-  border-bottom-right-radius: 20% !important;
-  -webkit-border-top-left-radius: 2% !important;
-  -moz-border-radius-topleft: 2% !important;
-  border-top-left-radius: 2% !important;
-  -webkit-border-top-right-radius: 2% !important;
-  -moz-border-radius-topright: 2% !important;
-  border-top-right-radius: 2% !important;
 }
 .alert-fix-padding {
   margin-bottom: 0 !important;
@@ -6859,3 +6845,126 @@ section {
 #gender {
   text-align: center;
 }
+.heading-one {
+  color: #6f7071;
+  font-size: 36px;
+}
+.heading-two {
+  color: #a3a5a6;
+  font-size: 24px;
+}
+.heading-three {
+  color: #a3a5a6;
+  font-size: 18px;
+}
+/*Custom Button*/
+.btn-hs {
+  color: #FFFFFF;
+  background-color: #ED2D94;
+  border-color: #ED2D94;
+}
+.btn-hs:hover,
+.btn-hs:focus,
+.btn-hs:active,
+.btn-hs.active,
+.open .dropdown-toggle.btn-hs {
+  color: #FFFFFF;
+  background-color: #ed2d94;
+  border-color: #ED2D94;
+}
+.btn-hs:active,
+.btn-hs.active,
+.open .dropdown-toggle.btn-hs {
+  background-image: none;
+}
+.btn-hs.disabled,
+.btn-hs[disabled],
+fieldset[disabled] .btn-hs,
+.btn-hs.disabled:hover,
+.btn-hs[disabled]:hover,
+fieldset[disabled] .btn-hs:hover,
+.btn-hs.disabled:focus,
+.btn-hs[disabled]:focus,
+fieldset[disabled] .btn-hs:focus,
+.btn-hs.disabled:active,
+.btn-hs[disabled]:active,
+fieldset[disabled] .btn-hs:active,
+.btn-hs.disabled.active,
+.btn-hs[disabled].active,
+fieldset[disabled] .btn-hs.active {
+  background-color: #ED2D94;
+  border-color: #ED2D94;
+}
+.btn-hs-two {
+  color: #FFFFFF;
+  background-color: #F377B9;
+  border-color: #F377B9;
+}
+.btn-hs-two:hover,
+.btn-hs-two:focus,
+.btn-hs-two:active,
+.btn-hs-two.active,
+.open .dropdown-toggle.btn-hs-two {
+  color: #FFFFFF;
+  background-color: #F377B9;
+  border-color: #F377B9;
+}
+.btn-hs-two:active,
+.btn-hs-two.active,
+.open .dropdown-toggle.btn-hs-two {
+  background-image: none;
+}
+.btn-hs-two.disabled,
+.btn-hs-two[disabled],
+fieldset[disabled] .btn-hs-two,
+.btn-hs-two.disabled:hover,
+.btn-hs-two[disabled]:hover,
+fieldset[disabled] .btn-hs-two:hover,
+.btn-hs-two.disabled:focus,
+.btn-hs-two[disabled]:focus,
+fieldset[disabled] .btn-hs-two:focus,
+.btn-hs-two.disabled:active,
+.btn-hs-two[disabled]:active,
+fieldset[disabled] .btn-hs-two:active,
+.btn-hs-two.disabled.active,
+.btn-hs-two[disabled].active,
+fieldset[disabled] .btn-hs-two.active {
+  background-color: #F377B9;
+  border-color: #F377B9;
+}
+.btn-hs-two .badge {
+  color: #F377B9;
+  background-color: #FFFFFF;
+}
+.btn-hs .badge {
+  color: #ED2D94;
+  background-color: #FFFFFF;
+}
+.btn-wide {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+@media (min-width: 914px) {
+  #signup-form .btn-hs {
+    margin-right: 20px;
+  }
+}
+/* Will come in handy for the border: http://jsfiddle.net/TtR3b/2/ */
+.hairshare img,
+.photo-sm img {
+  -webkit-mask-image: url('../img/HS_badge.svg');
+  -o-mask-image: url('../img/HS_badge.svg');
+  -moz-mask-image: url('../img/HS_badge.svg');
+  mask-image: url('../img/HS_badge.svg');
+  -webkit-mask-repeat: no-repeat;
+  -o-mask-repeat: no-repeat;
+  -moz-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+/*.hairshare img, .photo-sm img {
+	.border-radius-bl(20%) !important;
+	.border-radius-br(20%) !important;
+	.border-radius-tl(2%) !important;
+	.border-radius-tr(2%) !important;
+}
+*/
