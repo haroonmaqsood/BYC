@@ -6341,8 +6341,12 @@ button.close {
 }
 /* CSS STYLING */
 body {
-  padding-top: 10px;
+  padding-top: 70px;
   font-family: 'Montserrat', sans-serif;
+  background-color: #eaedf1;
+}
+hr {
+  border-color: #e1e1e1;
 }
 nav .btn-default,
 nav .btn-default:link,
@@ -6405,7 +6409,7 @@ footer#site-footer .btn-link:hover {
   display: block;
 }
 #tab-menu .tab {
-  background-color: #f6f6f6;
+  background-color: #ffffff;
   padding: 10px 0;
   margin: 0 0.5%;
   float: left;
@@ -6443,7 +6447,7 @@ footer#site-footer .btn-link:hover {
 }
 #dashboard-timeline {
   border: 2px solid #00E1C5;
-  /*border-top: none !important;*/
+  background-color: #ffffff;
   -webkit-border-bottom-right-radius: 5px;
   -moz-border-radius-bottomright: 5px;
   border-bottom-right-radius: 5px;
@@ -6482,15 +6486,16 @@ footer#site-footer .btn-link:hover {
 span.nav-devide {
   color: #e9e9e9;
 }
-.nav-hairshare {
-  text-align: right;
-  margin: 20px;
-}
-.nav-hairshare .btn {
-  text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-}
+/*.nav-hairshare {
+	//float: right;
+	text-align: right;
+	margin: 20px;
+	.btn {
+		text-transform: uppercase;
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 700;
+	}
+}*/
 header {
   margin-bottom: 10px;
 }
@@ -6752,4 +6757,105 @@ section {
   text-align: right;
   margin-bottom: 0;
   padding-top: 7px;
+}
+/* NAV */
+.navbar-logo img {
+  margin: 2px 0;
+  width: 230px;
+  height: 46px;
+}
+.navbar-default {
+  background-color: #a984bd;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.navbar-default .navbar-nav > .active > a {
+  background-color: #3bdfc5;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:active,
+.navbar-default .navbar-nav > .active > a:visited,
+.navbar-default .navbar-nav > .active > a:link {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > .active > a:hover {
+  background-color: #22cfb4;
+}
+.navbar-default > a,
+.navbar-default > a:hover,
+.navbar-default > a:active,
+.navbar-default > a:visited,
+.navbar-default > a:link {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color: transparent;
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-default .navbar-nav > li > a:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:active,
+.navbar-default .navbar-nav > li > a:visited,
+.navbar-default .navbar-nav > li > a:link {
+  color: #ffffff;
+}
+.no-padding-side {
+  padding-left: 0;
+  padding-right: 0;
+}
+.gender-btn {
+  width: 150px;
+  height: 153px;
+  display: inline-block;
+  text-align: center;
+  background-image: url('../img/badge_button_normal.png');
+  background-size: 150px 153px;
+  margin: 10px;
+  padding-top: 55px;
+  font-size: 28px;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.gender-btn,
+.gender-btn:hover,
+.gender-btn:active,
+.gender-btn:visited,
+.gender-btn:link {
+  color: #ffffff;
+  text-decoration: none;
+}
+.gender-btn:hover {
+  background-image: url('../img/badge_button_hover.png');
+}
+.gender-btn.selected {
+  background-image: url('../img/badge_button_selected.png');
+}
+.gender-btn.selected,
+.gender-btn.selected:hover,
+.gender-btn.selected:active,
+.gender-btn.selected:visited,
+.gender-btn.selected:link {
+  color: #A3A5A6;
+  text-decoration: none;
+  cursor: default;
+}
+#gender {
+  text-align: center;
 }

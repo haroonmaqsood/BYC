@@ -48,6 +48,22 @@
 				      };
 						})
 					});
+					
+					$('#male').on('click', function(e){
+						e.preventDefault();
+						$(this).addClass('selected');
+						$('#female').removeClass('selected');
+						$('input[name="gender"]').val('1');
+					});
+
+					$('#female').on('click', function(e){
+						e.preventDefault();
+						$(this).addClass('selected');
+						$('#male').removeClass('selected');
+						$('input[name="gender"]').val('');
+					});
+
+
 					$('#btn-steptwo').on('click', function(e){
 						e.preventDefault();
 						formData.gender = $('input[name="gender"]').val();

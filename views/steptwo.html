@@ -7,79 +7,82 @@
 				<h1 class="text-center">Questions</h1>
 			</header>
 
-			<section class="col-md-7 col-md-offset-1">
+			<section class="col-md-8 col-md-offset-2">
 				<div class="alert none alert-fix-padding" role="alert"></div>
 
 				<form method="post" id="signup-form" class="form-horizontal"  role="form">
 
-					<div class="form-group has-feedback" id="gender">
-						<label class="col-sm-6">Gender</label>
-						<div class="col-sm-6">
-							<input type="text" name="gender" value="1">
+						<div class="form-group has-feedback" id="gender">
+							<div class="col-md-8 col-md-offset-2">
+								<input type="hidden" name="gender" value="1">
+								<a href="#" id="male" class="gender-btn">Male</a>
+								<a href="#" id="female" class="gender-btn selected">Female</a>
+							</div>
 						</div>
+
+					<div class="col-md-6">
+						<div class="form-group has-feedback" id="firstName">
+							<label>First Name</label>
+							<div class="col-md-11  no-padding-side">
+								<input type="text" name="firstName" class="form-control" placeholder="First Name">
+							</div>
+						</div>
+
+						<div class="form-group" id="course">
+							<label>Currently Studying</label>
+							<div class="col-md-11 no-padding-side">
+								<select name="course" class="form-control">
+									<option selected disabled>Course</option>
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group has-feedback" id="lastCutCost">
+							<label>How much did it cost you?</label>
+							<div class="col-md-11 input-group  no-padding-side">
+								<span class="input-group-addon">£</span>
+								<input type="text" name="lastCutCost" class="form-control" placeholder="12.50">
+							</div>
+						</div>
+
 					</div>
+					
+					<div class="col-md-6">
 
-					<div class="form-group has-feedback" id="firstName">
-						<label class="col-sm-6">First Name</label>
-						<div class="col-sm-6">
-							<input type="text" name="firstName" class="form-control" placeholder="First Name">
+						<div class="form-group has-feedback" id="lastName">
+							<label>Last Name</label>
+							<div class="col-md-11  no-padding-side">
+								<input type="text" name="lastName" class="form-control" placeholder="Last Name">
+							</div>
 						</div>
-					</div>
 
-					<div class="form-group has-feedback" id="lastName">
-						<label class="col-sm-6">Last Name</label>
-						<div class="col-sm-6">
-							<input type="text" name="lastName" class="form-control" placeholder="Last Name">
+						<div class="form-group" id="hairType">
+							<label>What is your hair type?</label>
+							<div class="col-md-11  no-padding-side">
+								<select name="hairType" class="form-control">
+									<option selected disabled>Hair Type</option>
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</select>
+							</div>
 						</div>
-					</div>
 
-					<hr>
-
-					<div class="form-group" id="course">
-						<label class="col-sm-6">Currently Studying</label>
-						<div class="col-sm-6">
-							<select name="course" class="form-control">
-								<option selected disabled>Course</option>
-								<option value="one">One</option>
-								<option value="two">Two</option>
-								<option value="three">Three</option>
-							</select>
+						<div class="form-group" id="lastHairSalon">
+							<label>Last visit to hairsalon/barber</label>
+							<div class="col-md-11  no-padding-side">
+								<select name="lastHairSalon" class="form-control">
+									<option selected disabled>Last Visit</option>
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</select>
+							</div>
 						</div>
-					</div>
 
-					<hr>
-
-					<div class="form-group" id="hairType">
-						<label class="col-sm-6">What is your hair type?</label>
-						<div class="col-sm-6">
-							<select name="hairType" class="form-control">
-								<option selected disabled>Hair Type</option>
-								<option value="one">One</option>
-								<option value="two">Two</option>
-								<option value="three">Three</option>
-							</select>
-						</div>
-					</div>
-
-
-					<div class="form-group" id="lastHairSalon">
-						<label class="col-sm-6">Last visit to hairsalon/barber</label>
-						<div class="col-sm-6">
-							<select name="lastHairSalon" class="form-control">
-								<option selected disabled>Last Visit</option>
-								<option value="one">One</option>
-								<option value="two">Two</option>
-								<option value="three">Three</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="form-group has-feedback" id="lastCutCost">
-						<label class="col-sm-6">How much did it cost you?</label>
-						<div class="col-sm-6 input-group">
-							<span class="input-group-addon">£</span>
-							<input type="text" name="lastCutCost" class="form-control" placeholder="12.50">
-						</div>
 					</div>
 
 					<div class="col-sm-6 col-sm-offset-6">
