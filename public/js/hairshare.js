@@ -15,6 +15,7 @@
 					hs.loadImages();
 					hs.settings();
 					hs.photoHover();
+					hs.welcomeBanner();
 				});
 				return false;
 			},
@@ -496,7 +497,14 @@
 
 			},
 
-			
+			welcomeBanner:function(){
+				$('#welcome-banner .close').click(function (e) {
+				  e.preventDefault()
+				  $('#welcome-banner').slideUp();
+				})
+			},
+
+					
 
 			settings:function(){
 			  $('#testPostSubmit').on('click', function(e){

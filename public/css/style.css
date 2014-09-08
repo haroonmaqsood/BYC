@@ -6787,7 +6787,7 @@ section {
 }
 .panel-default .badges {
   text-align: center;
-  color: #800080;
+  color: #a984bd;
 }
 .panel-default .badges .badge {
   font-size: 30px;
@@ -6818,7 +6818,7 @@ section {
     display: block;
   }
   #btn-loadMorePhotos span {
-    color: #800080;
+    color: #a984bd;
     display: block;
     font-size: 1.2em;
   }
@@ -7123,4 +7123,47 @@ fieldset[disabled] .btn-hs-two.active {
 }
 #photoContainer form {
   padding: 0;
+}
+#index h1,
+#index p {
+  color: #a984bd;
+  text-align: center;
+}
+#index p {
+  margin-bottom: 40px;
+}
+#index #collage-badges {
+  float: left;
+}
+#welcome-banner {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  font-size: 14px;
+  background-color: #dbe0e7;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  position: relative;
+}
+#welcome-banner h3 {
+  text-align: left;
+  color: #A4A5A5;
+}
+#welcome-banner p {
+  text-align: left;
+  color: #707072;
+}
+#welcome-banner p.altered-margin {
+  margin-bottom: 15px;
+}
+#welcome-banner .close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+#welcome-banner .close i {
+  font-size: 50px;
+  line-height: 25px;
 }
