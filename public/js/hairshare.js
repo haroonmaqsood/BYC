@@ -14,6 +14,7 @@
 					hs.uploadPhoto();
 					hs.loadImages();
 					hs.settings();
+					hs.photoHover();
 				});
 				return false;
 			},
@@ -482,6 +483,20 @@
 				  $(this).tab('show')
 				})
 			},
+
+			photoHover:function(){
+				$('.photo-btn').delay(1000).animate({ left: '-48px'});
+				$('#photoContainer').hover(
+				  function() {
+				    $( this ).find('.photo-btn').animate({ left: '0'});
+				  }, function() {
+				    $( this ).find('.photo-btn').delay(250).animate({ left: '-48px'});
+				  }
+				);
+
+			},
+
+			
 
 			settings:function(){
 			  $('#testPostSubmit').on('click', function(e){

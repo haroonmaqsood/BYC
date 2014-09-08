@@ -90,17 +90,20 @@
 
 						<!-- Like START -->
 						<form method="post" action="/picture/{{ picture.slug }}/like" id="like-form">
-								<button type="submit" name="like" class="btn {{#ifCond likeStatus '>=' 1 }}btn-link{{else}}btn-success{{/ifCond}}" id="btn-like">
 
-								{{#ifCond likeStatus '>=' 1 }}UNLIKE{{else}}LIKE{{/ifCond}}
+							<div class="photo-btn">
+								<button type="submit" name="like" class="like-btn {{#ifCond likeStatus '>=' 1 }}unlike{{else}}like{{/ifCond}}">
+								{{#ifCond likeStatus '>=' 1 }}<i class="entypo heart"></i>{{else}}<i class="entypo heart-empty"></i>{{/ifCond}}
+								40
 								</button>
+							</div>
 						</form>
 						<!-- Like FINISH -->
 					</div>
 					<img src="/uploads/cropped/{{picture.picture}}" alt="{{picture.title}}" >
 				</div>
 
-				
+
 
 				
 			</section>
