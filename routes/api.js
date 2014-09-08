@@ -1,6 +1,7 @@
 var express			= require('express'),
 		router			= express.Router(),
-		model				= require('../model');
+		model				= require('../model'),
+    async       = require('async');
 
 
 router.get('/popular', function(req, res) {
@@ -72,7 +73,7 @@ router.post('/doFollow/:username', function(req, res) {
 
   model.getProfileFromUsername(req.params.username, function(followingData) {
     if (!followingData) return res.send(400, { status: 'failed'});
-  
+    
     // FOLLOWING
     model.followStatus(req.user.id, followingData[0].id, function(followStatus) {
       
@@ -99,6 +100,57 @@ router.post('/doFollow/:username', function(req, res) {
 
 
 
+router.get('/checkLike/:pictureId', function(req, res) {
+  if (!req.isAuthenticated()) return res.send({ redirect: '/login'}, 400);
+
+  model.likeStatus(req.user.id, req.params.pictureId, function(responce_likeStatus) {
+    model.countLikes(req.params.pictureId, function(responce_countLikes) {
+      return res.send({status: responce_likeStatus, count: responce_countLikes[0].count})
+    });
+  });
+  
+});
+
+
+
+router.post('/doLike/:pictureId', function(req, res) {
+  if (!req.isAuthenticated()) return res.send({ redirect: '/login'});
+
+  model.getPictureOwner(req.params.pictureId, function(pictureOwner) {
+    if (!pictureOwner || req.user.id === req.params.pictureId)
+      return res.send({ status: 'failed'});
+    
+    async.series({
+      likeStatus: function(callback) {
+        model.likeStatus(req.user.id, req.params.pictureId, function(responce_likeStatus) {
+          if (responce_likeStatus) {
+            // UNLIKE
+            model.unlikePicture(req.user.id, req.params.pictureId, function(responce) {
+              if (!responce) return res.send({ status: 'failed'});
+              return callback(null, 'unliked');
+            });
+          } else {
+            // LIKE
+            model.likePicture(req.user.id, req.params.pictureId, pictureOwner[0].user_id, function(responce) {
+              if (!responce) return res.send({ status: 'failed'});
+              return callback(null, 'liked');
+            });
+          }
+        });
+
+      },
+      countLikes: function(callback) {
+        model.countLikes(req.params.pictureId, function(responce_countLikes) {
+          return callback(null, responce_countLikes[0].count);
+        });
+      },
+    }, function(err, result) {
+      return res.send({ status: result.likeStatus, count: result.countLikes});
+    });
+
+  });
+
+});
 
       
 

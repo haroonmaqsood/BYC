@@ -9,8 +9,9 @@
 				</div>
 				<div class="pull-right col-xs-8">
 					Username: <a href="/{{ profile.username }}" title="{{ profile.username }}">{{ profile.username }}</a><br>
-					Location: req.headers['HTTP_CF_IPCOUNTRY']
-					Type: HairStudent
+					Location: UK
+					<br>
+					Type: Student Account
 				</div>
 				{{#ifCond profile.id '!==' user.id }}
 				<div class="col-xs-12">
@@ -87,18 +88,7 @@
 				
 				<div id="photoContainer" class="hairshare">
 					<div class='overlay'>
-
-						<!-- Like START -->
-						<form method="post" action="/picture/{{ picture.slug }}/like" id="like-form">
-
-							<div class="photo-btn">
-								<button type="submit" name="like" class="like-btn {{#ifCond likeStatus '>=' 1 }}unlike{{else}}like{{/ifCond}}">
-								{{#ifCond likeStatus '>=' 1 }}<i class="entypo heart"></i>{{else}}<i class="entypo heart-empty"></i>{{/ifCond}}
-								40
-								</button>
-							</div>
-						</form>
-						<!-- Like FINISH -->
+						<div class="photo-btn" data-id="{{picture.id}}"></div>
 					</div>
 					<img src="/uploads/cropped/{{picture.picture}}" alt="{{picture.title}}" >
 				</div>

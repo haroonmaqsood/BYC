@@ -6602,7 +6602,11 @@ footer#site-footer .btn-link:hover {
 .photo-sm img {
   width: 150px;
   height: 182px;
-  border: 4px solid #f6f6f6;
+}
+.photo-sm .img-holder {
+  position: relative;
+  width: 150px;
+  height: 182px;
   margin: 0 auto;
 }
 span.nav-devide {
@@ -7077,6 +7081,17 @@ fieldset[disabled] .btn-hs-two.active {
   top: 30px;
   position: absolute;
   z-index: 99;
+}
+.photo-btn.mini {
+  top: 10px;
+  width: 36px;
+}
+.photo-btn.mini .like-btn {
+  font-size: 10px;
+}
+.photo-btn.mini .like-btn i {
+  font-size: 40px;
+  line-height: 16px;
 }
 .like-btn {
   text-align: center;

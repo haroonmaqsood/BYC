@@ -140,26 +140,25 @@ module.exports = {
   },
 
   getPicturesBySlugToken: function (slug, cb) {
-
     db.query("SELECT * FROM picture WHERE slug = ?", [slug], function (err,results) {
-      // LOG TO SENTRY
       if (err) throw err;
-      
       return cb(results);
     });
   },
-
 
   getPicturesByID: function (id, cb) {
-
     db.query("SELECT * FROM picture WHERE id = ?", [id], function (err,results) {
-      // LOG TO SENTRY
       if (err) throw err;
-      
       return cb(results);
     });
   },
 
+  getPictureOwner: function (id, cb) {
+    db.query("SELECT user_id FROM picture WHERE id = ?", id, function (err,results) {
+      if (err) throw err;
+      return cb(results);
+    });
+  },
 
   updateImageTitle: function (title, slug, crop, id, cb) {
     db.query("UPDATE picture SET title = ?, slug = ?, crop = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, crop, id], function (err,results) {
@@ -317,7 +316,7 @@ module.exports = {
 
 
   countLikes: function (picture_id, cb) {
-    db.query("SELECT count(*) AS count FROM likes WHERE picture_id = ?", picture_id, function (err,results) {
+    db.query("SELECT count(*) AS count FROM likes WHERE picture_id = ? AND deletedDttm IS NULL", picture_id, function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);

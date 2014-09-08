@@ -196,7 +196,12 @@ footer#site-footer {
 	img {
 		width: 150px;
 		height: 182px;
-		border: 4px solid #f6f6f6;
+	}
+
+	.img-holder {
+		position: relative;
+		width: 150px;
+		height: 182px;
 		margin: 0 auto;
 	}
 }
@@ -723,6 +728,18 @@ fieldset[disabled] .btn-hs-two.active {
 	top: 30px;
 	position: absolute;
 	z-index: 99;
+
+	&.mini {
+		top: 10px;
+		width: 36px;
+		.like-btn {
+			font-size: 10px;
+			i {
+				font-size: 40px;
+				line-height: 16px;
+			}
+		}
+	}
 }
 
 

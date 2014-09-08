@@ -262,32 +262,59 @@
 
 			},
 			likeButton: function(){
-				if($('#like-form').length){
-					$('#btn-like').on('click', function(e){
-						e.preventDefault();
-						var formData = {},
-							url = location.href +'/like';
 
-						formData.like = ' ';
-				
-						$.ajax({
-						  url: url,
-						  type: "post",
-						  data: formData
-						})
-						.done(function(responseTxt){ 
-							var follow = '';
-							if(responseTxt.status == 'unliked'){
-								follow = 'like';
-								$('#btn-like').removeClass('btn-link');
-							}else{
-								follow = 'unlike';
-								$('#btn-like').addClass('btn-link');
-							}
-								$('#btn-like').html(follow);
-						});
+				var $photoBtn = $('.photo-btn');
+				if(!$photoBtn.length) return;
+				var status = cssClass = "";
+
+				$.ajax({
+				  url:'/api/checkLike/'+ $photoBtn.data('id'),
+				  type: "get"
+				})
+				.done(function(responseTxt) {
+					if (responseTxt.status === 0) {
+						status = 'like';
+						cssClass = 'heart-empty';
+					} else if (responseTxt.status === 1) {
+						status = 'unlike';
+						cssClass = 'heart';
+					};
+
+					$photoBtn.html('<button class="like-btn '+status+'"><i class="entypo '+cssClass+'"></i>'+responseTxt.count+'</button>');
+					$('.like-btn').slideDown();
+
+				})
+				.fail(function(responseTxt) {
+					console.log('$photoBtn: error this broke! 2');
+					console.log(responseTxt)
+				});
+
+
+				$photoBtn.on('click', function(e){ 
+					e.preventDefault();
+					var $this = $(this);
+
+					$.ajax({
+					  url:'/api/doLike/'+ $(this).data('id'),
+					  type: "post"
+					})
+					.done(function(responseTxt) {
+						if (responseTxt.status === 'unliked') {
+							$this.find('.like-btn').html('<i class="entypo heart-empty"></i>'+responseTxt.count).addClass('like').removeClass('unlike');
+						} else {
+							$this.find('.like-btn').html('<i class="entypo heart"></i>'+responseTxt.count).addClass('unlike').removeClass('like');
+						};
+
+					})
+					.fail(function(responseTxt) {
+						console.log('$photoBtn: error this broke! 3');
+						console.log(responseTxt)
 					});
-				};
+
+
+
+				});
+
 			},
 			commentButton: function(){
 				if($('#btn-comment').length){
@@ -359,7 +386,7 @@
 					$("#upload-btn").click(function () {
     				$("#imageUpload").click();
 					});
-					
+
 					var form = $('#upload-form'),
 						fileUpload = form.find('input[type="file"]'),
 						filename = form.find('input[name="filename"]'),
@@ -428,13 +455,41 @@
 				.done(function(response){ 
 					var html = '';
 
-					$.each($(response), function(){
-						html += '<div class="photo-sm"><div class="photo-holder">';
-						html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
-						html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
-						html += '</a></div></div>';
-					})
-					
+					console.log('this')
+					$.each($(response), function() {
+						console.log('this2')
+						var status = cssClass = "";
+						var $this = this;
+						$.ajax({
+						  url:'/api/checkLike/'+ $this.id,
+						  type: "get",
+						  async: false
+						})
+						.done(function(responseTxt) {
+							
+							if (responseTxt.status === 0) {
+								status = 'like';
+								cssClass = 'heart-empty';
+							} else if (responseTxt.status === 1) {
+								status = 'unlike';
+								cssClass = 'heart';
+							};
+
+							html += '<div class="photo-sm"><div class="photo-holder">';
+							html += '<div class="img-holder"><a href="/picture/'+$this.slug+'" title="'+$this.title+'">';
+							html += '<div class="photo-btn mini" data-id="'+$this.id+'"><button class="like-btn '+status+'"><i class="entypo '+cssClass+'"></i>'+responseTxt.count+'</button></div>';
+							html += '<img src="/uploads/cropped/'+$this.picture+'" class="img-responsive" alt="'+$this.title+'">';
+							html += '</a></div></div></div>';
+						})
+						.fail(function(responseTxt) {
+							console.log('$photoBtn: error this broke! 2');
+							console.log(responseTxt)
+						});
+						
+
+
+					});
+					console.log('this3')
 					$('#popular').html(html);
 					 
 				})
@@ -491,14 +546,14 @@
 			},
 
 			photoHover:function(){
-				$('.photo-btn').delay(1000).animate({ left: '-48px'});
-				$('#photoContainer').hover(
-				  function() {
-				    $( this ).find('.photo-btn').animate({ left: '0'});
-				  }, function() {
-				    $( this ).find('.photo-btn').delay(250).animate({ left: '-48px'});
-				  }
-				);
+				// $('.photo-btn.mini').delay(1000).animate({ left: '-48px'});
+				// $('#photoContainer').hover(
+				//   function() {
+				//     $( this ).find('.photo-btn.mini').animate({ left: '0'});
+				//   }, function() {
+				//     $( this ).find('.photo-btn.mini').delay(250).animate({ left: '-48px'});
+				//   }
+				// );
 
 			},
 

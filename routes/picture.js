@@ -145,34 +145,6 @@ router.post('/:slug', function (req, res) {
 
 
 
-router.post('/:slug/like', function (req, res) {
-  
-  if (!req.params.slug) return res.send({ status: 'failed'});
-
-	model.getPicturesBySlugToken(req.params.slug, function(responce_getPicturesBySlugToken) {
-		if (!responce_getPicturesBySlugToken || req.user.id === responce_getPicturesBySlugToken[0].id)
-			return res.send({ status: 'failed'});
-	  
-		model.likeStatus(req.user.id, responce_getPicturesBySlugToken[0].id, function(responce_likeStatus) {
-			console.log(responce_likeStatus)
-			if (responce_likeStatus) {
-				// UNFOLLOW
-				model.unlikePicture(req.user.id, responce_getPicturesBySlugToken[0].id, function(responce) {
-			    if (!responce) return res.send({ status: 'failed'});
-			    return res.send({ status: 'unliked'});
-		  	});
-			} else {
-				// FOLLOW USER
-				model.likePicture(req.user.id, responce_getPicturesBySlugToken[0].id, responce_getPicturesBySlugToken[0].user_id, function(responce) {
-			    if (!responce) return res.send({ status: 'failed'});
-			  	return res.send({ status: 'liked'});
-			  });
-			}
-		});
-  });
-});
-
-
 
 
 module.exports = router;
