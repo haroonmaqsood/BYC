@@ -4,16 +4,14 @@
 
 		<main>
 			<header>
-				<h1>Upload photo</h1>
+				<h1 class="heading-one text-center">Upload Photo</h1>
 			</header>
 
 			<section>
 				<div class="alert alert-danger none" role="alert"></div>
 				<form action="/upload" enctype="multipart/form-data" method="post" id="upload-form">
-					<div class="fileUpload btn btn-default">
-						<span>Choose a photo</span>
-						<input type="file"  class="upload" id="imageUpload" name="upload" accept="image/*;capture=camera">
-					</div>
+					<input type="file"  class="upload" id="imageUpload" name="upload" accept="image/*;capture=camera">
+					<a id="upload-btn"></a>
 
 					<div class="progress">
 					  <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">

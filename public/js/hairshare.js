@@ -355,6 +355,11 @@
 			},
 			uploadPhoto: function(){
 				if($('#upload-form').length){
+
+					$("#upload-btn").click(function () {
+    				$("#imageUpload").click();
+					});
+					
 					var form = $('#upload-form'),
 						fileUpload = form.find('input[type="file"]'),
 						filename = form.find('input[name="filename"]'),

@@ -6696,9 +6696,10 @@ main form .fileUpload input.upload {
 }
 main form .progress {
   display: none;
+  margin-top: 20px;
 }
 main form .progress .progress-bar {
-  background-color: #24a390;
+  background-color: #a984bd;
 }
 main form input[name=filename] {
   background: none;
@@ -7166,4 +7167,32 @@ fieldset[disabled] .btn-hs-two.active {
 #welcome-banner .close i {
   font-size: 50px;
   line-height: 25px;
+}
+#upload-btn {
+  width: 300px;
+  height: 246px;
+  display: block;
+  background-image: url('../img/upload_normal.png');
+  background-size: 300px 246px;
+  margin: 0 auto;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  /* IE10 is actually unprefixed */
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+#upload-btn,
+#upload-btn:hover,
+#upload-btn:active,
+#upload-btn:visited,
+#upload-btn:link {
+  text-decoration: none;
+}
+#upload-btn:hover {
+  background-image: url('../img/upload_hover.png');
+}
+#imageUpload {
+  display: none;
 }

@@ -296,8 +296,9 @@ main{
 		}
 		.progress{
 			display: none;
+			margin-top: 20px;
 			.progress-bar{
-				background-color: @color-dark-primary;
+				background-color: @color-purple;
 			}
 		}
 		
@@ -826,10 +827,30 @@ fieldset[disabled] .btn-hs-two.active {
 }
 
 
+#upload-btn {
+	width: 300px;
+	height: 246px;
+	display: block;
+	background-image: url('../img/upload_normal.png');
+	background-size: 300px 246px;
+	margin: 0 auto;
+	cursor: pointer;
+
+	&, &:hover, &:active, &:visited, &:link {
+		text-decoration: none;
+	}
+
+	.transition();
+
+	&:hover {
+		background-image: url('../img/upload_hover.png');
+	}
+}
 
 
-
-
+#imageUpload {
+	display: none;
+}
 
 
 
