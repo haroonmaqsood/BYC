@@ -515,10 +515,10 @@
 					var html = '';
 
 					$.each($(response), function(){
-						html += '<div class="photo-sm"><div class="photo-holder">';
+						html += '<div class="photo-sm"><div class="photo-holder"><div class="img-holder">';
 						html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
 						html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
-						html += '</a></div></div>';
+						html += '</a></div></div></div>';
 					})
 					
 					$('#following').html(html);

@@ -46,6 +46,7 @@
 			  	<div class="row">
 				  {{#each userPicsTop}}
 				  	<div class="col-xs-3 col-sm-12 hairshare">
+
 				    	<a href="/picture/{{ slug }}"><img src="/uploads/cropped/{{ picture }}" alt="{{ title }}" class="img-responsive"/></a>
 						</div>
 					{{/each}}
@@ -66,8 +67,10 @@
 				<div class="photo">	
 			  {{#each userPictures}}
 			  	<div class="photo-sm">
-				  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/cropped/{{picture}}" class="img-responsive" ></a>
-				</div>
+			  		<div class="img-holder">
+				  		<a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/cropped/{{picture}}" class="img-responsive" ></a>
+						</div>
+					</div>
 			  {{/each}}
 			  </div>
 			</section>
@@ -78,8 +81,10 @@
 				<div class="photo">						
 			  {{#each userPicturesNoneCropped}}
 			  	<div class="photo-sm">
-				  <a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/{{picture}}" class="img-responsive" ></a>
-				</div>
+			  		<div class="img-holder">
+				  		<a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/{{picture}}" class="img-responsive" ></a>
+						</div>
+					</div>
 			  {{/each}}
 			  </div>
 			</section>
