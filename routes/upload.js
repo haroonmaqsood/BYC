@@ -64,6 +64,8 @@ router.post('/', function (req, res) {
           // IMAGE RESIZING
           gm(temp_path).options({imageMagick: true})
           // .resize(600)
+          .autoOrient()
+          .noProfile()
           .write(new_location+file_name+'.jpg', function (err) {
             if (err) {
               console.log(err);

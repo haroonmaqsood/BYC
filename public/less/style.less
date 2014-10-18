@@ -170,12 +170,14 @@ footer#site-footer {
 	}
 }
 #dashboard-timeline {
-	border: 1px solid #00E1C5;
+	border: 1px solid #E1E1E1; /* lighten(#ccc, 5%); #00E1C5;*/
 	background-color: #ffffff;
-	.border-radius-br(5px);
-	.border-radius-bl(5px);
-	padding: 20px 0;
+	.border-radius(5px);
+	padding: 20px 0 10px 0;
 	.after();
+	/* -webkit-box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.25);
+	-moz-box-shadow:    0px 0px 1px 0px rgba(50, 50, 50, 0.25);
+	box-shadow:         0px 0px 1px 0px rgba(50, 50, 50, 0.25);*/
 }
 
 .photo-sm {
@@ -866,10 +868,23 @@ fieldset[disabled] .btn-hs-two.active {
 
 
 #imageUpload {
-	display: none;
+	position: absolute;
+	left: -100%;
 }
 
 
+.pod-heading {
+	margin-top: -15px;
+	h2 {
+		padding: 0;
+		margin: 5px 0 5px 10px;
+	}
+
+	hr {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
 
 
 

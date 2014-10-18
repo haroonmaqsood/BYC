@@ -384,7 +384,7 @@
 				if($('#upload-form').length){
 
 					$("#upload-btn").click(function () {
-    				$("#imageUpload").click();
+    				$("#imageUpload").trigger('click');
 					});
 
 					var form = $('#upload-form'),

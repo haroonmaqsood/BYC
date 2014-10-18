@@ -36,6 +36,7 @@
 				</div>
 			  </div>
 			</div>
+			{{#if userPicsTop}}
  			<div class="panel panel-default">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Your top 3</h3>
@@ -59,6 +60,9 @@
 				</div>
 			  </div>
 			</div>
+			{{/if}}
+
+			{{#if profileUserPics}}
 			<div class="panel panel-default mobile-hidden" id="morePhotos">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">View more hair snaps</h3>
@@ -73,7 +77,7 @@
 					</div>
 			  </div>
 			</div> 
-
+			{{/if}}
 		</aside>
 		<main class="sixhun col-xs-12 col-sm-8">		
 			<h1 class="sr-only">View photo</h1>	

@@ -4,6 +4,8 @@
 ### DEPLOY
 http://stackoverflow.com/questions/8332333/node-js-setting-up-environment-specific-configs-to-be-used-with-everyauth
 
+cd /home/dev/hairshare
+
 NODE_ENV=production node bin/www
 
 
@@ -12,7 +14,7 @@ NODE_ENV=production forever bin/www
 
 NODE_ENV=production forever start --spinSleepTime 10000 bin/www
 
-
+/etc/init.d/mysql stop / start / restart
 
 ### TODO
 - Cropping tool

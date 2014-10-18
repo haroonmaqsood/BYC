@@ -38,6 +38,7 @@
 				</div>
 			  </div>
 			</div>
+			{{#if userPicsTop}}
  			<div class="panel panel-default">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Your top 3</h3>
@@ -59,11 +60,14 @@
 				</div>
 			  </div>
 			</div>
-
+			{{/if}}
 		</aside>
 		<main class="sixhun col-xs-12 col-sm-8">
-			<h2>Public</h2>
-			<section id="dashboard-timeline">				
+			<section id="dashboard-timeline">
+				<div class="pod-heading">
+					<h2>Public</h2>
+					<hr>
+				</div>	
 				<div class="photo">	
 			  {{#each userPictures}}
 			  	<div class="photo-sm">
@@ -76,8 +80,13 @@
 			</section>
 
 			{{#ifCond profile.id '===' user.id }}
-			<h2>Dumpbox <small>(Not Public)</small></h2>
+			
 			<section id="dashboard-timeline">
+				<div class="pod-heading">
+					<h2>Dumpbox <small>(Not Public)</small></h2>
+					<hr>
+				</div>
+				
 				<div class="photo">						
 			  {{#each userPicturesNoneCropped}}
 			  	<div class="photo-sm">

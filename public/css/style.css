@@ -6567,15 +6567,16 @@ footer#site-footer .btn-link:hover {
   color: #ffffff;
 }
 #dashboard-timeline {
-  border: 1px solid #00E1C5;
+  border: 1px solid #E1E1E1;
+  /* lighten(#ccc, 5%); #00E1C5;*/
   background-color: #ffffff;
-  -webkit-border-bottom-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-bottom-right-radius: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  border-bottom-left-radius: 5px;
-  padding: 20px 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 20px 0 10px 0;
+  /*	-webkit-box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.25);
+-moz-box-shadow:    0px 0px 1px 0px rgba(50, 50, 50, 0.25);
+box-shadow:         0px 0px 1px 0px rgba(50, 50, 50, 0.25);*/
 }
 #dashboard-timeline:after {
   content: "";
@@ -7209,5 +7210,17 @@ fieldset[disabled] .btn-hs-two.active {
   background-image: url('../img/upload_hover.png');
 }
 #imageUpload {
-  display: none;
+  position: absolute;
+  left: -100%;
+}
+.pod-heading {
+  margin-top: -15px;
+}
+.pod-heading h2 {
+  padding: 0;
+  margin: 5px 0 5px 10px;
+}
+.pod-heading hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

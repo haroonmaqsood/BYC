@@ -65,7 +65,6 @@ router.post('/:slug/edit', function (req, res) {
       
       // Gets original image, crops and resizes it.
       gm('public/uploads/'+picture[0].picture).options({imageMagick: true})
-      .autoOrient()
       .crop(cropW, cropH, cropX, cropY)
       .resize(600)
       .write(new_location+file_name, function (err) {
