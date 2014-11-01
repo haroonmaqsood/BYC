@@ -6574,9 +6574,9 @@ footer#site-footer .btn-link:hover {
   -moz-border-radius: 5px;
   border-radius: 5px;
   padding: 20px 0 10px 0;
-  /*	-webkit-box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.25);
--moz-box-shadow:    0px 0px 1px 0px rgba(50, 50, 50, 0.25);
-box-shadow:         0px 0px 1px 0px rgba(50, 50, 50, 0.25);*/
+  /* -webkit-box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.25);
+	-moz-box-shadow:    0px 0px 1px 0px rgba(50, 50, 50, 0.25);
+	box-shadow:         0px 0px 1px 0px rgba(50, 50, 50, 0.25);*/
 }
 #dashboard-timeline:after {
   content: "";

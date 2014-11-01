@@ -39,9 +39,8 @@ router.post('/', function (req, res) {
 
 
   var errors = req.validationErrors();
-  if (errors) {
+  if (errors) 
     return res.send(errors, 400);
-  }
 
   async.series({
     checkEmail: function(callback) {

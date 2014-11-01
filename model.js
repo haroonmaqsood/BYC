@@ -92,6 +92,29 @@ module.exports = {
     });
   },
 
+  verifySet: function (user_id, id, cb) {
+    db.query("SELECT * FROM sets WHERE user_id = ? AND id = ?", [user_id, id], function (err,results) { 
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
+  createSet: function (user_id, token, ip, agent, cb) {
+
+    var date  = new Date(),
+        agent = JSON.stringify(agent);
+    
+    db.query("INSERT INTO sets SET ?", {user_id:user_id, slug:token, ip:ip, agent:agent, createdDttm:date }, function (err,results) {
+      if (err) throw err;
+
+      if (results.insertId)
+        return cb(results.insertId);
+      
+      return cb(false);
+    });
+   
+  },
+
 
   uploadPicture: function (user_id, picture, token, ip, agent, cb) {
 
@@ -111,7 +134,6 @@ module.exports = {
     });
    
   },
-
 
   getPictures: function (user_id, crop, cb) {
     console.log(crop)

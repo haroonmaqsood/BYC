@@ -388,7 +388,7 @@
 					});
 
 					var form = $('#upload-form'),
-						fileUpload = form.find('input[type="file"]'),
+						fileUpload = form.find('input[name="uploadFront"]'),
 						filename = form.find('input[name="filename"]'),
 						progress = form.find('.progress'),
 						progressBar = progress.find('.progress-bar'),
@@ -445,7 +445,7 @@
 					activeTab = $('.tab-pane.active'); 
 
 				formData.from = 0;
-				formData.too = 10;
+				formData.too = 36;
 
 				$.ajax({
 				  url: url,
@@ -504,7 +504,7 @@
 					activeTab = $('.tab-pane.active'); 
 
 				formData.from = 0;
-				formData.too = 10;
+				formData.too = 36;
 
 				$.ajax({
 				  url: url,

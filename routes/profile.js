@@ -17,7 +17,7 @@ router.get('/:username', function(req, res, next) {
   }
 
   if (username.length > 20) {
-	  var err = new Error('Profile does not exsist mofo!');
+	  var err = new Error('Profile does not exsist!');
 	  err.status = 404;
 	  return next(err);
 	}

@@ -13,7 +13,7 @@ router.get('/popular', function(req, res) {
   var from   = parseInt(req.query.from),
       too    = parseInt(req.query.too);
   if (!from) from = 0;
-  if (!too) too = 10;
+  if (!too) too = 36;
 
   model.getRecentPictures(from, too, function(responce) {
   	return res.send(responce);
@@ -35,7 +35,7 @@ router.get('/following', function(req, res) {
     var from   = parseInt(req.query.from),
         too    = parseInt(req.query.too);
     if (!from) from = 0;
-    if (!too) too = 10;
+    if (!too) too = 36;
 
     model.getPicturesFromUsers(following, from, too, function(pictures) {
       return res.send(pictures);
