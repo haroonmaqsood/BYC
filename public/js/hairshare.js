@@ -369,11 +369,11 @@
 
 					$(window).load(function(){
 				  		//setBtnSize();
-				  		btn.on('click', function(e){
+				  	btn.on('click', function(e){
 							e.preventDefault(); 
 							hiddenDiv.fadeIn();
 						})
-				  	});
+				  });
 
 				  	$(window).resize(function(){
 				  		//setBtnSize();
@@ -383,8 +383,9 @@
 			uploadPhoto: function(){
 				if($('#upload-form').length){
 
-					$("#upload-btn").click(function () {
-    				$("#imageUpload").trigger('click');
+					$(".upload-btn").click(function () {
+    				$('#position').val( $(this).data('id') );
+    				$('#'+$(this).data('id')).trigger('click');
 					});
 
 					var form = $('#upload-form'),

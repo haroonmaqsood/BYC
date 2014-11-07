@@ -116,15 +116,12 @@ module.exports = {
   },
 
 
-  uploadPicture: function (user_id, picture, token, ip, agent, cb) {
+  uploadPicture: function (set_id, picture, position, cb) {
 
-    var date  = new Date(),
-        agent = JSON.stringify(agent);
+    var date  = new Date();
     
-    db.query("INSERT INTO picture SET ?", {user_id:user_id, picture:picture, slug:token, ip:ip, agent:agent, createdDttm:date }, function (err,results) {
-
-      // LOG TO SENTRY
-      // if (err) throw err;
+    db.query("INSERT INTO pictures SET ?", {set_id:set_id, picture:picture, position:position, createdDttm:date }, function (err,results) {
+      if (err) throw err;
 
       if (results.insertId)
         return cb(results.insertId);
@@ -135,12 +132,12 @@ module.exports = {
    
   },
 
-  getPictures: function (user_id, crop, cb) {
+  getPictures: function (set_id, crop, cb) {
     console.log(crop)
     var cropped = 'AND crop IS NOT NULL';
     if (!crop) cropped = 'AND crop IS NULL';
 
-    db.query("SELECT * FROM picture WHERE user_id = ? "+cropped, user_id, function (err,results) {
+    db.query("SELECT * FROM pictures WHERE set_id = ? "+cropped, set_id, function (err,results) {
 
       // LOG TO SENTRY
       if (err) throw err;
@@ -153,7 +150,7 @@ module.exports = {
 
 
   getMyPicturesBySlugToken: function (user_id, slug, cb) {
-    db.query("SELECT * FROM picture WHERE user_id = ? AND slug = ?", [user_id, slug], function (err,results) {
+    db.query("SELECT * FROM pictures WHERE user_id = ? AND slug = ?", [user_id, slug], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
 
@@ -162,28 +159,28 @@ module.exports = {
   },
 
   getPicturesBySlugToken: function (slug, cb) {
-    db.query("SELECT * FROM picture WHERE slug = ?", [slug], function (err,results) {
+    db.query("SELECT * FROM pictures WHERE slug = ?", [slug], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
   },
 
   getPicturesByID: function (id, cb) {
-    db.query("SELECT * FROM picture WHERE id = ?", [id], function (err,results) {
+    db.query("SELECT * FROM pictures WHERE id = ?", [id], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
   },
 
   getPictureOwner: function (id, cb) {
-    db.query("SELECT user_id FROM picture WHERE id = ?", id, function (err,results) {
+    db.query("SELECT user_id FROM pictures WHERE id = ?", id, function (err,results) {
       if (err) throw err;
       return cb(results);
     });
   },
 
   updateImageTitle: function (title, slug, crop, id, cb) {
-    db.query("UPDATE picture SET title = ?, slug = ?, crop = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, crop, id], function (err,results) {
+    db.query("UPDATE pictures SET title = ?, slug = ?, crop = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, crop, id], function (err,results) {
 
       // LOG TO SENTRY
       if (err) throw err;
@@ -311,7 +308,7 @@ module.exports = {
 
 
   getRecentPictures: function (from, too, cb) {
-    db.query("SELECT * FROM picture WHERE crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
+    db.query("SELECT * FROM pictures WHERE crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
@@ -320,7 +317,7 @@ module.exports = {
 
   getPicturesFromUsers: function (users, from, too, cb) {
     if (users.length === 0) return cb(false);
-    db.query("SELECT * FROM picture WHERE user_id IN (?) AND crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [users, from, too], function (err,results) {
+    db.query("SELECT * FROM pictures WHERE user_id IN (?) AND crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [users, from, too], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
@@ -356,7 +353,7 @@ module.exports = {
   },
 
   countUserPictures: function (user_id, cb) {
-    db.query("SELECT count(*) AS count FROM picture WHERE user_id = ? AND crop IS NOT NULL AND deletedDttm IS NULL", [user_id], function (err,results) {
+    db.query("SELECT count(*) AS count FROM pictures WHERE user_id = ? AND crop IS NOT NULL AND deletedDttm IS NULL", [user_id], function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);

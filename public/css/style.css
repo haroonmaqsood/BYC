@@ -7184,7 +7184,7 @@ fieldset[disabled] .btn-hs-two.active {
   font-size: 50px;
   line-height: 25px;
 }
-#upload-btn {
+.upload-btn {
   width: 300px;
   height: 246px;
   display: block;
@@ -7199,17 +7199,17 @@ fieldset[disabled] .btn-hs-two.active {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-#upload-btn,
-#upload-btn:hover,
-#upload-btn:active,
-#upload-btn:visited,
-#upload-btn:link {
+.upload-btn,
+.upload-btn:hover,
+.upload-btn:active,
+.upload-btn:visited,
+.upload-btn:link {
   text-decoration: none;
 }
-#upload-btn:hover {
+.upload-btn:hover {
   background-image: url('../img/upload_hover.png');
 }
-#imageUpload {
+.imageUpload {
   position: absolute;
   left: -100%;
 }

@@ -10,20 +10,20 @@
 			<section>
 				<div class="alert alert-danger none" role="alert"></div>
 				<form action="/upload" enctype="multipart/form-data" method="post" id="upload-form">
-					<input type="file"  class="upload" id="imageUpload" name="uploadFront" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
-					<a id="upload-btn" href="/upload/front"></a>
+					<input type="file"  class="upload imageUpload" id="front" name="uploadFront" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
+					<a class="upload-btn" data-id="front"></a>
 					<center>Front</center><br>
 
-					<input type="file"  class="upload" id="imageUpload" name="uploadBack" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
-					<a id="upload-btn" href="/upload/back"></a>
+					<input type="file" class="upload imageUpload" id="back" name="uploadBack" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
+					<a class="upload-btn" data-id="back"></a>
 					<center>Back</center><br>
 
-					<input type="file"  class="upload" id="imageUpload" name="uploadLeft" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
-					<a id="upload-btn" href="/upload/left"></a>
+					<input type="file"  class="upload imageUpload" id="left" name="uploadLeft" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
+					<a class="upload-btn" data-id="left"></a>
 					<center>Left</center><br>
 
-					<input type="file"  class="upload" id="imageUpload" name="uploadRight" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
-					<a id="upload-btn" href="/upload/right"></a>
+					<input type="file"  class="upload imageUpload" id="right" name="uploadRight" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
+					<a class="upload-btn" data-id="right"></a>
 					<center>Right</center><br>
 
 					<div class="progress">
@@ -32,6 +32,8 @@
 					</div>
 
 					<textarea id="title" name="title" placeholder="Image Title" rows="2" class="countable form-control">{{picture.title}}</textarea><br/>
+
+					<input type="hidden" name="position" value="front" id="position">
 				</form>
 				
 			</section>
