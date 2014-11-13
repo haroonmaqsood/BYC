@@ -14,7 +14,7 @@
 							<div class="cropSlider"></div>
 						</div>
 						<div class="alert alert-danger none" role="alert"></div>
-						<form method="post" class="full-width" id="editForm">
+						<form action="{{#if setId}}?setId={{setId}}{{/if}}" method="post" class="full-width" id="editForm">
 							<div class="results">
 							    <input type="hidden" name="cropX" id="cropX" />
 							    <input type="hidden" name="cropY" id="cropY" />

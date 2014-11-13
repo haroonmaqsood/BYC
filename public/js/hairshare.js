@@ -162,12 +162,12 @@
 					$(document).on('click', 'button', function(e) {
 						e.preventDefault();
 						coordinates(cropHS);
-						var title = $('#title').val();
-						if ( title.trim().length >= 3 && title.length <= 80 ) {
+						// var title = $('#title').val();
+						// if ( title.trim().length >= 3 && title.length <= 80 ) {
 							
 							var formData = {};
 
-							formData.title = $('#title').val();
+							// formData.title = $('#title').val();
 							formData.cropX = $('#cropX').val();
 							formData.cropY = $('#cropY').val();
 							formData.cropW = $('#cropW').val();
@@ -190,9 +190,9 @@
 							})
 
 							// $('#editForm').submit();
-			      } else {     	
-			        $('.alert-danger').html('Title Size must be between 3-80 Characters').slideDown();
-			      }
+			      // } else {     	
+			      //   $('.alert-danger').html('Title Size must be between 3-80 Characters').slideDown();
+			      // }
 
 						
 					});

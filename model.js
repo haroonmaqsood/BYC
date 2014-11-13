@@ -138,42 +138,36 @@ module.exports = {
     if (!crop) cropped = 'AND crop IS NULL';
 
     db.query("SELECT * FROM pictures WHERE set_id = ? "+cropped, set_id, function (err,results) {
-
-      // LOG TO SENTRY
       if (err) throw err;
-
       return cb(results);
-
     });
 
   },
 
 
-  getMyPicturesBySlugToken: function (user_id, slug, cb) {
-    db.query("SELECT * FROM pictures WHERE user_id = ? AND slug = ?", [user_id, slug], function (err,results) {
-      // LOG TO SENTRY
-      if (err) throw err;
-
-      return cb(results);
-    });
-  },
-
-  getPicturesBySlugToken: function (slug, cb) {
-    db.query("SELECT * FROM pictures WHERE slug = ?", [slug], function (err,results) {
+  getMySetBySlugToken: function (user_id, slug, cb) {
+    db.query("SELECT * FROM sets WHERE user_id = ? AND slug = ?", [user_id, slug], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
   },
 
-  getPicturesByID: function (id, cb) {
-    db.query("SELECT * FROM pictures WHERE id = ?", [id], function (err,results) {
+  getSetBySlugToken: function (slug, cb) {
+    db.query("SELECT * FROM sets WHERE slug = ?", [slug], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
   },
 
-  getPictureOwner: function (id, cb) {
-    db.query("SELECT user_id FROM pictures WHERE id = ?", id, function (err,results) {
+  getSetByID: function (id, cb) {
+    db.query("SELECT * FROM sets WHERE id = ?", id, function (err,results) {
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
+  getSetOwner: function (id, cb) {
+    db.query("SELECT user_id FROM sets WHERE id = ?", id, function (err,results) {
       if (err) throw err;
       return cb(results);
     });
@@ -191,12 +185,11 @@ module.exports = {
 
   
 
-  getPictureComments: function (picture_id, cb) {
+  getSetComments: function (set_id, cb) {
 
-    db.query("SELECT * FROM comments WHERE picture_id = ? ORDER BY createdDttm DESC", [picture_id], function (err,results) {
+    db.query("SELECT * FROM comments WHERE set_id = ? ORDER BY createdDttm DESC", set_id, function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
-      
       return cb(results);
     });
   },
@@ -204,14 +197,12 @@ module.exports = {
 
 
 
-  addComment: function (comment, user_id, picture_id, cb) {
+  addComment: function (comment, user_id, set_id, cb) {
 
     var date  = new Date();
     
-    db.query("INSERT INTO comments SET ?", {comment:comment, user_id:user_id, picture_id:picture_id, createdDttm:date }, function (err,results) {
-
-      // LOG TO SENTRY
-      // if (err) throw err;
+    db.query("INSERT INTO comments SET ?", {comment:comment, user_id:user_id, set_id:set_id, createdDttm:date }, function (err,results) {
+      if (err) throw err;
       if (results.insertId)
         return cb(results.insertId);
 
@@ -227,9 +218,7 @@ module.exports = {
     var date  = new Date();
     
     db.query("INSERT INTO follow SET ?", {follower:follower, following:following, createdDttm:date }, function (err,results) {
-
-      // LOG TO SENTRY
-      // if (err) throw err;
+      if (err) throw err;
       if (results.insertId)
         return cb(results.insertId);
 
@@ -242,9 +231,7 @@ module.exports = {
   unfollowUser: function (follower, following, cb) {
     
     db.query("UPDATE follow SET updatedDttm = NOW(), deletedDttm = NOW() WHERE follower = ? AND following = ?", [follower, following], function (err,results) {
-
-      // LOG TO SENTRY
-      // if (err) throw err;
+      if (err) throw err;
       if (results.affectedRows)
         return cb(results.affectedRows);
 
@@ -256,7 +243,6 @@ module.exports = {
 
   followStatus: function (follower, following, cb) {
     db.query("SELECT COUNT(*) AS following FROM follow WHERE deletedDttm IS NULL AND follower = ? AND following = ?", [follower, following], function (err,results) {
-      // LOG TO SENTRY
       if (err) throw err;
       return cb(results[0].following);
     });
@@ -265,14 +251,12 @@ module.exports = {
 
 
 
-  likePicture: function (user_id, picture_id, owner_id, cb) {
+  likeSet: function (user_id, set_id, owner_id, cb) {
 
     var date  = new Date();
     
-    db.query("INSERT INTO likes SET ?", {user_id:user_id, picture_id:picture_id, owner_id:owner_id, createdDttm:date }, function (err,results) {
-
-      // LOG TO SENTRY
-      // if (err) throw err;
+    db.query("INSERT INTO likes SET ?", {user_id:user_id, set_id:set_id, owner_id:owner_id, createdDttm:date }, function (err,results) {
+      if (err) throw err;
       if (results.insertId)
         return cb(results.insertId);
 
@@ -282,12 +266,10 @@ module.exports = {
    
   },
 
-  unlikePicture: function (user_id, picture_id, cb) {
+  unlikeSet: function (user_id, set_id, cb) {
     
-    db.query("UPDATE likes SET updatedDttm = NOW(), deletedDttm = NOW() WHERE user_id = ? AND picture_id = ?", [user_id, picture_id], function (err,results) {
-
-      // LOG TO SENTRY
-      // if (err) throw err;
+    db.query("UPDATE likes SET updatedDttm = NOW(), deletedDttm = NOW() WHERE user_id = ? AND set_id = ?", [user_id, set_id], function (err,results) {
+      if (err) throw err;
       if (results.affectedRows)
         return cb(results.affectedRows);
 
@@ -297,9 +279,8 @@ module.exports = {
 
   },
 
-  likeStatus: function (user_id, picture_id, cb) {
-    db.query("SELECT COUNT(*) AS likeCount FROM likes WHERE deletedDttm IS NULL AND user_id = ? AND picture_id = ?", [user_id, picture_id], function (err,results) {
-      // LOG TO SENTRY
+  likeStatus: function (user_id, set_id, cb) {
+    db.query("SELECT COUNT(*) AS likeCount FROM likes WHERE deletedDttm IS NULL AND user_id = ? AND set_id = ?", [user_id, set_id], function (err,results) {
       if (err) throw err;
       return cb(results[0].likeCount);
     });
@@ -307,35 +288,34 @@ module.exports = {
   },
 
 
-  getRecentPictures: function (from, too, cb) {
+  getRecentSets: function (from, too, cb) {
     db.query("SELECT * FROM pictures WHERE crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
-      // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
     });
   },
 
-  getPicturesFromUsers: function (users, from, too, cb) {
+  getSetFromUsers: function (users, from, too, cb) {
     if (users.length === 0) return cb(false);
-    db.query("SELECT * FROM pictures WHERE user_id IN (?) AND crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [users, from, too], function (err,results) {
-      // LOG TO SENTRY
+    // ADD this to the pictures before they are shown // AND crop IS NOT NULL
+    // Actually no you are forced to crop no?
+    db.query("SELECT * FROM sets WHERE user_id IN (?) ORDER BY id DESC LIMIT ?, ?", [users, from, too], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
   },
 
 
-  getUserPictureLikes: function (owner_id, limit, cb) {
-    db.query("SELECT *, count(picture_id) AS like_count FROM likes WHERE owner_id = ? GROUP BY picture_id ORDER BY like_count DESC LIMIT ?", [owner_id, limit], function (err,results) {
-      // LOG TO SENTRY
+  getUserSetLikes: function (owner_id, limit, cb) {
+    db.query("SELECT *, count(set_id) AS like_count FROM likes WHERE owner_id = ? GROUP BY set_id ORDER BY like_count DESC LIMIT ?", [owner_id, limit], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
   },
 
 
-  countLikes: function (picture_id, cb) {
-    db.query("SELECT count(*) AS count FROM likes WHERE picture_id = ? AND deletedDttm IS NULL", picture_id, function (err,results) {
+  countLikes: function (set_id, cb) {
+    db.query("SELECT count(*) AS count FROM likes WHERE set_id = ? AND deletedDttm IS NULL", set_id, function (err,results) {
       // LOG TO SENTRY
       if (err) throw err;
       return cb(results);

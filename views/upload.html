@@ -9,7 +9,7 @@
  
 			<section>
 				<div class="alert alert-danger none" role="alert"></div>
-				<form action="/upload" enctype="multipart/form-data" method="post" id="upload-form">
+				<form action="/upload{{#if setId}}?setId={{setId}}{{/if}}" enctype="multipart/form-data" method="post" id="upload-form">
 					<input type="file"  class="upload imageUpload" id="front" name="uploadFront" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
 					<a class="upload-btn" data-id="front"></a>
 					<center>Front</center><br>

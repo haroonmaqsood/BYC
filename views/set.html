@@ -1,0 +1,143 @@
+{{> header}}
+   	<div class="row">
+   		
+		<aside class="col-xs-12 col-sm-4 pull-right">
+			<div class="panel panel-default">
+			  <div class="panel-body row">
+			    <div class="col-xs-4">
+					<img src="/img/place-holder.jpg" alt="place-holder" class="img-responsive" />
+				</div>
+				<div class="pull-right col-xs-8">
+					Username: <a href="/{{ profile.username }}" title="{{ profile.username }}">{{ profile.username }}</a><br>
+					Location: UK
+					<br>
+					Type: Student Account
+				</div>
+				{{#ifCond profile.id '!==' user.id }}
+				<div class="col-xs-12">
+					<div class="followUser" data-username="{{ profile.username }}"></div>
+				</div>
+				{{/ifCond}}
+			  </div>
+			  <div class="panel-footer">
+			  	<div class="row badges">
+				  	<!-- <div class="col-xs-4">
+					    <span class="badge">25</span>
+					    <span>Hairsnaps</span>
+						</div>
+				    <div class="col-xs-4">
+					    <span class="badge">4k</span>
+					    <span>Hairshares</span>
+						</div> -->
+						<div class="col-xs-12">
+					    <span class="badge">{{countLikes}}</span>
+					    <span>Likes</span>
+						</div>
+				</div>
+			  </div>
+			</div>
+			{{#if userPicsTop}}
+ 			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Your top 3</h3>
+			  </div>
+			  <div class="panel-body">
+			  	<div class="row">
+
+
+				  	{{#each userPicsTop}}
+				  	<div class="col-xs-3 col-sm-12 hairshare">
+				    	<a href="/set/{{ slug }}"><img src="/uploads/cropped/{{ picture }}" alt="{{ title }}" class="img-responsive"/></a>
+						</div>
+						{{/each}}
+
+					<div class="col-xs-3 btn-more visible-xs-block">
+						<a href="#" title="Load more photos" id="btn-loadMorePhotos">
+					    	<span class="glyphicon glyphicon-plus-sign"></span>
+					    	<span>More</span>
+					    </a>
+					</div>
+				</div>
+			  </div>
+			</div>
+			{{/if}}
+
+			{{#if profileUserPics}}
+			<div class="panel panel-default mobile-hidden" id="morePhotos">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">View more hair snaps</h3>
+			  </div>
+			  <div class="panel-body">
+			  	<div class="row">
+			  		{{#each profileUserPics}}
+				  	<div class="col-xs-3 col-sm-4 hairshare">
+				    	<a href="/set/{{ slug }}"><img src="/uploads/cropped/{{ picture }}" alt="{{ title }}" class="img-responsive"/></a>
+						</div>
+						{{/each}}
+					</div>
+			  </div>
+			</div> 
+			{{/if}}
+		</aside>
+		<main class="sixhun col-xs-12 col-sm-8">
+			<h1 class="sr-only">View photo</h1>	
+			<section>
+				{{#ifCond set.title '!==' ''}}
+				<h1>{{set.title}}</h1>
+				{{/ifCond}}
+				
+				{{#ifCond set.user_id '===' user.id  }}
+					<a class="btn btn-default btn-success" href="/set/{{set.slug}}/edit" title="Edit Picture">EDIT</a>
+				{{/ifCond}}
+				
+				{{picture}}
+				<div id="photoContainer" class="hairshare">
+					<div class='overlay'>
+						<div class="photo-btn" data-id="{{picture.id}}"></div>
+					</div>
+					<img src="/uploads/cropped/{{picture.picture}}" alt="{{picture.title}}" >
+				</div>
+
+
+
+				
+			</section>
+			<section>
+				<h2 class="sr-only">Comments</h2>
+				<!-- Comments START -->
+				<form method="post">
+					<div class="input-group">
+				      <input type="text" class="form-control" name="comment" placeholder="Comment here">
+				      <span class="input-group-btn">
+				        <button class="btn btn-primary" type="submit" id="btn-comment">Go</button>
+				      </span>
+				    </div><!-- /input-group -->
+				    <div class="message"></div>
+					<input type="hidden" name="photoId" value="{{picture.user_id}}" />
+					<input type="hidden" name="username" value="{{user.username }}" />
+				</form>
+
+				<div id="comments">
+					<ul class="media-list">
+						{{#each comments}}
+							<li class="media">
+								<a class="pull-left" href="#">
+									<img src="/img/place-holder.jpg" alt="place-holder" />
+								</a>
+								<div class="media-body">
+									<span class="username"><a href="/{{username}}">{{username}}</a></span>
+									<span class="comment">{{comment}}</span>
+								</div>
+								
+							</li>
+						{{/each}}
+					</ul>
+				</div>
+				<!-- Comments FINISH -->
+					
+			</section>
+		</main>
+	</div>
+	
+
+{{> footer}}
