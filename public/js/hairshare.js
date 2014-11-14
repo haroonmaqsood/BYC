@@ -159,7 +159,7 @@
 
 					// send coordinates for processing
 					// you may call the coordinates with the function coordinates(one);
-					$(document).on('click', 'button', function(e) {
+					$(document).on('click', '#btn-editPhoto', function(e) {
 						e.preventDefault();
 						coordinates(cropHS);
 						// var title = $('#title').val();
@@ -172,10 +172,6 @@
 							formData.cropY = $('#cropY').val();
 							formData.cropW = $('#cropW').val();
 							formData.cropH = $('#cropH').val();
-							console.log(formData.cropX)
-				      console.log(formData.cropY)
-				      console.log(formData.cropW)
-				      console.log(formData.cropH)
 
 							$.ajax({
 							  url: 	document.URL,
@@ -183,9 +179,13 @@
 							  data: formData
 							})
 							.done(function(response){
+								console.log('done')
+								console.log(response)
 								window.location.href = response.redirect;
 							})
 							.fail(function(response){
+								console.log('fail')
+								console.log(response)
 								$('.alert-danger').html(response.responseJSON.reason).slideDown();
 							})
 
@@ -384,60 +384,65 @@
 				if($('#upload-form').length){
 
 					$(".upload-btn").click(function () {
-    				$('#position').val( $(this).data('id') );
-    				$('#'+$(this).data('id')).trigger('click');
+						var id = $(this).data('id');
+    				$('#position').val( id );
+    				$('#uploadPicture').trigger('click');
+    				console.log(id)
+						var form 			= $('#upload-form'),
+							fileUpload 	= $('#uploadPicture'),
+							filename 		= form.find('input[name="filename"]'),
+							progress 		= form.find('.progress'),
+							progressBar = progress.find('.progress-bar'),
+							value 			= 0,
+							interval 		= null;
+
+						function animateProgressBar(){
+							if(value < 100) {
+								value = value + 10; 
+								progressBar.attr('style', 'width: '+value+'%');
+								progressBar.attr('aria-valuenow',value);
+							}else{
+								form.submit();
+								clearInterval(interval);
+							}
+						}
+
+						fileUpload.on('change',function(){
+														
+			        var avatar = $(this).val();
+			        var extension = avatar.split('.').pop().toUpperCase();
+			        if(avatar.length < 1) {
+			            avatarok = 0;
+			            $('.alert-danger').html("Woops looks like you have not selected an image yet.");
+			        }
+			        else if (extension!="PNG" && extension!="JPG" && extension!="JPEG"){
+			            avatarok = 0;
+			            $('.alert-danger').html("invalid file type please only upload PNG or JPEG images. You upload a "+extension);
+			        }
+			        else {
+			            avatarok = 1;
+			        }
+			        if(avatarok == 1) {
+			            
+			          value = 0;
+								filename.val($(this).val());
+								progress.show();
+								interval = setInterval(animateProgressBar,200);
+
+			        }
+			        else {
+			            $('.alert-danger').slideDown();
+			        }
+			        return false;
+
+
+
+						});
+
+
 					});
 
-					var form = $('#upload-form'),
-						fileUpload = form.find('input[name="uploadFront"]'),
-						filename = form.find('input[name="filename"]'),
-						progress = form.find('.progress'),
-						progressBar = progress.find('.progress-bar'),
-						value = 0,
-						interval= null;
 
-					function animateProgressBar(){
-						if(value < 100) {
-							value = value + 10; 
-							progressBar.attr('style', 'width: '+value+'%');
-							progressBar.attr('aria-valuenow',value);
-						}else{
-							form.submit();
-							clearInterval(interval);
-						}
-					}
-
-					fileUpload.on('change',function(){
-													
-		        var avatar = $(this).val();
-		        var extension = avatar.split('.').pop().toUpperCase();
-		        if(avatar.length < 1) {
-		            avatarok = 0;
-		            $('.alert-danger').html("Woops looks like you have not selected an image yet.");
-		        }
-		        else if (extension!="PNG" && extension!="JPG" && extension!="JPEG"){
-		            avatarok = 0;
-		            $('.alert-danger').html("invalid file type please only upload PNG or JPEG images. You upload a "+extension);
-		        }
-		        else {
-		            avatarok = 1;
-		        }
-		        if(avatarok == 1) {
-		            
-		          value = 0;
-							filename.val($(this).val());
-							progress.show();
-							interval = setInterval(animateProgressBar,200);
-
-		        }
-		        else {
-		            $('.alert-danger').slideDown();
-		        }
-		        return false;
-
-
-
-					})
 				}
 			},
 			loadPopular :function(){

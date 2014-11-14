@@ -1,0 +1,48 @@
+{{> header}}
+
+   	<div class="row">
+
+		<main>
+			<header>
+				<h1 class="heading-one text-center">Upload Photo</h1>
+			</header>
+ 			{{#each pictures}}
+				<img src="/uploads/{{picture}}" width="250">
+				<img src="/uploads/cropped/{{picture}}" width="250">
+				{{position}}
+				<hr>
+			{{/each}}
+			
+			<section>
+				<div class="alert alert-danger none" role="alert"></div>
+				<form action="/upload{{#if setId}}?setId={{setId}}{{/if}}" enctype="multipart/form-data" method="post" id="upload-form">
+					
+					<a class="upload-btn" data-id="front"></a>
+					<center>Front</center><br>
+
+					<a class="upload-btn" data-id="back"></a>
+					<center>Back</center><br>
+
+					<a class="upload-btn" data-id="left"></a>
+					<center>Left</center><br>
+
+					<a class="upload-btn" data-id="right"></a>
+					<center>Right</center><br>
+
+					<div class="progress">
+					  <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+					  </div>
+					</div>
+
+					<textarea id="title" name="title" placeholder="Image Title" rows="2" class="countable form-control">{{picture.title}}</textarea><br/>
+
+					<input type="file"  class="upload imageUpload" id="uploadPicture" name="upload" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
+					<input type="hidden" name="position" value="front" id="position">
+				</form>
+				
+			</section>
+
+		</main>
+	</div>
+
+{{> footer}}

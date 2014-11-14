@@ -11,51 +11,55 @@ var express 			= require('express'),
 
 
 
-router.get('/:slug/edit', function(req, res, next) {
+router.get('/:id/edit', function(req, res, next) {
   
   if (!req.isAuthenticated() )
     return res.redirect('/login');
 
-  if (req.params.slug !== 'undefined') {
-    
-    model.getMyPicturesBySlugToken(req.user.id, req.params.slug, function(responce) {
-
-      if (responce[0]) {
-        res.locals.slug = req.params.slug;
-        res.locals.picture = responce[0];
-        return res.render('edit_picture');
-      }
-      
-    });
+  var id = req.params.id;
+  if (!id) {
+    var err = new Error('Picture does not exsist!');
+    err.status = 404;
+    return next(err);
   }
 
+  model.getMyPicturesById(id, function(responce) {
 
-  // return res.redirect('/')
-
+    if (!responce) {
+      var err = new Error('Picture does not exsist!');
+      err.status = 404;
+      return next(err);
+    }
+    if (responce[0]) {
+      res.locals.picture = responce[0];
+      return res.render('edit_picture');
+    }
+    
+  });
 
 });
 
 
-router.post('/:slug/edit', function (req, res) {
+router.post('/:id/edit', function (req, res) {
   if (!req.isAuthenticated() )
   	return res.send({redirect:'/login'});
   
-	if (!req.params.slug)
+  var id = req.params.id;
+	if (!id)
     return res.send({redirect:'/home'});
   
-  model.getMyPicturesBySlugToken(req.user.id, req.params.slug, function(picture) {
+  model.getMyPicturesById(id, function(picture) {
+    if (!picture[0])
+      return res.send(400, { status:'fail', reason: 'Picture does not exsist'  });
 
-    if (picture[0]) {
+    model.getMySetBySetId(req.user.id, picture[0].set_id, function(set) {
+      if (!set[0])
+        return res.send(400, { status:'fail', reason: 'Picture does not exsist'  });
 
-      var title   = req.body.title,
-          cropX   = req.body.cropX,
+      var cropX   = req.body.cropX,
           cropY   = req.body.cropY,
           cropW   = req.body.cropW,
           cropH   = req.body.cropH;
-
-      if ( (!title.length > 2 || title.length > 81) ) {
-        return res.send(400, { status: 'failed', reason: 'Title Size must be between 3-80 Characters' });
-      }
 
       // If all cropping fields are not provided
       if (cropX == '' || cropY == ''  || cropW == ''  || cropH == '' ) return res.send(400, { status: 'failed', reason: 'Please make sure the image is inside the crop margins from all sides.' });
@@ -73,25 +77,23 @@ router.post('/:slug/edit', function (req, res) {
           return res.send(400, { status: 'failed'});
         }
 
-        var slug = getSlug(title)+'-'+cryptoToken(2).toString('hex'),
-            crop = JSON.stringify({'cropX':cropX, 'cropY':cropY, 'cropW':cropW, 'cropH':cropH});
+        var crop = JSON.stringify({'cropX':cropX, 'cropY':cropY, 'cropW':cropW, 'cropH':cropH});
 
-        model.updateImageTitle(title, slug, crop, picture[0].id, function(responce) {
+
+        model.updatePicture(picture[0].id, crop, function(responce) {
           console.log(responce)
           if (!responce)
             return res.send(400, { status: 'failed'});
           
-          return res.send({status: 'success', redirect:'/picture/'+slug});
+          return res.send({status: 'success', redirect:'/set/'+set[0].slug+'/edit'});
 
         });
 
 
       });
+    });
 
-  
-      
-    
-    }
+
   });
 
 });

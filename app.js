@@ -138,6 +138,7 @@ app.use('/forgot', require('./routes/forgot'));
 app.use('/steptwo', require('./routes/steptwo'));
 app.use('/upload', require('./routes/upload'));
 app.use('/set', require('./routes/set'));
+app.use('/set', require('./routes/edit_set'));
 app.use('/picture', require('./routes/picture'));
 app.use('/picture', require('./routes/edit_picture'));
 app.use('/logout', require('./routes/logout'));

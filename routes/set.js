@@ -63,6 +63,7 @@ router.get('/:slug', function(req, res, next) {
 
 					    getPictures: function(callbackOne){ 
 					    	model.getPictures(responce_set[0].id, 1, function(responce_pictures) {
+					    		console.log(responce_pictures)
 					    		res.locals.picture = responce_pictures;
 					    		return callbackOne();
 		  					});

@@ -40,7 +40,7 @@ router.post('/', function(req, res) {
     if (!position && !['front', 'back', 'left', 'right'].indexOf(position) > -1)
       return res.send({ status:'fail', msg: 'Incorrect position'  });
 
-    var temp_path     = files.uploadFront.path,
+    var temp_path     = files.upload.path,
         new_location  = 'public/uploads/';
         // needle        = files.upload.type,
         // haystack      = ['image/jpeg', 'image/png'];
@@ -83,6 +83,7 @@ router.post('/', function(req, res) {
               if (setId) {
                 model.verifySet(req.user.id, setId, function(verifySet) {
                   console.log('Verify set:')
+                  console.log(verifySet)
                   console.log(verifySet)
                   console.log('/verify')
                   if (setId)
@@ -128,7 +129,10 @@ router.post('/', function(req, res) {
             console.log('/result')
             console.log(file_name)
             res.locals.picture = { picture: file_name, setId : setId }
-            return res.render('edit_picture');
+
+            return res.redirect('/picture/'+pictureId+'/edit');
+
+            
           });
 
           

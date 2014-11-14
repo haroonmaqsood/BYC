@@ -144,9 +144,24 @@ module.exports = {
 
   },
 
+  // getPicture: function (id, cb) {
+  //   db.query("SELECT * FROM pictures WHERE id = ? ", id, function (err,results) {
+  //     if (err) throw err;
+  //     return cb(results);
+  //   });
+
+  // },
+
 
   getMySetBySlugToken: function (user_id, slug, cb) {
     db.query("SELECT * FROM sets WHERE user_id = ? AND slug = ?", [user_id, slug], function (err,results) {
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
+  getMySetBySetId: function (user_id, id, cb) {
+    db.query("SELECT * FROM sets WHERE id = ? AND user_id = ?", [id, user_id], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
@@ -173,8 +188,8 @@ module.exports = {
     });
   },
 
-  updateImageTitle: function (title, slug, crop, id, cb) {
-    db.query("UPDATE pictures SET title = ?, slug = ?, crop = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, crop, id], function (err,results) {
+  updateImageTitle: function (title, slug, id, cb) {
+    db.query("UPDATE sets SET title = ?, slug = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, id], function (err,results) {
 
       // LOG TO SENTRY
       if (err) throw err;
@@ -183,6 +198,20 @@ module.exports = {
     });
   },
 
+
+  updatePicture: function (id, crop, cb) {
+    db.query("UPDATE pictures SET crop = ?, updatedDttm = NOW() WHERE id = ?", [crop, id], function (err,results) {
+      if (err) throw err;
+      cb(results);
+    });
+  },
+  
+  getMyPicturesById: function (id, cb) {
+    db.query("SELECT * FROM pictures WHERE id = ?", id, function (err,results) {
+      if (err) throw err;
+      return cb(results);
+    });
+  },
   
 
   getSetComments: function (set_id, cb) {
