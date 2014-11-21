@@ -80,7 +80,7 @@ router.post('/:id/edit', function (req, res) {
         var crop = JSON.stringify({'cropX':cropX, 'cropY':cropY, 'cropW':cropW, 'cropH':cropH});
 
 
-        model.updatePicture(picture[0].id, crop, function(responce) {
+        model.updatePictureCrop(picture[0].id, crop, function(responce) {
           console.log(responce)
           if (!responce)
             return res.send(400, { status: 'failed'});

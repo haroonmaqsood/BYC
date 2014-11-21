@@ -103,18 +103,48 @@ router.post('/', function(req, res) {
 
             },
 
-            // uploadPicture
+            // getSetPicturePosition
             function(setId, callback) {
-              console.log('---- uploadPicture')
-              console.log(setId)
-              model.uploadPicture(setId, file_name+'.jpg', position, function(uploadPicture) {
-                console.log('Added new picture:')
-                console.log(uploadPicture)
-                console.log('/picture')
-                if (uploadPicture)
-                  return callback(null, setId, uploadPicture, file_name+'.jpg');
+              console.log('---- getSetPicturePosition')
+              model.getSetPicturePosition(setId, position, function(checkPicture) {
+                console.log('Check picture position:')
+                console.log(checkPicture)
+                console.log('/picPosition')
+                
+                return callback(null, setId, checkPicture);
               });
-            }
+            },
+
+
+            // uploadPicture OR updatePicture
+            function(setId, checkPicture, callback) {
+              // console.log('S----------------------------------------------------------');
+              // console.log( checkPicture[0] )
+              // console.log( checkPicture[0].position == position )
+              // console.log( checkPicture[0].position )
+              // console.log( position )
+              // console.log( checkPicture[0] && checkPicture[0].position == position )
+              // console.log('F----------------------------------------------------------');
+
+              if (checkPicture[0] && checkPicture[0].position == position) {
+                model.updatePicture(setId, position, file_name+'.jpg', function(updatePicture) {
+                  console.log('Update picture:')
+                  console.log(updatePicture)
+                  console.log('/updatePicture')
+                  if (updatePicture)
+                    return callback(null, setId, checkPicture[0].id, file_name+'.jpg');
+                });
+              } else {
+                model.uploadPicture(setId, file_name+'.jpg', position, function(uploadPicture) {
+                  console.log('Upload picture:')
+                  console.log(uploadPicture)
+                  console.log('/uploadPicture')
+                  if (uploadPicture)
+                    return callback(null, setId, uploadPicture, file_name+'.jpg');
+                });
+              }
+
+            },
 
           ], function(err, setId, pictureId, file_name) {
             if (err) {
@@ -128,7 +158,7 @@ router.post('/', function(req, res) {
             console.log(pictureId)
             console.log('/result')
             console.log(file_name)
-            res.locals.picture = { picture: file_name, setId : setId }
+            // res.locals.picture = { picture: file_name, setId : setId }
 
             return res.redirect('/picture/'+pictureId+'/edit');
 

@@ -115,21 +115,21 @@ module.exports = {
    
   },
 
-
   uploadPicture: function (set_id, picture, position, cb) {
-
     var date  = new Date();
-    
     db.query("INSERT INTO pictures SET ?", {set_id:set_id, picture:picture, position:position, createdDttm:date }, function (err,results) {
       if (err) throw err;
-
       if (results.insertId)
         return cb(results.insertId);
-
       return cb(false);
-
     });
-   
+  },
+
+  updatePicture: function (set_id, position, picture, cb) {
+    db.query("UPDATE pictures SET picture = ?, crop = NULL, updatedDttm = NOW() WHERE set_id = ? AND position = ?", [picture, set_id, position], function (err,results) {
+      if (err) throw err;
+      cb(results);
+    });
   },
 
   getPictures: function (set_id, crop, cb) {
@@ -191,15 +191,20 @@ module.exports = {
   updateImageTitle: function (title, slug, id, cb) {
     db.query("UPDATE sets SET title = ?, slug = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, id], function (err,results) {
 
-      // LOG TO SENTRY
       if (err) throw err;
       cb(results);
 
     });
   },
 
+  getSetPicturePosition: function (set_id, position, cb) {
+    db.query("SELECT * FROM pictures WHERE set_id = ? AND position = ?", [set_id, position], function (err,results) {
+      if (err) throw err;
+      return cb(results);
+    });
+  },
 
-  updatePicture: function (id, crop, cb) {
+  updatePictureCrop: function (id, crop, cb) {
     db.query("UPDATE pictures SET crop = ?, updatedDttm = NOW() WHERE id = ?", [crop, id], function (err,results) {
       if (err) throw err;
       cb(results);
