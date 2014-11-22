@@ -47,7 +47,6 @@
 			  	<div class="row">
 				  {{#each userPicsTop}}
 				  	<div class="col-xs-3 col-sm-12 hairshare">
-
 				    	<a href="/picture/{{ slug }}"><img src="/uploads/cropped/{{ picture }}" alt="{{ title }}" class="img-responsive"/></a>
 						</div>
 					{{/each}}
@@ -69,7 +68,8 @@
 					<hr>
 				</div>	
 				<div class="photo">	
-			  {{#each userPictures}}
+			  {{#each responce_userSets}}
+			  	{{set_id}}
 			  	<div class="photo-sm">
 			  		<div class="img-holder">
 				  		<a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/cropped/{{picture}}" class="img-responsive" ></a>
@@ -79,25 +79,6 @@
 			  </div>
 			</section>
 
-			{{#ifCond profile.id '===' user.id }}
-			
-			<section id="dashboard-timeline">
-				<div class="pod-heading">
-					<h2>Dumpbox <small>(Not Public)</small></h2>
-					<hr>
-				</div>
-				
-				<div class="photo">						
-			  {{#each userPicturesNoneCropped}}
-			  	<div class="photo-sm">
-			  		<div class="img-holder">
-				  		<a href="/picture/{{slug}}" alt="{{title}}"><img width="250" src="/uploads/{{picture}}" class="img-responsive" ></a>
-						</div>
-					</div>
-			  {{/each}}
-			  </div>
-			</section>
-			{{/ifCond}}
 			
 		</main>
 	</div>

@@ -31,9 +31,9 @@ router.get('/:username', function(req, res, next) {
   	res.locals.profile = responce_getProfile[0];
 		async.parallel({
 	    
-	    getPictures: function(callback) {
-	    	model.getPictures(responce_getProfile[0].id, true, function(responce_getPictures) {
-	  			res.locals.userPictures = responce_getPictures;
+	    getSets: function(callback) {
+	    	model.getSetsByOwner(responce_getProfile[0].id, function(responce_userSets) {
+	  			res.locals.userSets = responce_userSets;
 	    		return callback();
 	    	});
 	    },
@@ -59,13 +59,13 @@ router.get('/:username', function(req, res, next) {
 	    	});
 	    },
 
-	    getUserPictureLikes: function(callbackOne){ 
-	    	model.getUserPictureLikes(responce_getProfile[0].id, 3, function(responce_getUserPictureLikes) {
+	    getUserSetLikes: function(callbackOne){ 
+	    	model.getUserSetLikes(responce_getProfile[0].id, 3, function(responce_getUserPictureLikes) {
 
 	    		async.eachSeries(responce_getUserPictureLikes, function(picture, callbackTwo) {
 				    index = responce_getUserPictureLikes.indexOf(picture);
-				    model.getPicturesByID(picture.picture_id, function(result){
-						    responce_getUserPictureLikes[index].picture = result[0].picture;
+				    model.getSetByID(picture.set_id, function(result){
+						    responce_getUserPictureLikes[index].set_id = result[0].set_id;
 						    responce_getUserPictureLikes[index].title 	= result[0].title;
 						    responce_getUserPictureLikes[index].slug 		= result[0].slug;
 						    
@@ -80,12 +80,12 @@ router.get('/:username', function(req, res, next) {
 				});
 	    },
 
-	    getPicturesNoneCropped: function(callback) {
-	    	model.getPictures(responce_getProfile[0].id, false, function(responce_getPicturesNoneCropped) {
-	  			res.locals.userPicturesNoneCropped = responce_getPicturesNoneCropped;
-	    		return callback();
-	    	});
-	    },
+	    // getPicturesNoneCropped: function(callback) {
+	    // 	model.getPictures(responce_getProfile[0].id, false, function(responce_getPicturesNoneCropped) {
+	  		// 	res.locals.userPicturesNoneCropped = responce_getPicturesNoneCropped;
+	    // 		return callback();
+	    // 	});
+	    // },
 
 		},
 		function(err, results){

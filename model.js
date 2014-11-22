@@ -167,6 +167,13 @@ module.exports = {
     });
   },
 
+  getSetsByOwner: function (user_id, cb) {
+    db.query("SELECT * FROM sets WHERE user_id = ?", user_id, function (err,results) {
+      if (err) throw err;
+      return cb(results);
+    });
+  },
+
   getSetBySlugToken: function (slug, cb) {
     db.query("SELECT * FROM sets WHERE slug = ?", [slug], function (err,results) {
       if (err) throw err;
@@ -350,25 +357,21 @@ module.exports = {
 
   countLikes: function (set_id, cb) {
     db.query("SELECT count(*) AS count FROM likes WHERE set_id = ? AND deletedDttm IS NULL", set_id, function (err,results) {
-      // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
     });
   },
 
 
-
   countUserLikes: function (owner_id, cb) {
     db.query("SELECT count(*) AS count FROM likes WHERE owner_id = ?", [owner_id], function (err,results) {
-      // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
     });
   },
 
   countUserPictures: function (user_id, cb) {
-    db.query("SELECT count(*) AS count FROM pictures WHERE user_id = ? AND crop IS NOT NULL AND deletedDttm IS NULL", [user_id], function (err,results) {
-      // LOG TO SENTRY
+    db.query("SELECT count(*) AS count FROM sets WHERE user_id = ? AND deletedDttm IS NULL", [user_id], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
@@ -376,15 +379,13 @@ module.exports = {
 
   countUserFollowers: function (user_id, cb) {
     db.query("SELECT count(*) AS count FROM follow WHERE following = ? AND deletedDttm IS NULL", [user_id], function (err,results) {
-      // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
     });
   },
 
   getFollowing: function (user_id, cb) {
-    db.query("SELECT following FROM follow WHERE follower = ?", [user_id], function (err,results) {
-      // LOG TO SENTRY
+    db.query("SELECT following FROM follow WHERE follower = ?", user_id, function (err,results) {
       if (err) throw err;
       var result = [];
 
@@ -397,13 +398,10 @@ module.exports = {
   },
 
 
-
   updatePassword: function (user_id, newPassword, newToken, cb) {
     
     db.query("UPDATE users SET updatedDttm = NOW(), password = ?, token = ? WHERE id = ?", [newPassword, newToken, user_id], function (err,results) {
-
-      // LOG TO SENTRY
-      // if (err) throw err;
+      if (err) throw err;
       if (results.affectedRows)
         return cb(results.affectedRows);
 
