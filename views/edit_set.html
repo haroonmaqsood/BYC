@@ -12,7 +12,7 @@
 				{{position}}
 				<hr>
 			{{/each}}
-			
+
 			<section>
 				<div class="alert alert-danger none" role="alert"></div>
 				<form action="/upload{{#if setId}}?setId={{setId}}{{/if}}" enctype="multipart/form-data" method="post" id="upload-form">
@@ -34,10 +34,13 @@
 					  </div>
 					</div>
 
-					<textarea id="title" name="title" placeholder="Image Title" rows="2" class="countable form-control">{{picture.title}}</textarea><br/>
-
 					<input type="file"  class="upload imageUpload" id="uploadPicture" name="upload" accept="image/x-png, image/jpeg, image/jpg;capture=camera">
 					<input type="hidden" name="position" value="front" id="position">
+				</form>
+
+				<form method="post" id="publish-form">
+					<textarea id="title" name="title" placeholder="Image Title" rows="2" class="countable form-control">{{picture.title}}</textarea><br/>
+					<button type="submit" class="btn btn-hs btn-lg">Post</button>
 				</form>
 				
 			</section>

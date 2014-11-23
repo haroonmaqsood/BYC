@@ -196,7 +196,7 @@ module.exports = {
   },
 
   updateImageTitle: function (title, slug, id, cb) {
-    db.query("UPDATE sets SET title = ?, slug = ?, updatedDttm = NOW() WHERE id = ?", [title, slug, id], function (err,results) {
+    db.query("UPDATE sets SET title = ?, slug = ?, updatedDttm = NOW(), publishDttm = NOW() WHERE id = ?", [title, slug, id], function (err,results) {
 
       if (err) throw err;
       cb(results);
@@ -286,6 +286,14 @@ module.exports = {
     db.query("SELECT COUNT(*) AS following FROM follow WHERE deletedDttm IS NULL AND follower = ? AND following = ?", [follower, following], function (err,results) {
       if (err) throw err;
       return cb(results[0].following);
+    });
+  },
+
+
+  getFollowers: function (following_user_id, cb) {
+    db.query("SELECT follower FROM follow WHERE deletedDttm IS NULL AND following = ?", following_user_id, function (err,results) {
+      if (err) throw err;
+      return cb(results);
     });
   },
 
@@ -410,6 +418,40 @@ module.exports = {
     });
 
   },
+
+
+
+  addNotification: function (from_user_id, to_user_id, type, type_id, cb) {
+    var date  = new Date();
+    db.query("INSERT INTO notifications SET ?", {from_user_id:from_user_id, to_user_id:to_user_id, type:type, type_id:type_id, createdDttm:date }, function (err,results) {
+      if (err) throw err;
+      if (results.insertId)
+        return cb(results.insertId);
+      return cb(false);
+    });
+  },
+
+  removeNotification: function (from_user_id, to_user_id, type, type_id, cb) {
+    db.query("UPDATE notifications SET updatedDttm = NOW(), deletedDttm = NOW() WHERE from_user_id = ? AND to_user_id = ? AND type = ? AND type_id = ?", [from_user_id, to_user_id, type, type_id], function (err,results) {
+      if (err) throw err;
+      if (results.affectedRows)
+        return cb(results.affectedRows);
+      return cb(false);
+    });
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

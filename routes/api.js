@@ -81,13 +81,30 @@ router.post('/doFollow/:username', function(req, res) {
         // UNFOLLOW
         model.unfollowUser(req.user.id, followingData[0].id, function(responce) {
           if (!responce) return res.send(400, { status: 'failed'});
-          return res.send({ status: 'unfollowed'});
+          
+          if (req.user.id === followingData[0].id)
+            return res.send({ status: 'unfollowed'});
+        
+          model.removeNotification(req.user.id, followingData[0].id, 'follow', followingData[0].id, function(notification) {
+            console.log(notification)
+            return res.send({ status: 'unfollowed'});
+          });
+
+
         });
       } else {
         // FOLLOW USER
         model.followUser(req.user.id, followingData[0].id, function(responce) {
           if (!responce) return res.send(400, { status: 'failed'});
-          return res.send({ status: 'followed'});
+
+          if (req.user.id === followingData[0].id)
+            return res.send({ status: 'followed'});
+        
+          model.addNotification(req.user.id, followingData[0].id, 'follow', followingData[0].id, function(notification) {
+            console.log(notification)
+            return res.send({ status: 'followed'});
+          });
+
         });
       }
 
@@ -100,11 +117,11 @@ router.post('/doFollow/:username', function(req, res) {
 
 
 
-router.get('/checkLike/:pictureId', function(req, res) {
+router.get('/checkLike/:setId', function(req, res) {
   if (!req.isAuthenticated()) return res.send({ redirect: '/login'}, 400);
 
-  model.likeStatus(req.user.id, req.params.pictureId, function(responce_likeStatus) {
-    model.countLikes(req.params.pictureId, function(responce_countLikes) {
+  model.likeStatus(req.user.id, req.params.setId, function(responce_likeStatus) {
+    model.countLikes(req.params.setId, function(responce_countLikes) {
       return res.send({status: responce_likeStatus, count: responce_countLikes[0].count})
     });
   });
@@ -113,34 +130,50 @@ router.get('/checkLike/:pictureId', function(req, res) {
 
 
 
-router.post('/doLike/:pictureId', function(req, res) {
+router.post('/doLike/:setId', function(req, res) {
   if (!req.isAuthenticated()) return res.send({ redirect: '/login'});
 
-  model.getPictureOwner(req.params.pictureId, function(pictureOwner) {
-    if (!pictureOwner || req.user.id === req.params.pictureId)
+  model.getSetOwner(req.params.setId, function(setOwner) {
+    if (!setOwner || req.user.id === req.params.setId)
       return res.send({ status: 'failed'});
     
     async.series({
       likeStatus: function(callback) {
-        model.likeStatus(req.user.id, req.params.pictureId, function(responce_likeStatus) {
+        model.likeStatus(req.user.id, req.params.setId, function(responce_likeStatus) {
           if (responce_likeStatus) {
             // UNLIKE
-            model.unlikePicture(req.user.id, req.params.pictureId, function(responce) {
+            model.unlikeSet(req.user.id, req.params.setId, function(responce) {
               if (!responce) return res.send({ status: 'failed'});
-              return callback(null, 'unliked');
+
+              if (req.user.id === setOwner[0].user_id)
+                return callback(null, 'unliked');
+            
+              model.removeNotification(req.user.id, setOwner[0].user_id, 'like', req.params.setId, function(notification) {
+                console.log(notification)
+                return callback(null, 'unliked');
+              });
+              
             });
           } else {
             // LIKE
-            model.likePicture(req.user.id, req.params.pictureId, pictureOwner[0].user_id, function(responce) {
+            model.likeSet(req.user.id, req.params.setId, setOwner[0].user_id, function(responce) {
               if (!responce) return res.send({ status: 'failed'});
-              return callback(null, 'liked');
+
+              if (req.user.id === setOwner[0].user_id)
+                return callback(null, 'liked');
+            
+              model.addNotification(req.user.id, setOwner[0].user_id, 'like', req.params.setId, function(notification) {
+                console.log(notification)
+                return callback(null, 'liked');
+              });
+
             });
           }
         });
 
       },
       countLikes: function(callback) {
-        model.countLikes(req.params.pictureId, function(responce_countLikes) {
+        model.countLikes(req.params.setId, function(responce_countLikes) {
           return callback(null, responce_countLikes[0].count);
         });
       },

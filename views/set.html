@@ -90,18 +90,18 @@
 					<a class="btn btn-default btn-success" href="/set/{{set.slug}}/edit" title="Edit Picture">EDIT</a>
 				{{/ifCond}}
 				
-				{{#each picture}}
-					<img src="/uploads/{{picture}}" width="250">
-					<img src="/uploads/cropped/{{picture}}" width="250">
-				{{/each}}
+				
 
-<!-- 				<div id="photoContainer" class="hairshare">
+				<div id="photoContainer" class="hairshare">
 					<div class='overlay'>
-						<div class="photo-btn" data-id="{{picture.id}}"></div>
+						<div class="photo-btn" data-id="{{set.id}}"></div>
 					</div>
-					<img src="/uploads/cropped/{{picture.picture}}" alt="{{picture.title}}" >
+					{{#each picture}}
+						<!-- <img src="/uploads/{{picture}}" width="250"> -->
+						<img src="/uploads/cropped/{{picture}}" width="250">
+					{{/each}}
 				</div>
-				 -->
+				
 
 
 				

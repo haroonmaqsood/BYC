@@ -126,35 +126,48 @@ router.get('/:slug', function(req, res, next) {
 
 
 
-// router.post('/:slug', function (req, res) {
-//   var slug = '';
-// 	if (req.params.slug)
-// 		slug = req.params.slug;
+router.post('/:slug', function (req, res) {
+  var slug = '';
+	if (req.params.slug)
+		slug = req.params.slug;
 
-//   if (slug === '')
-//     return res.redirect('/');
+  if (slug === '')
+    return res.redirect('/');
 
-//   if (!req.isAuthenticated() )
-//   	return res.redirect('/set/'+slug);
+  if (!req.isAuthenticated() )
+  	return res.redirect('/set/'+slug);
 
-//   var comment	= req.body.comment;
-//   console.log(comment)
-//   model.getSetBySlugToken(slug, function(picture) {
+  var comment	= req.body.comment;
+  console.log(comment)
+  model.getSetBySlugToken(slug, function(set) {
   	
-//     if (!picture[0]) {
-//       var err = new Error('The Picture you are looking for does not exist.');
-//   		err.status = 404;
-//   		return next(err);
-//   	}
+    if (!set[0]) {
+      var err = new Error('The Picture you are looking for does not exist.');
+  		err.status = 404;
+  		return next(err);
+  	}
 
-//   	model.addComment(comment, req.user.id, picture[0].id, function(responce) {
-// 	    if (!responce)
-// 	    	return res.send({ status: 'failed'});
-// 	    return res.send({ status: 'success'});
-// 	  });
+  	model.addComment(comment, req.user.id, set[0].id, function(responce) {
+	    if (!responce)
+	    	return res.send({ status: 'failed'});
+	    console.log(responce)
 
-// 	});
-// });
+			if (req.user.id === set[0].user_id)
+				return res.send({ status: 'success'});
+
+	    model.addNotification(req.user.id, set[0].user_id, 'comment', responce, function(notification) {
+
+	    	console.log(notification)
+
+	    	return res.send({ status: 'success'});
+	    });
+    
+    
+
+	  });
+
+	});
+});
 
 
 
