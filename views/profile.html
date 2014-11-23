@@ -11,9 +11,9 @@
 				</div>
 				<div class="pull-right col-xs-8">
 					Username: <a href="/{{ profile.username }}" title="{{ profile.username }}">{{ profile.username }}</a><br>
-					Location: UK
-					<br>
+					Location: UK<br>
 					Type: Student Account
+					<br> ID: {{profile.id}}
 				</div>
 				{{#ifCond profile.id '!==' user.id }}
 				<div class="col-xs-12">

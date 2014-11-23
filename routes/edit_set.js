@@ -49,7 +49,7 @@ router.get('/:slug/edit', function(req, res, next) {
 });
 
 
-router.post('/:slug/edit', function (req, res) {
+router.post('/:slug/edit', function (req, res, next) {
   if (!req.isAuthenticated() )
   	return res.send({redirect:'/login'});
   
@@ -57,9 +57,9 @@ router.post('/:slug/edit', function (req, res) {
     return res.send({redirect:'/home'});
 
   var title   = req.body.title;
-  if ( title && (!title.length > 2 || title.length > 81) ) {
+  if ( title && (!title.length > 2 || title.length > 81) )
     return res.send(400, { status: 'failed', reason: 'Title Size must be between 3-80 Characters' });
-  }
+
   
 
 
@@ -82,15 +82,6 @@ router.post('/:slug/edit', function (req, res) {
     },
     function(set, callback){
 
-
-      callback(null, set);
-
-    },
-    function(set, callback){
-      // Check to see if you are following your self.
-      if (req.user.id === set[0].user_id)
-        callback(null, set);
-
       // Send new picture notifications to all followers.
       model.getFollowers(set[0].user_id, function(followers) {
         console.log(followers) // DEV
@@ -110,14 +101,18 @@ router.post('/:slug/edit', function (req, res) {
 
       callback(null, set);
 
-    }
-  ], function (err, set) {
-    console.log('set')
-    console.log(set)
-    console.log('err')
-    console.log(err)
+    },
+    function(set, callback){
+      // Add publish date here
 
-    // if (current title == new title) {};
+      callback(null, set);
+
+    },
+  ], function (err, set) {
+
+
+    if (title === set[0].title || title.length <= 0)
+      return res.send({status: 'success', redirect:'/set/'+set[0].slug});
     
     // Update Image Title
     var slug = getSlug(title)+'-'+cryptoToken(2).toString('hex');
