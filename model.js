@@ -420,6 +420,24 @@ module.exports = {
   },
 
 
+  
+  getNotifications: function (user_id, cb) {
+    db.query("SELECT notifications.type, notifications.type_id, notifications.seenDttm, users.username AS from_username FROM notifications INNER JOIN users ON notifications.from_user_id = users.id WHERE notifications.to_user_id = ? AND notifications.deletedDttm IS NULL", user_id, function (err,results) {
+      if (err) throw err;
+      module.exports.seenNotification(user_id, function(markSeen) {
+        return cb(results);
+      });
+    });
+  },
+
+  seenNotification: function (user_id, cb) {
+    db.query("UPDATE notifications SET updatedDttm = NOW(), seenDttm = NOW() WHERE to_user_id = ? AND seenDttm IS NULL", user_id, function (err,results) {
+      if (err) throw err;
+      if (results.affectedRows)
+        return cb(results.affectedRows);
+      return cb(false);
+    });
+  },
 
   addNotification: function (from_user_id, to_user_id, type, type_id, cb) {
     var date  = new Date();

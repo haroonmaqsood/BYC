@@ -16,6 +16,7 @@
 					hs.settings();
 					hs.photoHover();
 					hs.welcomeBanner();
+					hs.notifications();
 				});
 				return false;
 			},
@@ -560,6 +561,62 @@
 				// );
 
 			},
+
+
+			
+
+			notifications:function(){
+				$('#notifications').click(function (e) {
+					e.preventDefault();
+					$('#notification-box ul').fadeOut('fast').html('');
+
+					$.getJSON( "/api/myNotifications", function( data ) {
+					  var items = [],
+					  		description = seen ='';
+					  $.each( data, function( key, val ) {
+					  	switch (val.type) {
+						    case 'newPicture':
+						       description = "added a new picture.";
+						       break;
+						    case 'comment':
+						       description = "commented on your picture.";
+						       break;
+						    case 'follow':
+					        description = "followed you.";
+					        break;
+						    case 'like':
+					        description = "liked on of your pictures.";
+					        break;
+							}
+							if (!val.seenDttm)
+								seen = "- NEW -";
+					    items.push( "<a href='/redirect/" + val.type + "/" + val.type_id + "'><li>"+seen+" "+val.from_username+" "+description+" </li></a>" );
+					  });
+					 
+					  $( "<ul/>", {
+					    html: items.join( "" )
+					  }).appendTo('#notification-box').fadeIn('fast');
+					});
+
+					// $('#notification-box').load( "/api/myNotifications", function( response, status, xhr ) {
+					// 	console.log(response)
+					// 	$.each(JSON.parse(response), function(idx, obj) {
+					// 		console.log(obj.from_username);
+					// 		console.log(obj.type);
+					// 		console.log(obj.type_id);
+
+
+					// 	});
+
+					//   if ( status == "error" ) {
+					//     var msg = "Sorry but there was an error: ";
+					//     // $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+					//     alert(msg + xhr.status + " " + xhr.statusText)
+					//   }
+					// });
+				});
+			},
+
 
 			welcomeBanner:function(){
 				$('#welcome-banner .close').click(function (e) {

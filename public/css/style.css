@@ -7224,3 +7224,21 @@ fieldset[disabled] .btn-hs-two.active {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+#notification-box {
+  position: absolute;
+  width: 270px;
+  color: #333333;
+  height: 300px;
+  top: 50px;
+  left: 0;
+  border: 1px solid #E1E1E1;
+  background-color: #ffffff;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
+  border-top: none;
+  overflow: auto;
+}
