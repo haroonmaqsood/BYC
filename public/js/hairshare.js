@@ -462,9 +462,7 @@
 				.done(function(response){ 
 					var html = '';
 
-					console.log('this')
 					$.each($(response), function() {
-						console.log('this2')
 						var status = cssClass = "";
 						var $this = this;
 						$.ajax({
@@ -481,7 +479,6 @@
 								status = 'unlike';
 								cssClass = 'heart';
 							};
-							console.log($this)
 							html += '<div class="photo-sm"><div class="photo-holder">';
 							html += '<div class="img-holder"><a href="/picture/'+$this.slug+'" title="'+$this.title+'">';
 							html += '<div class="photo-btn mini" data-id="'+$this.id+'"><button class="like-btn '+status+'"><i class="entypo '+cssClass+'"></i>'+responseTxt.count+'</button></div>';
@@ -494,7 +491,6 @@
 						});
 				});
 
-					console.log('this3')
 					$('#popular').html(html);
 					 
 				})
@@ -542,7 +538,8 @@
 				}
 			},
 			addTabs:function(tabName){
-				$(tabName+' a').click(function (e) { console.log(this);
+				$(tabName+' a').click(function (e) { 
+					console.log(this);
 				  e.preventDefault()
 				  $('.tab').removeClass('selected');
 				  $(this).closest('.tab').addClass('selected');
