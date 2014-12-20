@@ -133,7 +133,6 @@ module.exports = {
   },
 
   getPictures: function (set_id, crop, cb) {
-    console.log(crop)
     var cropped = 'AND crop IS NOT NULL';
     if (!crop) cropped = 'AND crop IS NULL';
 
@@ -218,6 +217,7 @@ module.exports = {
     });
   },
   
+  // SUF: Rename this it is not accurate.
   getMyPicturesById: function (id, cb) {
     db.query("SELECT * FROM pictures WHERE id = ?", id, function (err,results) {
       if (err) throw err;
@@ -229,7 +229,6 @@ module.exports = {
   getSetComments: function (set_id, cb) {
 
     db.query("SELECT * FROM comments WHERE set_id = ? ORDER BY createdDttm DESC", set_id, function (err,results) {
-      // LOG TO SENTRY
       if (err) throw err;
       return cb(results);
     });

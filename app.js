@@ -10,6 +10,7 @@ var express       = require('express'),
     passport      = require('passport'),
     hbs           = require('hbs'),
     mysql         = require('mysql'),
+    model         = require('./model'),
     validator     = require('express-validator');
 
 
@@ -63,12 +64,12 @@ hbs.registerHelper('ifAnd', function (v1, v2, options) {
   }
   return options.inverse(this);
 });
-// hbs.registerHelper('ifCond', function (v1, v2, options) {
-//   if (v1 === v2) {
-//     return options.fn(this);
-//   }
-//   return options.inverse(this);
-// });
+
+hbs.registerAsyncHelper('getPicture', function (pictureId, cb) {
+  model.getMyPicturesById(pictureId, function(response) {
+    return cb(response[0]['picture']);
+  });
+});
 
 hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
 

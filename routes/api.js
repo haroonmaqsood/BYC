@@ -22,21 +22,6 @@ router.get('/popular', function(req, res) {
 });
 
 
-router.get('/myNotifications', function(req, res) {
-  
-  if (!req.isAuthenticated()) return res.send('login');
-  if (!req.user.steptwo) return res.send('steptwo');
-
-  // Notifications
-  model.getNotifications(req.user.id, function(notifications) {
-    return res.send(notifications);
-  });
-
-
-});
-
-
-
 router.get('/following', function(req, res) {
   
   if (!req.isAuthenticated()) return res.send('login');
@@ -55,6 +40,20 @@ router.get('/following', function(req, res) {
       return res.send(pictures);
     });  
 
+  });
+
+
+});
+
+
+router.get('/myNotifications', function(req, res) {
+  
+  if (!req.isAuthenticated()) return res.send('login');
+  if (!req.user.steptwo) return res.send('steptwo');
+
+  // Notifications
+  model.getNotifications(req.user.id, function(notifications) {
+    return res.send(notifications);
   });
 
 
