@@ -15,31 +15,6 @@ router.get('/popular', function(req, res) {
       output = [];
   if (!from) from = 0;
   if (!too) too = 36;
-
-  // async.waterfall([
-  //   function(callback){
-  //     model.getRecentSets(from, too, function(response_getRecentSets) {
-  //       callback(null, response_getRecentSets);
-  //     });
-  //   },
-  //   function(response_getRecentSets, callback){
-  //     for (var i = response_getRecentSets.length - 1; i >= 0; i--) {
-  //       var current = i;
-  //       model.getMyPicturesById(response_getRecentSets[i]['featured'], function(response_getMyPicturesById) {
-  //         var newPush = response_getRecentSets[current];
-  //         newPush['picture'] = response_getMyPicturesById[0]['picture'];
-  //         output.push(newPush);
-  //       });
-  //     };
-        
-  //   },
-  //   function(arg1, callback){
-      
-  //       callback(null, 'done');
-  //   }
-  // ], function (err, result) {
-  //    return result;
-  // });
   
   model.getRecentSets(from, too, function(response_getRecentSets) {
     async.each(response_getRecentSets, function(set, cb) {
@@ -56,19 +31,6 @@ router.get('/popular', function(req, res) {
     });
   });
 
-  // // model.getRecentSets(from, too, function(response_getRecentSets) {
-  // 	for (var i = response_getRecentSets.length - 1; i >= 0; i--) {
-  //     var current = i;
-  //     model.getMyPicturesById(response_getRecentSets[i]['featured'], function(response_getMyPicturesById) {
-  //       var newPush = response_getRecentSets[current];
-  //       newPush['picture'] = response_getMyPicturesById[0]['picture'];
-  //       output.push(newPush);
-  //     });
-  //   };
-  //   console.log(output)
-  //   return res.send(output);
-  // // });
-
 });
 
 
@@ -82,13 +44,28 @@ router.get('/following', function(req, res) {
   model.getFollowing(req.user.id, function(following) {
     
     var from   = parseInt(req.query.from),
-        too    = parseInt(req.query.too);
+        too    = parseInt(req.query.too),
+        output = [];
     if (!from) from = 0;
     if (!too) too = 36;
 
-    model.getSetFromUsers(following, from, too, function(pictures) {
-      return res.send(pictures);
-    });  
+    // model.getSetFromUsers(following, from, too, function(pictures) {
+    //   return res.send(pictures);
+    // });
+    model.getSetFromUsers(following, from, too, function(response_getSetFromUsers) {
+      async.each(response_getSetFromUsers, function(set, cb) {
+        model.getMyPicturesById(set['featured'], function(response_getMyPicturesById) {
+          var newPush = set;
+          newPush['picture'] = response_getMyPicturesById[0]['picture'];
+          output.push(newPush);
+          cb();
+        });
+      }, function(err){
+        if(err) throw err;
+        console.log(output)
+        return res.send(output);
+      });
+    });
 
   });
 

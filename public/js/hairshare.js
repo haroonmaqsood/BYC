@@ -511,27 +511,27 @@
 				formData.from = 0;
 				formData.too = 36;
 
-				// $.ajax({
-				//   url: url,
-				//   type: "get",
-				//   data: formData
-				// })
-				// .done(function(response){ 
-				// 	var html = '';
+				$.ajax({
+				  url: url,
+				  type: "get",
+				  data: formData
+				})
+				.done(function(response){ 
+					var html = '';
 
-				// 	$.each($(response), function(){
-				// 		html += '<div class="photo-sm"><div class="photo-holder"><div class="img-holder">';
-				// 		html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
-				// 		html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
-				// 		html += '</a></div></div></div>';
-				// 	})
+					$.each($(response), function(){
+						html += '<div class="photo-sm"><div class="photo-holder"><div class="img-holder">';
+						html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
+						html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
+						html += '</a></div></div></div>';
+					})
 					
-				// 	$('#following').html(html);
+					$('#following').html(html);
 					 
-				// })
-				// .fail(function(responseTxt){
-				// 	console.log('something went wrong:' + responseTxt)
-				// })	
+				})
+				.fail(function(responseTxt){
+					console.log('something went wrong:' + responseTxt)
+				})	
 			},
 			loadImages: function(){
 				if($('#index').length){
