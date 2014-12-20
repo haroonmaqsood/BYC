@@ -337,7 +337,7 @@ module.exports = {
 
 
   getRecentSets: function (from, too, cb) {
-    db.query("SELECT * FROM pictures WHERE crop IS NOT NULL ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
+    db.query("SELECT * FROM sets ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
       if (err) throw err;
       return cb(results);
     });

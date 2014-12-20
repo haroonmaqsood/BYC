@@ -11,13 +11,63 @@ router.get('/popular', function(req, res) {
 
   // POPULAR
   var from   = parseInt(req.query.from),
-      too    = parseInt(req.query.too);
+      too    = parseInt(req.query.too),
+      output = [];
   if (!from) from = 0;
   if (!too) too = 36;
 
-  model.getRecentPictures(from, too, function(responce) {
-  	return res.send(responce);
-  });  
+  // async.waterfall([
+  //   function(callback){
+  //     model.getRecentSets(from, too, function(response_getRecentSets) {
+  //       callback(null, response_getRecentSets);
+  //     });
+  //   },
+  //   function(response_getRecentSets, callback){
+  //     for (var i = response_getRecentSets.length - 1; i >= 0; i--) {
+  //       var current = i;
+  //       model.getMyPicturesById(response_getRecentSets[i]['featured'], function(response_getMyPicturesById) {
+  //         var newPush = response_getRecentSets[current];
+  //         newPush['picture'] = response_getMyPicturesById[0]['picture'];
+  //         output.push(newPush);
+  //       });
+  //     };
+        
+  //   },
+  //   function(arg1, callback){
+      
+  //       callback(null, 'done');
+  //   }
+  // ], function (err, result) {
+  //    return result;
+  // });
+  
+  model.getRecentSets(from, too, function(response_getRecentSets) {
+    async.each(response_getRecentSets, function(set, cb) {
+      model.getMyPicturesById(set['featured'], function(response_getMyPicturesById) {
+        var newPush = set;
+        newPush['picture'] = response_getMyPicturesById[0]['picture'];
+        output.push(newPush);
+        cb();
+      });
+    }, function(err){
+      if(err) throw err;
+      console.log(output)
+      return res.send(output);
+    });
+  });
+
+  // // model.getRecentSets(from, too, function(response_getRecentSets) {
+  // 	for (var i = response_getRecentSets.length - 1; i >= 0; i--) {
+  //     var current = i;
+  //     model.getMyPicturesById(response_getRecentSets[i]['featured'], function(response_getMyPicturesById) {
+  //       var newPush = response_getRecentSets[current];
+  //       newPush['picture'] = response_getMyPicturesById[0]['picture'];
+  //       output.push(newPush);
+  //     });
+  //   };
+  //   console.log(output)
+  //   return res.send(output);
+  // // });
 
 });
 
@@ -36,7 +86,7 @@ router.get('/following', function(req, res) {
     if (!from) from = 0;
     if (!too) too = 36;
 
-    model.getPicturesFromUsers(following, from, too, function(pictures) {
+    model.getSetFromUsers(following, from, too, function(pictures) {
       return res.send(pictures);
     });  
 
@@ -92,8 +142,8 @@ router.post('/doFollow/:username', function(req, res) {
       
       if (followStatus) {
         // UNFOLLOW
-        model.unfollowUser(req.user.id, followingData[0].id, function(responce) {
-          if (!responce) return res.send(400, { status: 'failed'});
+        model.unfollowUser(req.user.id, followingData[0].id, function(response) {
+          if (!response) return res.send(400, { status: 'failed'});
           
           if (req.user.id === followingData[0].id)
             return res.send({ status: 'unfollowed'});
@@ -107,8 +157,8 @@ router.post('/doFollow/:username', function(req, res) {
         });
       } else {
         // FOLLOW USER
-        model.followUser(req.user.id, followingData[0].id, function(responce) {
-          if (!responce) return res.send(400, { status: 'failed'});
+        model.followUser(req.user.id, followingData[0].id, function(response) {
+          if (!response) return res.send(400, { status: 'failed'});
 
           if (req.user.id === followingData[0].id)
             return res.send({ status: 'followed'});
@@ -133,9 +183,9 @@ router.post('/doFollow/:username', function(req, res) {
 router.get('/checkLike/:setId', function(req, res) {
   if (!req.isAuthenticated()) return res.send({ redirect: '/login'}, 400);
 
-  model.likeStatus(req.user.id, req.params.setId, function(responce_likeStatus) {
-    model.countLikes(req.params.setId, function(responce_countLikes) {
-      return res.send({status: responce_likeStatus, count: responce_countLikes[0].count})
+  model.likeStatus(req.user.id, req.params.setId, function(response_likeStatus) {
+    model.countLikes(req.params.setId, function(response_countLikes) {
+      return res.send({status: response_likeStatus, count: response_countLikes[0].count})
     });
   });
   
@@ -152,11 +202,11 @@ router.post('/doLike/:setId', function(req, res) {
     
     async.series({
       likeStatus: function(callback) {
-        model.likeStatus(req.user.id, req.params.setId, function(responce_likeStatus) {
-          if (responce_likeStatus) {
+        model.likeStatus(req.user.id, req.params.setId, function(response_likeStatus) {
+          if (response_likeStatus) {
             // UNLIKE
-            model.unlikeSet(req.user.id, req.params.setId, function(responce) {
-              if (!responce) return res.send({ status: 'failed'});
+            model.unlikeSet(req.user.id, req.params.setId, function(response) {
+              if (!response) return res.send({ status: 'failed'});
 
               if (req.user.id === setOwner[0].user_id)
                 return callback(null, 'unliked');
@@ -169,8 +219,8 @@ router.post('/doLike/:setId', function(req, res) {
             });
           } else {
             // LIKE
-            model.likeSet(req.user.id, req.params.setId, setOwner[0].user_id, function(responce) {
-              if (!responce) return res.send({ status: 'failed'});
+            model.likeSet(req.user.id, req.params.setId, setOwner[0].user_id, function(response) {
+              if (!response) return res.send({ status: 'failed'});
 
               if (req.user.id === setOwner[0].user_id)
                 return callback(null, 'liked');
@@ -186,8 +236,8 @@ router.post('/doLike/:setId', function(req, res) {
 
       },
       countLikes: function(callback) {
-        model.countLikes(req.params.setId, function(responce_countLikes) {
-          return callback(null, responce_countLikes[0].count);
+        model.countLikes(req.params.setId, function(response_countLikes) {
+          return callback(null, response_countLikes[0].count);
         });
       },
     }, function(err, result) {
