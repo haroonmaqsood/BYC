@@ -4,6 +4,8 @@ var express     = require('express'),
 		cryptoToken = require('crypto').randomBytes,
     bcrypt      = require('bcrypt-nodejs'),
     model	      = require('../model'),
+    formidable  = require('formidable'),
+    gm          = require('gm').subClass({ imageMagick: true }),
     utils       = require('../inc/utils');
 
 router.get('/', function(req, res) {
@@ -32,11 +34,6 @@ router.post('/', function (req, res) {
   if (errors)
     return res.send(errors, 400);
   
-  // return res.send({
-  //   email: req.param('email'),
-  //   password: req.param('password')
-  // });
-  
   model.updateEmail(req.param('email'), req.user.id, function(responce) {
     if (!responce)
       return res.send({ status: 'failed'});
@@ -44,38 +41,81 @@ router.post('/', function (req, res) {
   });
 
 
+});
 
 
 
-  // var email     = req.body.email.trim(),
-  //     password  = req.body.password,
-  //     ip        = req.connection.remoteAddress || null,
-  //     agent     = req.headers,
-  //     token     = cryptoToken(16).toString('hex');
+router.post('/upload', function(req, res) {
+  console.log('----- post /upload')
+  if (!req.isAuthenticated() )
+    return res.redirect('/login');
+
+  var setId = req.query.setId;
+
+  var form      = new formidable.IncomingForm(),
+      file_name = req.user.id+'_'+cryptoToken(16).toString('hex');
+
+  form.parse(req, function(err, fields, files) {
+
+
+    var temp_path     = files.upload.path,
+        new_location  = 'public/uploads/profile/',
+        size          = {width: 125, height: 125};
+
+    gm(temp_path).size(function(err, value) {
+      if (err || value.width <= size.width || value.height <= size.height) {
+        
+        // LOG TO SENTRY
+        if (err) throw err;
+        return res.send({status: 'ERROR-OR-WIDTH-HEIGHT-TOO-SHORT'});
+      
+      } else {
+
+        // IMAGE RESIZING
+        gm(temp_path).options({imageMagick: true})
+        // .resize(600)
+        .autoOrient()
+        .noProfile()
+        .thumb(size.width, size.height, new_location+file_name+'.jpg', 100, function (err) {
+          if (err) {
+            console.log('Write Error:')
+            console.log(err);
+            console.log('/error')
+            return false
+          }
+
+          console.log(new_location)
+          console.log(file_name+'.jpg')
+
+          return res.redirect('/settings');
+        
+        });
+
+        // .write(new_location+file_name+'.jpg', function (err) {
+        //   if (err) {
+        //     console.log('Write Error:')
+        //     console.log(err);
+        //     console.log('/error')
+        //     return false
+        //   }
+
+        //   console.log(new_location)
+        //   console.log(file_name+'.jpg')
+
+        //   return res.redirect('/settings');
+        
+        // });
+
+      }
+    });
+
+  });
+
+
+
+
+
   
-  // if ( (email.length > 100 || email.length < 5) || !utils.validateEmail(email) || password.length < 3 || password.length > 100 ) {
-  //   return res.send({ status: 'invalid field(s)' });
-  // }
-
-  // var hashedPassword = bcrypt.hashSync(password);
-
-
-  // // if ( model.signup(email, username, hashedPassword, ip, agent, token) ) {
-    
-  // model.signup(email, username, hashedPassword, ip, agent, token, function(responce) {
-
-  //   if (!responce)
-  //     return res.send({ status: 'failed'});
-
-  //   console.log('shit be cray');  
-  //   passport.authenticate('local')(req, res, function () {
-  //     return res.send({ status: 'success'});
-  //   });
-
-  // });
-
-
-
 });
 
 

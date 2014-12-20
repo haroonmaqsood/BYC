@@ -502,7 +502,7 @@
 			loadFollowing :function(){
 				var formData = {},
 					url = '/api/following',
-					activeTab = $('.tab-pane.active'); 
+					activeTab = $('.tab-pane.active');
 
 				formData.from = 0;
 				formData.too = 36;
@@ -625,37 +625,65 @@
 					
 
 			settings:function(){
-			  $('#testPostSubmit').on('click', function(e){
-			    e.preventDefault();
-			    var formData = {};
+				
+				if($('#profilePicture-form').length){
 
-			    formData.email = $('input[name="email"]').val();
-			    formData.password = $('input[name="password"]').val();
+					$("#profilePicture").click(function () {
+						var form 				= $('#profilePicture-form'),
+								fileUpload 	= $('#profilePicture'),
+								progress 		= form.find('.progress'),
+								progressBar = progress.find('.progress-bar'),
+								value 			= 0,
+								interval 		= null;
 
-			    $.ajax({
-			      url:location.href,
-			      type: "post",
-			      data: formData
-			    })
-			    .done(function(responseTxt){ 
-			    	console.log()
-			      $('.form-group').removeClass('has-error');
-			      $('.form-group').addClass('has-success');
-			      window.location.href = responseTxt.responseJSON.redirect;
-			    })
-			    .fail(function(responseTxt){
-			      // console.log(responseTxt.responseJSON)
-			      $('.control-label').remove();
-			      $('.form-group').removeClass('has-error');
-			      for (var i = responseTxt.responseJSON.length - 1; i >= 0; i--) {
-			        $('#'+responseTxt.responseJSON[i].param).addClass('has-error');
-			        $('<label class="control-label pull-right">'+responseTxt.responseJSON[i].msg+'</label>').insertAfter('#'+responseTxt.responseJSON[i].param+' label');
-			      };
-			      // $('form .form-group').addClass('has-error').append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
-			      // $('form .message').addClass('error').html(responseTxt.status);
-			    })
+						function animateProgressBar(){
+							if(value < 100) {
+								value = value + 10; 
+								progressBar.attr('style', 'width: '+value+'%');
+								progressBar.attr('aria-valuenow',value);
+							}else{
+								form.submit();
+								clearInterval(interval);
+							}
+						}
 
-			  });
+						fileUpload.on('change',function(){
+														
+			        var avatar = $(this).val();
+			        var extension = avatar.split('.').pop().toUpperCase();
+			        if(avatar.length < 1) {
+			            avatarok = 0;
+			            $('.alert-danger').html("Woops looks like you have not selected an image yet.");
+			        }
+			        else if (extension!="PNG" && extension!="JPG" && extension!="JPEG"){
+			            avatarok = 0;
+			            $('.alert-danger').html("invalid file type please only upload PNG or JPEG images. You upload a "+extension);
+			        }
+			        else {
+			            avatarok = 1;
+			        }
+			        if(avatarok == 1) {
+			            
+			          value = 0;
+								progress.show();
+								interval = setInterval(animateProgressBar,200);
+
+			        }
+			        else {
+			            $('.alert-danger').slideDown();
+			        }
+			        return false;
+
+
+
+						});
+
+
+					});
+
+
+				}
+
 		},
 
 	}
