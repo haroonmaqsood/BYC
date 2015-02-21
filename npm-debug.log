@@ -1,0 +1,86 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'i', 'ConnectionConifg' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.36
+4 warn package.json mandrill-api@1.0.41 No README data
+5 warn package.json util@0.10.3 util is also the name of a node core module.
+6 verbose readDependencies using package.json deps
+7 verbose cache add [ 'ConnectionConifg', null ]
+8 verbose cache add name=undefined spec="ConnectionConifg" args=["ConnectionConifg",null]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: 'ConnectionConifg',
+9 verbose parsed url   path: 'ConnectionConifg',
+9 verbose parsed url   href: 'ConnectionConifg' }
+10 silly lockFile e43cce9c-ConnectionConifg ConnectionConifg
+11 verbose lock ConnectionConifg /Users/BYCreative001/.npm/e43cce9c-ConnectionConifg.lock
+12 silly lockFile e43cce9c-ConnectionConifg ConnectionConifg
+13 silly lockFile e43cce9c-ConnectionConifg ConnectionConifg
+14 verbose addNamed [ 'ConnectionConifg', '' ]
+15 verbose addNamed [ null, '*' ]
+16 silly lockFile 4145b14e-ConnectionConifg ConnectionConifg@
+17 verbose lock ConnectionConifg@ /Users/BYCreative001/.npm/4145b14e-ConnectionConifg.lock
+18 silly addNameRange { name: 'ConnectionConifg', range: '*', hasData: false }
+19 verbose request where is /ConnectionConifg
+20 verbose request registry https://registry.npmjs.org/
+21 verbose request id ff9ad0d6fa3be4d4
+22 verbose url raw /ConnectionConifg
+23 verbose url resolving [ 'https://registry.npmjs.org/', './ConnectionConifg' ]
+24 verbose url resolved https://registry.npmjs.org/ConnectionConifg
+25 verbose request where is https://registry.npmjs.org/ConnectionConifg
+26 info trying registry request attempt 1 at 14:36:23
+27 http GET https://registry.npmjs.org/ConnectionConifg
+28 http 404 https://registry.npmjs.org/ConnectionConifg
+29 verbose headers { date: 'Mon, 16 Feb 2015 14:36:23 GMT',
+29 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+29 verbose headers   'content-type': 'application/json',
+29 verbose headers   'cache-control': 'max-age=0',
+29 verbose headers   'content-length': '52',
+29 verbose headers   'accept-ranges': 'bytes',
+29 verbose headers   via: '1.1 varnish',
+29 verbose headers   age: '0',
+29 verbose headers   'x-served-by': 'cache-lcy1125-LCY',
+29 verbose headers   'x-cache': 'MISS',
+29 verbose headers   'x-cache-hits': '0',
+29 verbose headers   'x-timer': 'S1424097383.370337,VS0,VE90',
+29 verbose headers   'keep-alive': 'timeout=10, max=50',
+29 verbose headers   connection: 'Keep-Alive' }
+30 silly registry.get cb [ 404,
+30 silly registry.get   { date: 'Mon, 16 Feb 2015 14:36:23 GMT',
+30 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+30 silly registry.get     'content-type': 'application/json',
+30 silly registry.get     'cache-control': 'max-age=0',
+30 silly registry.get     'content-length': '52',
+30 silly registry.get     'accept-ranges': 'bytes',
+30 silly registry.get     via: '1.1 varnish',
+30 silly registry.get     age: '0',
+30 silly registry.get     'x-served-by': 'cache-lcy1125-LCY',
+30 silly registry.get     'x-cache': 'MISS',
+30 silly registry.get     'x-cache-hits': '0',
+30 silly registry.get     'x-timer': 'S1424097383.370337,VS0,VE90',
+30 silly registry.get     'keep-alive': 'timeout=10, max=50',
+30 silly registry.get     connection: 'Keep-Alive' } ]
+31 silly lockFile 4145b14e-ConnectionConifg ConnectionConifg@
+32 silly lockFile 4145b14e-ConnectionConifg ConnectionConifg@
+33 error 404 404 Not Found: ConnectionConifg
+33 error 404
+33 error 404 'ConnectionConifg' is not in the npm registry.
+33 error 404 You should bug the author to publish it
+33 error 404 It was specified as a dependency of 'AlexPhotoProject'
+33 error 404
+33 error 404 Note that you can also install from a
+33 error 404 tarball, folder, or http url, or git url.
+34 error System Darwin 13.3.0
+35 error command "node" "/usr/local/bin/npm" "i" "ConnectionConifg"
+36 error cwd /Users/BYCreative001/Desktop/HairShare
+37 error node -v v0.10.36
+38 error npm -v 1.4.28
+39 error code E404
+40 verbose exit [ 1, true ]

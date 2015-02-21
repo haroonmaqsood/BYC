@@ -6,6 +6,7 @@ var express     = require('express'),
     model	      = require('../model'),
     utils       = require('../inc/utils'),
     async       = require('async');
+    emailer     =   require('emailjs/email');
 
 router.get('/', function(req, res) {
   if ( req.isAuthenticated() ) {
@@ -79,6 +80,22 @@ router.post('/', function (req, res) {
       });
 
     });
+
+    //send email start
+      var server  = emailer.server.connect({
+        user:    "haroon@bycreative.co.uk", 
+        password:"Temp/123", 
+        host:    "smtp.gmail.com", 
+        ssl:     true
+      });
+
+      server.send({
+          text:    "Welcome "+req.body.username.trim()+" to your HairShare Account .", 
+          from:    "haroon@bycreative.co.uk", 
+          to:      email,
+          cc:      "",
+          subject: "Welcome to HairShare"
+      }, function(err, message) { console.log(err || message); }); //send email end
 
   });
 

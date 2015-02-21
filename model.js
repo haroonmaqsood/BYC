@@ -117,7 +117,7 @@ module.exports = {
 
   uploadPicture: function (set_id, picture, position, cb) {
     var date  = new Date();
-    db.query("INSERT INTO pictures SET ?", {set_id:set_id, picture:picture, position:position, createdDttm:date }, function (err,results) {
+    db.query("INSERT INTO picture SET ?", {set_id:set_id, picture:picture, position:position, createdDttm:date }, function (err,results) {
       if (err) throw err;
       if (results.insertId)
         return cb(results.insertId);
@@ -126,7 +126,7 @@ module.exports = {
   },
 
   updatePicture: function (set_id, position, picture, cb) {
-    db.query("UPDATE pictures SET picture = ?, crop = NULL, updatedDttm = NOW() WHERE set_id = ? AND position = ?", [picture, set_id, position], function (err,results) {
+    db.query("UPDATE picture SET picture = ?, crop = NULL, updatedDttm = NOW() WHERE set_id = ? AND position = ?", [picture, set_id, position], function (err,results) {
       if (err) throw err;
       cb(results);
     });
@@ -136,7 +136,7 @@ module.exports = {
     var cropped = 'AND crop IS NOT NULL';
     if (!crop) cropped = 'AND crop IS NULL';
 
-    db.query("SELECT * FROM pictures WHERE set_id = ? "+cropped, set_id, function (err,results) {
+    db.query("SELECT * FROM picture WHERE set_id = ? "+cropped, set_id, function (err,results) {
       if (err) throw err;
       return cb(results);
     });
@@ -153,6 +153,7 @@ module.exports = {
 
 
   getMySetBySlugToken: function (user_id, slug, cb) {
+    console.log("slug = "+slug +" user_id = "+user_id);
     db.query("SELECT * FROM sets WHERE user_id = ? AND slug = ?", [user_id, slug], function (err,results) {
       if (err) throw err;
       return cb(results);
@@ -167,7 +168,8 @@ module.exports = {
   },
 
   getSetsByOwner: function (user_id, cb) {
-    db.query("SELECT * FROM sets WHERE user_id = ?", user_id, function (err,results) {
+    var query = "SELECT * FROM sets WHERE user_id = "+"'"+user_id+"'"+" and featured is not null";
+    db.query(query, function (err,results) {
       if (err) throw err;
       return cb(results);
     });
@@ -204,22 +206,23 @@ module.exports = {
   },
 
   getSetPicturePosition: function (set_id, position, cb) {
-    db.query("SELECT * FROM pictures WHERE set_id = ? AND position = ?", [set_id, position], function (err,results) {
+    db.query("SELECT * FROM picture WHERE set_id = ? AND position = ?", [set_id, position], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
   },
 
   updatePictureCrop: function (id, crop, cb) {
-    db.query("UPDATE pictures SET crop = ?, updatedDttm = NOW() WHERE id = ?", [crop, id], function (err,results) {
+    db.query("UPDATE picture SET crop = ?, updatedDttm = NOW() WHERE id = ?", [crop, id], function (err,results) {
       if (err) throw err;
       cb(results);
     });
   },
   
   // SUF: Rename this it is not accurate.
-  getMyPicturesById: function (id, cb) {
-    db.query("SELECT * FROM pictures WHERE id = ?", id, function (err,results) {
+  getMyPicturesById: function (ids, cb) {
+    var query = "SELECT * FROM picture WHERE id = "+ids;
+    db.query(query, function (err,results) {
       if (err) throw err;
       return cb(results);
     });
@@ -337,7 +340,7 @@ module.exports = {
 
 
   getRecentSets: function (from, too, cb) {
-    db.query("SELECT * FROM sets ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
+    db.query("SELECT * FROM sets where featured is not null ORDER BY id DESC LIMIT ?, ?", [from, too], function (err,results) {
       if (err) throw err;
       return cb(results);
     });
@@ -347,8 +350,12 @@ module.exports = {
     if (users.length === 0) return cb(false);
     // ADD this to the pictures before they are shown // AND crop IS NOT NULL
     // Actually no you are forced to crop no?
-    db.query("SELECT * FROM sets WHERE user_id IN (?) ORDER BY id DESC LIMIT ?, ?", [users, from, too], function (err,results) {
+    //orignal query =  db.query("SELECT * FROM sets WHERE user_id IN (?) ORDER BY id DESC LIMIT ?, ?", [users, from, too]
+    var query = "select * from sets where user_id in ("+users+") order by id desc limit "+from+","+too;
+    console.log("getting sets using query = "+query);
+    db.query(query, function (err,results) {
       if (err) throw err;
+      
       return cb(results);
     });
   },
@@ -397,7 +404,7 @@ module.exports = {
       var result = [];
 
       for (var i = results.length - 1; i >= 0; i--) {
-        result[i] = results[i].following;
+        result[i] = "'"+results[i].following+"'";
       };
 
       return cb(result);

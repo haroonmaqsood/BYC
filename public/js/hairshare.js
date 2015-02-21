@@ -480,8 +480,8 @@
 								cssClass = 'heart';
 							};
 							html += '<div class="photo-sm"><div class="photo-holder">';
-							html += '<div class="img-holder"><a href="/picture/'+$this.slug+'" title="'+$this.title+'">';
-							html += '<div class="photo-btn mini" data-id="'+$this.id+'"><button class="like-btn '+status+'"><i class="entypo '+cssClass+'"></i>'+responseTxt.count+'</button></div>';
+							html += '<div class="img-holder"><a href="/picture/:'+$this.slug+'" title="'+$this.title+'">';
+							html += '<div class="photo-btn mini" data-id="'+$this.id+'"><button class="like-btn '+status+'"><i class="entypo '+cssClass+'"></i>'+responseTxt.count+'</button></div>'
 							html += '<img src="/uploads/cropped/'+$this.picture+'" class="img-responsive" alt="'+$this.title+'">';
 							html += '</a></div></div></div>';
 						})
@@ -516,9 +516,10 @@
 					var html = '';
 
 					$.each($(response), function(){
+						var $this = this;
 						html += '<div class="photo-sm"><div class="photo-holder"><div class="img-holder">';
-						html += '<a href="/picture/'+this.slug+'" title="'+this.title+'">';
-						html += '<img src="/uploads/cropped/'+this.picture+'" class="img-responsive" alt="'+this.title+'">';
+						html += '<a href="/picture/'+$this.slug+'" title="'+$this.title+'">';
+						html += '<img src="/uploads/cropped/'+$this.picture+'" class="img-responsive" alt="'+$this.title+'">';
 						html += '</a></div></div></div>';
 					})
 					

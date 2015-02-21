@@ -6,12 +6,17 @@ var express			= require('express'),
 
 
 router.get('/:id', function(req, res, next) {
-	if (!req.isAuthenticated() )
+	if (!req.isAuthenticated() ){
   	return res.redirect('/login');
-	var id = req.params.slug;
+  }
 
+	
+	//var id = req.params.slug;
+	var id= "dc672b795806a1d55754715d36abbfba.jpg";
+	console.log("id is ="+id);
+	
   if (!id) {
-	  var err = new Error('Profile does not exsist mofo!');
+	  var err = new Error('Profile does not exsists!');
 	  err.status = 404;
 	  return next(err);
 	}

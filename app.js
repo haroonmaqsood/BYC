@@ -12,6 +12,7 @@ var express       = require('express'),
     mysql         = require('mysql'),
     model         = require('./model'),
     validator     = require('express-validator');
+    emailer       = require('emailjs/email');
 
 
 global.appDir  = __dirname;
@@ -67,8 +68,8 @@ hbs.registerHelper('ifAnd', function (v1, v2, options) {
 
 hbs.registerAsyncHelper('getPicture', function (pictureId, cb) {
   model.getMyPicturesById(pictureId, function(response) {
-    return cb(response[0]['picture']);
-  });
+     return cb(response[0]['picture']);
+ });
 });
 
 hbs.registerHelper('ifCond', function (v1, operator, v2, options) {

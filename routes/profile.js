@@ -34,12 +34,12 @@ router.get('/:username', function(req, res, next) {
 	    getSets: function(callback) {
 	    	model.getSetsByOwner(responce_getProfile[0].id, function(responce_userSets) {
 	  			res.locals.userSets = responce_userSets;
-	  			// var featured = [];
-	  			// for (var i = responce_userSets.length - 1; i >= 0; i--) {
-	  			// 	featured.push(responce_userSets[i]['featured']);
-	  			// };
+	  			 //var featured = [];
+	  			 //for (var i = responce_userSets.length - 1; i >= 0; i--) {
+	  			 //	featured.push(responce_userSets[i]['featured']);
+	  			//};
 
-	  			// console.log(featured);
+	  			//console.log(featured);
 		    	return callback();
 	    	});
 	    },

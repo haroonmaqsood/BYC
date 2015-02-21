@@ -18,7 +18,8 @@ router.get('/popular', function(req, res) {
   
   model.getRecentSets(from, too, function(response_getRecentSets) {
     async.each(response_getRecentSets, function(set, cb) {
-      model.getMyPicturesById(set['featured'], function(response_getMyPicturesById) {
+      var featured = "'"+set['featured']+"'";
+      model.getMyPicturesById(featured, function(response_getMyPicturesById) {
         var newPush = set;
         newPush['picture'] = response_getMyPicturesById[0]['picture'];
         output.push(newPush);
@@ -39,7 +40,7 @@ router.get('/following', function(req, res) {
   if (!req.isAuthenticated()) return res.send('login');
   if (!req.user.steptwo) return res.send('steptwo');
 
-
+console.log("line 43 api.js getting following");
   // FOLLOWING
   model.getFollowing(req.user.id, function(following) {
     
@@ -54,9 +55,11 @@ router.get('/following', function(req, res) {
     // });
     model.getSetFromUsers(following, from, too, function(response_getSetFromUsers) {
       async.each(response_getSetFromUsers, function(set, cb) {
-        model.getMyPicturesById(set['featured'], function(response_getMyPicturesById) {
+        var featured = "'"+set['featured']+"'";
+        model.getMyPicturesById(featured, function(response_getMyPicturesById) {
           var newPush = set;
           newPush['picture'] = response_getMyPicturesById[0]['picture'];
+          newPush['slug'] = response_getMyPicturesById[0]['slug']; 
           output.push(newPush);
           cb();
         });
@@ -79,6 +82,7 @@ router.get('/myNotifications', function(req, res) {
   if (!req.user.steptwo) return res.send('steptwo');
 
   // Notifications
+  console.log("line 84 api.js getting notification for user "+req.user.id);
   model.getNotifications(req.user.id, function(notifications) {
     return res.send(notifications);
   });

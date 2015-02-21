@@ -51,7 +51,7 @@ router.post('/', function(req, res) {
 
     gm(temp_path).size(function(err, value) {
       if (err || value.width <= 599 || value.height <= 729) {
-        
+       
         // LOG TO SENTRY
         if (err) throw err;
         return res.send({status: 'ERROR-OR-WIDTH-HEIGHT-TOO-SHORT'});
@@ -160,6 +160,7 @@ router.post('/', function(req, res) {
             console.log(file_name)
             // res.locals.picture = { picture: file_name, setId : setId }
 
+            //orignal was pictureId
             return res.redirect('/picture/'+pictureId+'/edit');
 
             

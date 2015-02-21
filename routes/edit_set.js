@@ -19,6 +19,7 @@ router.get('/:slug/edit', function(req, res, next) {
 
   if (req.params.slug !== 'undefined') {
     
+    console.log("line 22 edit set.js req.params.slug = "+req.params.slug);
     model.getMySetBySlugToken(req.user.id, req.params.slug, function(set) {
 
       if (!set[0]) {

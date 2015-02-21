@@ -6,10 +6,14 @@ var express 	= require('express'),
 /* GET users listing. */
 router.get('/', function(req, res) {
   
-  if ( req.isAuthenticated() ) {
-  	if (!req.user.steptwo)
+  //changed here
+  if (req.isAuthenticated() ) {
+  	if (!req.user.steptwo){
+
 			return res.redirect('/steptwo');
+  	}
   	return res.redirect('/');
+
   }
 
   res.render('login');
@@ -19,7 +23,6 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res, next) {
 	
 	passport.authenticate('local')(req, res, function (err, user) {
-		console.log(user)
     if (!req.user.steptwo)
 			return res.send({ status: 'steptwo'});
     return res.send({ status: 'success'});
