@@ -475,7 +475,15 @@ module.exports = {
 	},
 
 
+getPicturesByID : function (id,cb){
+    var query1  = "select * from picture where  slug='"+id+"'";
+    db.query (query1,function (err,results){
+      if(err) console.log("error in loading pictures by slug id "+err);
+      return cb(results);
+    });
 
+  });
+},
 
 
 
