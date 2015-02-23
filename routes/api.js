@@ -26,11 +26,32 @@ router.get('/popular', function(req, res) {
         cb();
       });
     }, function(err){
-      if(err) throw err;
+      if(err) console.log(err);
       console.log(output)
       return res.send(output);
     });
   });
+
+});
+
+router.get('/myclass', function(req, res) {
+  
+  if (!req.isAuthenticated()) return res.send('login');
+  if (!req.user.steptwo) return res.send('steptwo');
+	var output = [];
+  // FOLLOWING
+  model.loadClasses(req.user.id, function(classgroup) {
+		async.each(classgroup, function(set, cb) {
+			output.push(set);
+			cb();
+		}, function(err){
+      if(err) console.log(err);
+      console.log(output)
+      return res.send(output);
+    });
+		
+  });
+
 
 });
 
@@ -64,7 +85,7 @@ console.log("line 43 api.js getting following");
           cb();
         });
       }, function(err){
-        if(err) throw err;
+        if(err) console.log(err);
         console.log(output)
         return res.send(output);
       });

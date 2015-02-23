@@ -50,13 +50,14 @@ router.post('/', function(req, res) {
     // if (haystack.indexOf(needle)) {
 
     gm(temp_path).size(function(err, value) {
-      if (err || value.width <= 599 || value.height <= 729) {
+		//orignal was 599 729
+     // if (err || value.width <= 100 || value.height <= 200) {
        
         // LOG TO SENTRY
-        if (err) throw err;
-        return res.send({status: 'ERROR-OR-WIDTH-HEIGHT-TOO-SHORT'});
+        //if (err) console.log(err);
+       // return res.send({status: 'ERROR-OR-WIDTH-HEIGHT-TOO-SHORT'});
       
-      } else {
+      //} else {
 
         // IMAGE RESIZING
         gm(temp_path).options({imageMagick: true})
@@ -170,7 +171,7 @@ router.post('/', function(req, res) {
 
         });
 
-      }
+     // }
     });
 
   });

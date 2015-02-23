@@ -464,6 +464,15 @@ module.exports = {
     });
   },
 
+	loadClasses : function (user_id,cb){
+		
+		var query1 =  "select * from users where course in (select course from users where id= '"+user_id+"') and id <> '"+user_id+"'";
+		console.log("usin g query = "+query1);
+		db.query (query1,function (err,results){
+			if(err) console.log("error in loading classes "+err);
+			return cb(results);
+		});
+	},
 
 
 

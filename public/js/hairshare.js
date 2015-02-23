@@ -36,7 +36,7 @@
 						  data: formData
 						})
 						.done(function(responseTxt){ 
-							console.log(responseTxt)
+							console.log("response from sign up class"+responseTxt);
 				      $('.form-group').removeClass('has-error');
 				      $('.form-group').addClass('has-success');
 				      $('.control-label').remove();
@@ -446,6 +446,55 @@
 
 				}
 			},
+			loadMyClass :function(){
+				var formData = {},
+					url = '/api/myclass',
+					activeTab = $('.tab-pane.active'); 
+				$.ajax({
+				  url: url,
+				  type: "get",
+				  data: formData
+				})
+				.done(function(response){ 
+					var html = '';
+
+					$.each($(response), function() {
+						var status = cssClass = "";
+						var $this = this;
+						$.ajax({
+						  url:'/api/checkLike/'+ $this.id,
+						  type: "get",
+						  async: false
+						})
+						.done(function(responseTxt) {
+							
+							if (responseTxt.status === 0) {
+								status = 'like';
+								cssClass = 'heart-empty';
+							} else if (responseTxt.status === 1) {
+								status = 'unlike';
+								cssClass = 'heart';
+							};
+							html += '<div class="photo-sm"><div class="photo-holder">';
+							html += '<div class="img-holder"><a href="/picture/:'+$this.slug+'" title="'+$this.title+'">';
+							html += '<div class="photo-btn mini" data-id="'+$this.id+'"><button class="like-btn '+status+'"><i class="entypo '+cssClass+'"></i>'+responseTxt.count+'</button></div>'
+							html += '<img src="/uploads/cropped/'+$this.picture+'" class="img-responsive" alt="'+$this.title+'">';
+							html += '</a></div></div></div>';
+						})
+						.fail(function(responseTxt) {
+							console.log('$photoBtn: error this broke! 2');
+							console.log(responseTxt)
+						});
+				});
+
+					$('#myclassfellows').html(html);
+					 
+				})
+				.fail(function(responseTxt){
+					console.log('something went wrong:' + responseTxt)
+				})	
+
+			},
 			loadPopular :function(){
 				var formData = {},
 					url = '/api/popular',
@@ -534,7 +583,7 @@
 				if($('#index').length){
 					hs.loadPopular();
 					hs.loadFollowing();
-					
+					hs.loadMyClass();
 					hs.addTabs('#tab-menu');
 				}
 			},
