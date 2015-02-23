@@ -479,7 +479,7 @@
 							html += '<div class="img-holder"><a href="/picture/:'+$this.slug+'" title="'+$this.title+'">';
 							html += '<div class="photo-btn mini" data-id="'+$this.id+'"><button class="like-btn '+status+'"><i class="entypo '+cssClass+'"></i>'+responseTxt.count+'</button></div>'
 							html += '<img src="/uploads/cropped/'+$this.picture+'" class="img-responsive" alt="'+$this.title+'">';
-							html += '</a></div></div></div>';
+							html += '</a></div><a href="#">'+$this.username+'</a></div></div>';
 						})
 						.fail(function(responseTxt) {
 							console.log('$photoBtn: error this broke! 2');

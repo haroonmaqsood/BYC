@@ -104,9 +104,9 @@ hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
 if (app.get('env') === 'development') {
   global.db = mysql.createConnection({
     host     : '127.0.0.1',
-    //port     : '8889',
+    port     : '8889',
     user     : 'root',
-    password : '',
+    password : 'root',
     database : 'AlexPhotoProject',
   });
   db.connect();
