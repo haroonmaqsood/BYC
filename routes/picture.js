@@ -4,17 +4,14 @@ var express			= require('express'),
 		model				= require('../model');
 
 
-
-router.get('/:id', function(req, res, next) {
+router.get('/:slug', function(req, res, next) {
+//router.get('/:id', function(req, res, next) {
 	if (!req.isAuthenticated() ){
   	return res.redirect('/login');
   }
+  id = req.params.picture;
+  console.log("id is "+id);
 
-	
-	//var id = req.params.slug;
-	var id= "dc672b795806a1d55754715d36abbfba.jpg";
-	console.log("id is ="+id);
-	
   if (!id) {
 	  var err = new Error('Profile does not exsists!');
 	  err.status = 404;

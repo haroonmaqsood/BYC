@@ -464,15 +464,15 @@ module.exports = {
     });
   },
 
-	loadClasses : function (user_id,cb){
-		
-		var query1 =  "select * from users where course in (select course from users where id= '"+user_id+"') and id <> '"+user_id+"'";
-		console.log("usin g query = "+query1);
-		db.query (query1,function (err,results){
-			if(err) console.log("error in loading classes "+err);
-			return cb(results);
-		});
-	},
+  loadClasses : function (user_id,cb){
+    
+    var query1 =  "select distinct picture.slug from picture where picture.user_id in (select id from users where id in(select id from users where course in (select course from users where id="+user_id+") and id <>"+user_id+"))";
+    console.log("using query = "+query1);
+    db.query (query1,function (err,results){
+      if(err) console.log("error in loading classes "+err);
+      return cb(results);
+    });
+  },
 
 
 getPicturesByID : function (id,cb){
@@ -481,21 +481,5 @@ getPicturesByID : function (id,cb){
       if(err) console.log("error in loading pictures by slug id "+err);
       return cb(results);
     });
-
-  });
 },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 };
